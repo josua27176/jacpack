@@ -13,9 +13,10 @@ When more than one contributor is online, we use Saros to collaborate.
 
 JACPack Team Members:
 ================
-<a href="https://github.com/alexbegt">Alexbegt</a>  
 
-<a href="https://github.com/josua27176">Josua27176</a>  
+<a href="https://github.com/josua27176">Josua27176</a>
+
+<a href="https://github.com/alexbegt">Alexbegt</a>  
 
 <a href="https://github.com/Timyo25">Timyo25</a>  
 
