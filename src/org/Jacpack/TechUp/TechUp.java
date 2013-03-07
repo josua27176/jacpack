@@ -1,5 +1,8 @@
 package org.Jacpack.TechUp;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -24,6 +27,11 @@ public class TechUp {
         @SidedProxy(clientSide="tutorial.generic.client.ClientProxy", serverSide="tutorial.generic.CommonProxy")
         public static CommonProxy proxy;
        
+        //Unfinished
+        public final static Block TinOre = new Block(500, 1, Material.rock)
+        	.setHardness(0.5F).setStepSound(Block.soundStoneFootstep)
+        	.setBlockName("TinOre").setCreativeTab(CreativeTabs.tabBlock);
+        
         @PreInit
         public void preInit(FMLPreInitializationEvent event) {
                 // Stub Method
