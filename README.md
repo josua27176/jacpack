@@ -19,6 +19,8 @@ JACPack Team Members:
 
 <a href="https://github.com/Timyo25">Timyo25</a>  
 
-<a href="https://github.com/Jakeyo24">Jakeyo24</a>  
+<a href="https://github.com/Jakeyo24">Jakeyo24</a>
+
+<a href="https://github.com/superfunnytogo">Superfunnytogo</a> 
 
 Message the group if I'm missing people
