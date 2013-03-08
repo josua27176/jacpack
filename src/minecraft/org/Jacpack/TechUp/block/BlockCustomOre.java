@@ -1,12 +1,17 @@
 package org.Jacpack.TechUp.block;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.Jacpack.TechUp.item.ModItems;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -18,6 +23,7 @@ public class BlockCustomOre extends Block
         super(i, Material.rock);
         this.setHardness(3.0F);
         this.setResistance(5.0F);
+        this.setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     /**
@@ -75,12 +81,15 @@ public class BlockCustomOre extends Block
         return i == 7 ? 6 : i;
     }
 
-    public void addCreativeItems(ArrayList itemList)
+    @SideOnly(Side.CLIENT)
+
+    /**
+     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+     */
+    public void getSubBlocks(int id, CreativeTabs tab, List list)
     {
-        for (int i = 0; i <= 7; i++)
-        {
-        	itemList.add(new ItemStack(this, 1, i));
-        }
+        for (int i = 0; i <= 4; i++)
+            list.add(new ItemStack(this, 1, i));
     }
 
     /**

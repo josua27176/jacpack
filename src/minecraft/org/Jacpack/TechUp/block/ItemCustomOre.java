@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemCustomOre extends ItemBlock
 {
+	
     public ItemCustomOre(int i)
     {
         super(i);
@@ -24,7 +25,7 @@ public class ItemCustomOre extends ItemBlock
     {
         return i;
     }
-
+    
     public String getItemNameIS(ItemStack itemstack)
     {
         switch (itemstack.getItemDamage())
@@ -39,10 +40,6 @@ public class ItemCustomOre extends ItemBlock
                 return "tile.oreJACSilver";
             case 4:
                 return "tile.oreJACTin";
-            case 5:
-                return "tile.oreJACBronze";
-            case 6:
-                return "tile.oreJACSteel";
         }
         throw new IndexOutOfBoundsException();
     }

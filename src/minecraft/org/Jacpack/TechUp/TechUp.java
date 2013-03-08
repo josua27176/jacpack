@@ -2,6 +2,7 @@ package org.Jacpack.TechUp;
 
 import net.minecraft.block.Block;
 
+import org.Jacpack.TechUp.block.ModBlocks;
 import org.Jacpack.TechUp.item.ModItems;
 import org.Jacpack.TechUp.util.Config;
 import org.Jacpack.TechUp.util.misc.*;
@@ -46,7 +47,7 @@ public class TechUp {
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) {
 		
-    	//Config.loadConfig();
+    	Config.loadConfig();
     	
 	}
 
@@ -57,12 +58,14 @@ public class TechUp {
 		
 		ModItems.init();
 		
+		ModBlocks.init();
+		
 	}
 
 	@PostInit
 	public void postInit(FMLPostInitializationEvent event) {
 		
-		//Config.saveConfig();
+		Config.saveConfig();
 		
 	}
 

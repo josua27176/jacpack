@@ -1,0 +1,25 @@
+# JacPack Default Language
+
+# Blocks
+tile.gay.name=Gay
+
+# Items
+item.JAC.Titanium.name=Titanium Ingot
+item.JAC.Aluminum.name=Aluminum Ingot
+item.JAC.Copper.name=Copper Ingot
+item.JAC.Silver.name=Silver Ingot
+item.JAC.Tin.name=Tin Ingot
+item.JAC.Bronze.name=Bronze Ingot
+item.JAC.Steel.name=Steel Ingot
+item.JAC.Crushed.Copper.name=Crushed Copper
+item.JAC.Crushed.Tin.name=Crushed Tin
+item.JAC.Crushed.Bronze.name=Crushed Bronze
+item.JAC.Refined.Uranium.name=Refined Uranium
+item.JAC.Ademartium.name=Ademartium
+item.JAC.Rubber.name=Rubber
+item.JAC.Plutonium.name=Plutonium
+
+# Achievements
+
+# Groups
+
