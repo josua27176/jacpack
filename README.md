@@ -1,6 +1,7 @@
 JACPack
 ===================
-The JACPack project Is nothing yet.
+The JACPack is currently goin through it's very first steps in development.  Ores, basic machines, and new items are in the process of being added.
+The project has begun!
 
 Setup
 =====
