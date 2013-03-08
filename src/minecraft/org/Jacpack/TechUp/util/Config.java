@@ -31,6 +31,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  */
 public class Config {
 	static boolean[] reservedIds = new boolean[32768];
+	
     static File configDir = null;
     static File configFile = null;
     static TagFile config = null;
@@ -40,36 +41,34 @@ public class Config {
     public static void loadConfig()
     {
         config = new TagFile();
-        InputStream var0 = TechUp.class.getResourceAsStream("/org/Jacpack/Techup/client/config/default.cfg");
-        config.readStream(var0);
-        File var1;
+        InputStream is = TechUp.class.getResourceAsStream("/org/Jacpack/Techup/client/config/default.cfg");
+        config.readStream(is);
 
         if (configDir == null)
         {
-            var1 = Loader.instance().getConfigDir();
-            var1 = new File(var1, "/JacPack/");
-            var1.mkdir();
-            configDir = var1;
-            configFile = new File(var1, "JacPack.cfg");
+            File d = Loader.instance().getConfigDir();
+            d = new File(d, "/JacPack/");
+            d.mkdir();
+            configDir = d;
+            configFile = new File(d, "JacPack.cfg");
         }
-
         if (configFile.exists())
         {
             config.readFile(configFile);
         }
 
         config.commentFile("JacPack Configuration");
-        String var2;
-        Iterator var4;
+        String key;
+        Iterator iterator;
 
-        for (var4 = config.query("blocks.%.%.id").iterator(); var4.hasNext(); reservedIds[config.getInt(var2)] = true)
+        for (iterator = config.query("blocks.%.%.id").iterator(); iterator.hasNext(); reservedIds[config.getInt(key)] = true)
         {
-            var2 = (String)var4.next();
+            key = (String)iterator.next();
         }
 
-        for (var4 = config.query("items.%.%.id").iterator(); var4.hasNext(); reservedIds[config.getInt(var2) + 256] = true)
+        for (iterator = config.query("items.%.%.id").iterator(); iterator.hasNext(); reservedIds[config.getInt(key) + 256] = true)
         {
-            var2 = (String)var4.next();
+            key = (String)iterator.next();
         }
 
         if (JACTranslateTable == null)
@@ -80,24 +79,24 @@ public class Config {
         try
         {
             JACTranslateTable.load(TechUp.class.getResourceAsStream("/org/Jacpack/Techup/client/config/JacPack.lang"));
-            var1 = new File(configDir, "JacPack.lang");
+            File trf = new File(configDir, "JacPack.lang");
 
-            if (var1.exists())
+            if (trf.exists())
             {
-                FileInputStream var5 = new FileInputStream(var1);
-                JACTranslateTable.load(var5);
+                FileInputStream ifs = new FileInputStream(trf);
+                JACTranslateTable.load(ifs);
             }
         }
-        catch (IOException var3)
+        catch (IOException e)
         {
-            var3.printStackTrace();
+            e.printStackTrace();
         }
 
-        var4 = JACTranslateTable.entrySet().iterator();
+        iterator = JACTranslateTable.entrySet().iterator();
 
-        while (var4.hasNext())
+        while (iterator.hasNext())
         {
-            Entry var6 = (Entry)var4.next();
+            Entry var6 = (Entry)iterator.next();
             LanguageRegistry.instance().addStringLocalization((String)var6.getKey(), (String)var6.getValue());
         }
 
@@ -112,56 +111,56 @@ public class Config {
 
         try
         {
-            File var0 = new File(configDir, "JacPack.lang");
-            FileOutputStream var1 = new FileOutputStream(var0);
-            JACTranslateTable.store(var1, "JacPack Language File");
+            File trf = new File(configDir, "JacPack.lang");
+            FileOutputStream os = new FileOutputStream(trf);
+            JACTranslateTable.store(os, "JacPack Language File");
         }
-        catch (IOException var2)
+        catch (IOException e)
         {
-            var2.printStackTrace();
-        }
-    }
-
-    public static void addName(String var0, String var1)
-    {
-        if (JACTranslateTable.get(var0) == null)
-        {
-            JACTranslateTable.put(var0, var1);
-            LanguageRegistry.instance().addStringLocalization(var0, var1);
+            e.printStackTrace();
         }
     }
 
-    public static void addName(Block var0, String var1)
+    public static void addName(String tag, String name)
     {
-        addName(var0.getBlockName() + ".name", var1);
-    }
-
-    private static void die(String var0)
-    {
-        throw new RuntimeException("TechUp: " + var0);
-    }
-
-    public static int getItemID(String var0)
-    {
-        int var1 = config.getInt(var0);
-
-        if (Item.itemsList[256 + var1] == null)
+        if (JACTranslateTable.get(tag) == null)
         {
-            return var1;
+            JACTranslateTable.put(tag, name);
+            LanguageRegistry.instance().addStringLocalization(tag, name);
+        }
+    }
+
+    public static void addName(Block bl, String name)
+    {
+        addName(bl.getBlockName() + ".name", name);
+    }
+
+    private static void die(String msg)
+    {
+        throw new RuntimeException("TechUp: " + msg);
+    }
+
+    public static int getItemID(String name)
+    {
+        int cid = config.getInt(name);
+
+        if (Item.itemsList[256 + cid] == null)
+        {
+            return cid;
         }
         else if (!autoAssign)
         {
-            die(String.format("ItemID %d exists, autoAssign is disabled.", new Object[] {Integer.valueOf(var1)}));
+            die(String.format("ItemID %d exists, autoAssign is disabled.", new Object[] {Integer.valueOf(cid)}));
             return -1;
         }
         else
         {
-            for (int var2 = 1024; var2 < 32000; ++var2)
+            for (int i = 1024; i < 32000; i++)
             {
-                if (!reservedIds[var2] && Item.itemsList[var2] == null)
+                if (!reservedIds[i] && Item.itemsList[i] == null)
                 {
-                    config.addInt(var0, var2 - 256);
-                    return var2;
+                    config.addInt(name, i - 256);
+                    return i;
                 }
             }
 
@@ -170,27 +169,27 @@ public class Config {
         }
     }
 
-    public static int getBlockID(String var0)
+    public static int getBlockID(String name)
     {
-        int var1 = config.getInt(var0);
+        int cid = config.getInt(name);
 
-        if (Block.blocksList[var1] == null)
+        if (Block.blocksList[cid] == null)
         {
-            return var1;
+            return cid;
         }
         else if (!autoAssign)
         {
-            die(String.format("BlockID %d occupied by %s, autoAssign is disabled.", new Object[] {Integer.valueOf(var1), Block.blocksList[var1].getClass().getName()}));
+            die(String.format("BlockID %d occupied by %s, autoAssign is disabled.", new Object[] {Integer.valueOf(cid), Block.blocksList[cid].getClass().getName()}));
             return -1;
         }
         else
         {
-            for (int var2 = 255; var2 >= 20; --var2)
+            for (int i = 255; i >= 20; i--)
             {
-                if (!reservedIds[var2] && Block.blocksList[var2] == null)
+                if (!reservedIds[i] && Block.blocksList[i] == null)
                 {
-                    config.addInt(var0, var2);
-                    return var2;
+                    config.addInt(name, i);
+                    return i;
                 }
             }
 
@@ -199,13 +198,13 @@ public class Config {
         }
     }
 
-    public static int getInt(String var0)
+    public static int getInt(String name)
     {
-        return config.getInt(var0);
+        return config.getInt(name);
     }
 
-    public static String getString(String var0)
+    public static String getString(String name)
     {
-        return config.getString(var0);
+        return config.getString(name);
     }
 }

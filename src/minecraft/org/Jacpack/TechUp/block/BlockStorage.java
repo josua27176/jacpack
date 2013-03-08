@@ -11,9 +11,9 @@ import net.minecraft.item.ItemStack;
 
 public class BlockStorage extends Block
 {
-    public BlockStorage(int var1)
+    public BlockStorage(int i)
     {
-        super(var1, Material.iron);
+        super(i, Material.iron);
         this.setHardness(5.0F);
         this.setResistance(10.0F);
         this.setStepSound(Block.soundMetalFootstep);
@@ -23,17 +23,17 @@ public class BlockStorage extends Block
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2)
+    public int getBlockTextureFromSideAndMetadata(int i, int j)
     {
-        return 80 + var2;
+        return 80 + j;
     }
 
     /**
      * Determines the damage on the item the block drops. Used in cloth and wood.
      */
-    public int damageDropped(int var1)
+    public int damageDropped(int i)
     {
-        return var1;
+        return i;
     }
 
     public String getTextureFile()
@@ -46,11 +46,9 @@ public class BlockStorage extends Block
     /**
      * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
      */
-    public void getSubBlocks(int var1, CreativeTabs var2, List var3)
+    public void getSubBlocks(int id, CreativeTabs tab, List list)
     {
-        for (int var4 = 0; var4 <= 5; ++var4)
-        {
-            var3.add(new ItemStack(this, 1, var4));
-        }
+        for (int i = 0; i <= 5; i++)
+            list.add(new ItemStack(this, 1, i));
     }
 }

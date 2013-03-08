@@ -13,9 +13,9 @@ import net.minecraft.world.World;
 
 public class BlockCustomOre extends Block
 {
-    public BlockCustomOre(int var1)
+    public BlockCustomOre(int i)
     {
-        super(var1, Material.rock);
+        super(i, Material.rock);
         this.setHardness(3.0F);
         this.setResistance(5.0F);
     }
@@ -23,7 +23,7 @@ public class BlockCustomOre extends Block
     /**
      * Returns the block hardness at a location. Args: world, x, y, z
      */
-    public float getBlockHardness(World var1, int var2, int var3, int var4)
+    public float getBlockHardness(World world, int x, int y, int z)
     {
         return 3.0F;
     }
@@ -31,35 +31,35 @@ public class BlockCustomOre extends Block
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2)
+    public int getBlockTextureFromSideAndMetadata(int i, int j)
     {
-        return 32 + var2;
+        return 32 + j;
     }
 
     /**
      * Returns the ID of the items to drop on destruction.
      */
-    public int idDropped(int var1, Random var2, int var3)
+    public int idDropped(int i, Random random, int j)
     {
-        return var1 >= 3 && var1 != 7 ? this.blockID : ModItems.itemResource.itemID;
+        return i >= 3 && i != 7 ? this.blockID : ModItems.itemResource.itemID;
     }
 
-    public int quantityDropped(int var1, int var2, Random var3)
+    public int quantityDropped(int i, int fortune, Random random)
     {
-        if (var1 == 7)
+        if (i == 7)
         {
-            return 4 + var3.nextInt(2) + var3.nextInt(var2 + 1);
+            return 4 + random.nextInt(2) + random.nextInt(fortune + 1);
         }
-        else if (var1 < 3)
+        else if (i < 3)
         {
-            int var4 = var3.nextInt(var2 + 2) - 1;
+            int b = random.nextInt(fortune + 2) - 1;
 
-            if (var4 < 0)
+            if (b < 0)
             {
-                var4 = 0;
+                b = 0;
             }
 
-            return var4 + 1;
+            return b + 1;
         }
         else
         {
@@ -70,52 +70,40 @@ public class BlockCustomOre extends Block
     /**
      * Determines the damage on the item the block drops. Used in cloth and wood.
      */
-    public int damageDropped(int var1)
+    public int damageDropped(int i)
     {
-        return var1 == 7 ? 6 : var1;
+        return i == 7 ? 6 : i;
     }
 
-    public void addCreativeItems(ArrayList var1)
+    public void addCreativeItems(ArrayList itemList)
     {
-        for (int var2 = 0; var2 <= 7; ++var2)
+        for (int i = 0; i <= 7; i++)
         {
-            var1.add(new ItemStack(this, 1, var2));
+        	itemList.add(new ItemStack(this, 1, i));
         }
     }
 
     /**
      * Drops the block items with a specified chance of dropping the specified items
      */
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6, int var7)
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int md, float chance, int fortune)
     {
-        super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6, var7);
-        byte var8 = 0;
-        byte var9 = 0;
+        super.dropBlockAsItemWithChance(world, x, y, z, md, chance, fortune);
+        int min = 0;
+        int max = 0;
 
-        switch (var5)
-        {
-            case 0:
-            case 1:
-            case 2:
-                var8 = 3;
-                var9 = 7;
-
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            default:
-                break;
-
-            case 7:
-                var8 = 1;
-                var9 = 5;
-        }
-
-        if (var9 > 0)
-        {
-            this.dropXpOnBlockBreak(var1, var2, var3, var4, MathHelper.getRandomIntegerInRange(var1.rand, var8, var9));
-        }
+        switch (md) { case 0:
+        case 1:
+        case 2:
+          min = 3; max = 7;
+          break;
+        case 7:
+          min = 1; max = 5;
+        case 3:
+        case 4:
+        case 5:
+        case 6: } if (max > 0)
+            this.dropXpOnBlockBreak(world, x, y, z, MathHelper.getRandomIntegerInRange(world.rand, min, max));
     }
 
     public String getTextureFile()

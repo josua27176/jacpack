@@ -17,24 +17,24 @@ public class ItemParts extends Item
     HashMap icons = new HashMap();
     ArrayList valid = new ArrayList();
 
-    public ItemParts(int var1, String var2)
+    public ItemParts(int i, String txf)
     {
-        super(var1);
+        super(i);
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
-        this.textureFile = var2;
+        this.textureFile = txf;
     }
 
-    public void addItem(int var1, int var2, String var3)
+    public void addItem(int dmg, int icon, String name)
     {
-        this.icons.put(Integer.valueOf(var1), Integer.valueOf(var2));
-        this.names.put(Integer.valueOf(var1), var3);
-        this.valid.add(Integer.valueOf(var1));
+        this.icons.put(Integer.valueOf(dmg), Integer.valueOf(icon));
+        this.names.put(Integer.valueOf(dmg), name);
+        this.valid.add(Integer.valueOf(dmg));
     }
 
-    public String getItemNameIS(ItemStack var1)
+    public String getItemNameIS(ItemStack ist)
     {
-        String var2 = (String)this.names.get(Integer.valueOf(var1.getItemDamage()));
+        String var2 = (String)this.names.get(Integer.valueOf(ist.getItemDamage()));
 
         if (var2 == null)
         {
@@ -49,17 +49,17 @@ public class ItemParts extends Item
     /**
      * Gets an icon index based on an item's damage value
      */
-    public int getIconFromDamage(int var1)
+    public int getIconFromDamage(int i)
     {
-        Integer var2 = (Integer)this.icons.get(Integer.valueOf(var1));
+        Integer tr = (Integer)this.icons.get(Integer.valueOf(i));
 
-        if (var2 == null)
+        if (tr == null)
         {
             throw new IndexOutOfBoundsException();
         }
         else
         {
-            return var2.intValue();
+            return tr.intValue();
         }
     }
 
@@ -68,14 +68,14 @@ public class ItemParts extends Item
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
-    public void getSubItems(int var1, CreativeTabs var2, List var3)
+    public void getSubItems(int id, CreativeTabs tab, List list)
     {
         Iterator var4 = this.valid.iterator();
 
         while (var4.hasNext())
         {
             Integer var5 = (Integer)var4.next();
-            var3.add(new ItemStack(this, 1, var5.intValue()));
+            list.add(new ItemStack(this, 1, var5.intValue()));
         }
     }
 

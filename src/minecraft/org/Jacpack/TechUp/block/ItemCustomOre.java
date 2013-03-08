@@ -5,53 +5,45 @@ import net.minecraft.item.ItemStack;
 
 public class ItemCustomOre extends ItemBlock
 {
-    public ItemCustomOre(int var1)
+    public ItemCustomOre(int i)
     {
-        super(var1);
+        super(i);
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
     }
 
-    public int getPlacedBlockMetadata(int var1)
+    public int getPlacedBlockMetadata(int i)
     {
-        return var1;
+        return i;
     }
 
     /**
      * Returns the metadata of the block which this Item (ItemBlock) can place
      */
-    public int getMetadata(int var1)
+    public int getMetadata(int i)
     {
-        return var1;
+        return i;
     }
 
-    public String getItemNameIS(ItemStack var1)
+    public String getItemNameIS(ItemStack itemstack)
     {
-        switch (var1.getItemDamage())
+        switch (itemstack.getItemDamage())
         {
             case 0:
                 return "tile.oreJACTitanium";
-
             case 1:
                 return "tile.oreJACAluminum";
-
             case 2:
                 return "tile.oreJACCopper";
-
             case 3:
                 return "tile.oreJACSilver";
-
             case 4:
                 return "tile.oreJACTin";
-
             case 5:
                 return "tile.oreJACBronze";
-
             case 6:
                 return "tile.oreJACSteel";
-
-            default:
-                throw new IndexOutOfBoundsException();
         }
+        throw new IndexOutOfBoundsException();
     }
 }

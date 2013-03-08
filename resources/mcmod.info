@@ -1,0 +1,21 @@
+[
+{
+  "modid": "HMC",
+  "name": "Harmonion",
+  "description": "Sonic devices and tools.  ENOUGH SAID.  Mmmm Tesla coils... yum.",
+  "version": "0.0.0.6",
+  "mcversion": "1.4.6",
+  "url": "",
+  "updateUrl": "",
+  "authors": [
+    "alexbegt", "DJPantheris"
+  ],
+  "credits": "Authored by Alexbegt and DJPantheris.",
+  "logoFile": "/net/Harmonion/core/textures/Harmonion_logo.png",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
