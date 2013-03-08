@@ -10,6 +10,7 @@
 /reobf/*
 /runtime/*
 /temp/*
+/src/.git/*
 
 /src/minecraft/fml_at.cfg
 /src/minecraft/forge_at.cfg
@@ -28,7 +29,7 @@
 /src/minecraft/armor/*
 /src/minecraft/org/bouncycastle/crypto/*
 
-!/src/org.Jacpack/*
+!/src/org/Jacpack/*
 
 *.bat
 *.sh
