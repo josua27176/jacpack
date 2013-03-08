@@ -28,8 +28,8 @@ public class TechUp {
 	public static TechUp instance;
 	
 	@SidedProxy(
-			clientSide="tutorial.generic.client.ClientProxy",
-			serverSide="tutorial.generic.CommonProxy"
+			clientSide="org.Jacpack.TechUp.Client.ClientProxy",
+			serverSide="org.Jacpack.TechUp.CommonProxy"
 	)
 	public static CommonProxy proxy;
 	
