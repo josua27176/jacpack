@@ -2,13 +2,31 @@
 /conf/*
 /docs/*
 /eclipse/*
+/forge/*
 /jars/*
 /lib/*
 /logs/*
+/modsrc/*
 /reobf/*
 /runtime/*
 /temp/*
-/src/*
+
+/src/minecraft/fml_at.cfg
+/src/minecraft/forge_at.cfg
+/src/minecraft/fml_marker.cfg
+/src/minecraft/fmlversion.properties
+/src/minecraft/mcpmod.info
+
+/src/minecraft/cpw/*
+/src/minecraft/ibxm/*
+/src/minecraft/net/minecraft/*
+/src/minecraft/net/minecraftforge/*
+/src/minecraft/paulscode/*
+/src/minecraft/forge_logo.png
+/src/minecraft/mcp.png
+/src/minecraft/Start.java
+/src/minecraft/armor/*
+/src/minecraft/org/bouncycastle/crypto/*
 
 !/src/org.Jacpack/*
 
