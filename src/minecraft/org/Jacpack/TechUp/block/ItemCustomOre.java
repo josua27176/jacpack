@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 public class ItemCustomOre extends ItemBlock
 {
 	
+	public static final String[] blockType = new String[] {"oreJACTitanium", "oreJACAluminum", "oreJACCopper", "oreJACSilver", "oreJACTin"};
+	
     public ItemCustomOre(int i)
     {
         super(i);
@@ -25,8 +27,13 @@ public class ItemCustomOre extends ItemBlock
     {
         return i;
     }
-    
+
     public String getItemNameIS(ItemStack itemstack)
+    {
+        return "tile." + blockType[itemstack.getItemDamage()];
+    }
+    
+    /**public String getItemNameIS(ItemStack itemstack)
     {
         switch (itemstack.getItemDamage())
         {
@@ -42,5 +49,5 @@ public class ItemCustomOre extends ItemBlock
                 return "tile.oreJACTin";
         }
         throw new IndexOutOfBoundsException();
-    }
+    }*/
 }
