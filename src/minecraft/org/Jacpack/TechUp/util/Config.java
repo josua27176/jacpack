@@ -30,31 +30,27 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * 
  */
 public class Config {
-	
-	static Properties hmcTranslateTable = null;
-	private static Config instance;
-	static File configDir = null;
+	static boolean[] reservedIds = new boolean[32768];
+    static File configDir = null;
     static File configFile = null;
-    static boolean[] reservedIds = new boolean[32768];
     static TagFile config = null;
+    static Properties JACTranslateTable = null;
     static boolean autoAssign = true;
 
-	/***
-	 * Loads in all the localization files from the Localizations library class
-	 */
-	public static void loadLanguages() {
-		config = new TagFile();
-        InputStream var0 = TechUp.class.getResourceAsStream("/net/TechUp/client/lang/default.cfg");
+    public static void loadConfig()
+    {
+        config = new TagFile();
+        InputStream var0 = TechUp.class.getResourceAsStream("/org/Jacpack/Techup/client/config/default.cfg");
         config.readStream(var0);
         File var1;
-		
-		if (configDir == null)
+
+        if (configDir == null)
         {
             var1 = Loader.instance().getConfigDir();
-            var1 = new File(var1, "/TechUp/");
+            var1 = new File(var1, "/JacPack/");
             var1.mkdir();
             configDir = var1;
-            configFile = new File(var1, "TechUp.cfg");
+            configFile = new File(var1, "JacPack.cfg");
         }
 
         if (configFile.exists())
@@ -62,7 +58,7 @@ public class Config {
             config.readFile(configFile);
         }
 
-        config.commentFile("TechUp Configuration");
+        config.commentFile("JacPack Configuration");
         String var2;
         Iterator var4;
 
@@ -75,51 +71,62 @@ public class Config {
         {
             var2 = (String)var4.next();
         }
-		
-		if (hmcTranslateTable == null)
+
+        if (JACTranslateTable == null)
         {
-            hmcTranslateTable = new Properties();
+            JACTranslateTable = new Properties();
         }
 
         try
         {
-            hmcTranslateTable.load(TechUp.class.getResourceAsStream("/net/TechUp/client/lang/TechUp.lang"));
-            var1 = new File(configDir, "TechUp.lang");
+            JACTranslateTable.load(TechUp.class.getResourceAsStream("/org/Jacpack/Techup/client/config/JacPack.lang"));
+            var1 = new File(configDir, "JacPack.lang");
 
             if (var1.exists())
             {
                 FileInputStream var5 = new FileInputStream(var1);
-                hmcTranslateTable.load(var5);
+                JACTranslateTable.load(var5);
             }
         }
         catch (IOException var3)
         {
             var3.printStackTrace();
         }
-        var4 = hmcTranslateTable.entrySet().iterator();
+
+        var4 = JACTranslateTable.entrySet().iterator();
 
         while (var4.hasNext())
         {
             Entry var6 = (Entry)var4.next();
             LanguageRegistry.instance().addStringLocalization((String)var6.getKey(), (String)var6.getValue());
         }
-	}
-	
-	public static Config getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new Config();
-        }
 
-        return instance;
+        autoAssign = config.getInt("settings.core.autoAssign") > 0;
+        config.addInt("settings.core.autoAssign", 0);
+        config.commentTag("settings.core.autoAssign", "Automatically remap conflicting IDs.\nWARNING: May corrupt existing worlds");
     }
-	
-	public static void addName(String var0, String var1)
+
+    public static void saveConfig()
     {
-        if (hmcTranslateTable.get(var0) == null)
+        config.saveFile(configFile);
+
+        try
         {
-            hmcTranslateTable.put(var0, var1);
+            File var0 = new File(configDir, "JacPack.lang");
+            FileOutputStream var1 = new FileOutputStream(var0);
+            JACTranslateTable.store(var1, "JacPack Language File");
+        }
+        catch (IOException var2)
+        {
+            var2.printStackTrace();
+        }
+    }
+
+    public static void addName(String var0, String var1)
+    {
+        if (JACTranslateTable.get(var0) == null)
+        {
+            JACTranslateTable.put(var0, var1);
             LanguageRegistry.instance().addStringLocalization(var0, var1);
         }
     }
@@ -132,16 +139,6 @@ public class Config {
     private static void die(String var0)
     {
         throw new RuntimeException("TechUp: " + var0);
-    }
-    
-    public static int getMaxTankSize()
-    {
-        return 9;//getInt("tweaks.blocks.PhazonTank.size");
-    }
-
-    public static boolean allowTankStacking()
-    {
-        return true;
     }
 
     public static int getItemID(String var0)
@@ -211,31 +208,4 @@ public class Config {
     {
         return config.getString(var0);
     }
-	
-	public static String translate(String var0)
-    {
-        return getInstance().translate_do(var0);
-    }
-
-    private String translate_do(String var1)
-    {
-        String var2 = StringTranslate.getInstance().getCurrentLanguage();
-        return var1;
-    }
-	
-	public static void saveLanguages() {
-		config.saveFile(configFile);
-		
-        try
-        {
-            File var0 = new File(configDir, "TechUp.lang");
-            FileOutputStream var1 = new FileOutputStream(var0);
-            hmcTranslateTable.store(var1, "TechUp Language File");
-        }
-        catch (IOException var2)
-        {
-            var2.printStackTrace();
-        }
-	}
-
 }

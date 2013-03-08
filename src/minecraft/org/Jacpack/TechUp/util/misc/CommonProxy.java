@@ -1,4 +1,4 @@
-package org.Jacpack.TechUp;
+package org.Jacpack.TechUp.util.misc;
 
 public class CommonProxy {
     public static String ITEMS_PNG = ""; //TODO: add graphics

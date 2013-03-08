@@ -1,0 +1,2 @@
+Forge Ore dictionary: (type)Name
+ex: oreCopper/ingotTin

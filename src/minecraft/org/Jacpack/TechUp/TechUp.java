@@ -1,6 +1,10 @@
 package org.Jacpack.TechUp;
 
 import net.minecraft.block.Block;
+
+import org.Jacpack.TechUp.util.Config;
+import org.Jacpack.TechUp.util.misc.*;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,70 +22,45 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid="TechUp", name="TechUp", version="0.0.0")
-@NetworkMod(clientSideRequired=true, serverSideRequired=false)
-
+@Mod(
+		modid = Reference.MOD_ID,
+		name = Reference.MOD_NAME,
+		version = Reference.VERSION
+)
+@NetworkMod(
+		clientSideRequired=true,
+		serverSideRequired=false
+)
 public class TechUp {
-
-	// The instance of your mod that Forge uses.
-	@Instance("TechUp")
+	
+	@Instance(Reference.MOD_ID)
 	public static TechUp instance;
 	
 	@SidedProxy(
-			clientSide="org.Jacpack.TechUp.Client.ClientProxy",
-			serverSide="org.Jacpack.TechUp.CommonProxy"
+			clientSide = Reference.CLIENT_PROXY_CLASS,
+			serverSide = Reference.SERVER_PROXY_CLASS
 	)
-	public static CommonProxy proxy;
-	
-	public static Block ores;
-	public static int oreBlockId;
-	private static final String[] oreBlockNames = {
-		"Copper","Tin"
-	};
+    public static CommonProxy proxy;
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) {
 		
-		//Load the config and stuff
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load();
-		oreBlockId = config.getBlock("oreBlocks", 500).getInt();
-		
-		config.save();
+    	Config.loadConfig();
+    	
 	}
 
 	@Init
 	public void load(FMLInitializationEvent event) {
-		registerBlocks();
-		registerRecipies();
-
-
+		
 		proxy.registerRenderers();
+		
 	}
 
 	@PostInit
 	public void postInit(FMLPostInitializationEvent event) {
 		
-	}
-
-	public static void registerBlocks()
-	{
-		ores = new CondensedOreBlock(oreBlockId,0);
-		MinecraftForge.setBlockHarvestLevel(ores, "pickaxe", 1);
-		GameRegistry.registerBlock(ores, "oreBlocks");
+		Config.saveConfig();
 		
-		//Name all the different ores
-		for(int i = 0; i < oreBlockNames.length; i++)
-		{
-			LanguageRegistry.addName(ores, oreBlockNames[i]);
-			
-			//Adds our ores to the forge dictionary
-			OreDictionary.registerOre("ore" + oreBlockNames[i], new ItemStack(ores,1, i));
-		}
-	}
-	
-	public static void registerRecipies()
-	{
 	}
 
 }

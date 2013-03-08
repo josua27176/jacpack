@@ -13,11 +13,11 @@ public class WorldGenCustomOre extends WorldGenerator
     protected int minableBlockMeta;
     protected int numberOfBlocks;
 
-    public WorldGenCustomOre(int id, int meta, int var3)
+    public WorldGenCustomOre(int id, int meta, int num)
     {
         this.minableBlockId = id;
         this.minableBlockMeta = meta;
-        this.numberOfBlocks = var3;
+        this.numberOfBlocks = num;
     }
 
     public void tryGenerateBlock(World world, Random random, int i, int j, int k)
@@ -37,7 +37,6 @@ public class WorldGenCustomOre extends WorldGenerator
         double d3 = k + 8 - MathHelper.cos(f) * this.numberOfBlocks / 8.0F;
         double d4 = j + random.nextInt(3) + 2;
         double d5 = j + random.nextInt(3) + 2;
-
         for (int l = 0; l <= this.numberOfBlocks; l++)
         {
             double d6 = d + (d1 - d) * (double)l / (double)this.numberOfBlocks;
@@ -52,7 +51,6 @@ public class WorldGenCustomOre extends WorldGenerator
             int l1 = MathHelper.floor_double(d6 + d10 / 2.0D);
             int i2 = MathHelper.floor_double(d7 + d11 / 2.0D);
             int j2 = MathHelper.floor_double(d8 + d10 / 2.0D);
-
             for (int k2 = i1; k2 <= l1; k2++)
             {
             	double d12 = (k2 + 0.5D - d6) / (d10 / 2.0D);
@@ -68,10 +66,10 @@ public class WorldGenCustomOre extends WorldGenerator
                           double d14 = (i3 + 0.5D - d8) / (d10 / 2.0D);
                           if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D) {
                             tryGenerateBlock(world, random, k2, l2, i3);
-                          }
-                        }
-                      }
-                    }
+                         }
+                       }
+                     }
+                   }
                 }
             }
         }
