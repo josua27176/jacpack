@@ -1,0 +1,17 @@
+/bin/*
+/conf/*
+/docs/*
+/eclipse/*
+/jars/*
+/lib/*
+/logs/*
+/reobf/*
+/runtime/*
+/temp/*
+/target/*
+
+/src/minecraft/*
+!/src/minecraft/org
+
+*.bat
+*.sh
