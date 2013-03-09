@@ -1,8 +1,16 @@
 package org.Jacpack.TechUp;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
+
+import org.Jacpack.TechUp.block.ModBlocks;
+import org.Jacpack.TechUp.item.ModItems;
+import org.Jacpack.TechUp.util.Config;
+import org.Jacpack.TechUp.util.misc.*;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -13,37 +21,60 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid="TechUp", name="TechUp", version="0.0.0")
-@NetworkMod(clientSideRequired=true, serverSideRequired=false)
-
+@Mod(
+		modid = Reference.MOD_ID,
+		name = Reference.MOD_NAME,
+		version = Reference.VERSION
+)
+@NetworkMod(
+		clientSideRequired=true,
+		serverSideRequired=false
+)
 public class TechUp {
+	
+	@Instance(Reference.MOD_ID)
+	public static TechUp instance;
+	
+	@SidedProxy(
+			clientSide = Reference.CLIENT_PROXY_CLASS,
+			serverSide = Reference.SERVER_PROXY_CLASS
+	)
+    public static CommonProxy proxy;
+	
+	public TechUp() {
+		Config.StaffJACCapeList.add("alexbegt");
+		Config.StaffJACCapeList.add("Zmaster587");
+		Config.StaffJACCapeList.add("zmaster587");
+		Config.StaffJACCapeList.add("xFinityPro");
+		//Config.StaffJACCapeList.add("xFinityPro");
+	}
 
-        // The instance of your mod that Forge uses.
-        @Instance("Hello.")
-        public static TechUp instance;
-       
-        // Says where the client and server 'proxy' code is loaded.
-        //@SidedProxy(clientSide="org.Jacpack.TechUp.Client.ClientProxy", serverSide="org.Jacpack.TechUp.CommonProxy")
-        //public static CommonProxy proxy;
-       
-        //Unfinished
-        public final static Block TinOre = new Block(500, 1, Material.rock)
-        	.setHardness(0.5F).setStepSound(Block.soundStoneFootstep)
-        	.setBlockName("TinOre").setCreativeTab(CreativeTabs.tabBlock);
-        
-        @PreInit
-        public void preInit(FMLPreInitializationEvent event) {
-                // Stub Method
-        }
-       
-        @Init
-        public void load(FMLInitializationEvent event) {
-                //proxy.registerRenderers();
-        }
-       
-        @PostInit
-        public void postInit(FMLPostInitializationEvent event) {
-                // Stub Method
-        }
+	@PreInit
+	public void preInit(FMLPreInitializationEvent event) {
+		
+    	Config.loadConfig();
+    	
+	}
+
+	@Init
+	public void load(FMLInitializationEvent event) {
+		
+		proxy.registerRenderers();
+		
+		ModItems.init();
+		
+		ModBlocks.init();
+		
+	}
+
+	@PostInit
+	public void postInit(FMLPostInitializationEvent event) {
+		
+		Config.saveConfig();
+		
+	}
+
 }
