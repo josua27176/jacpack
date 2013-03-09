@@ -8,9 +8,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class MachineBlock extends Block {
+public abstract class AbstractMachineBlock extends Block {
 
-	public MachineBlock(int id, Material material) {
+	public AbstractMachineBlock(int id, Material material) {
 		super(id, material);
 		this.setHardness(2.0F);
 		this.setLightOpacity(1);
@@ -36,17 +36,7 @@ public class MachineBlock extends Block {
 	}
 	
 	
-	public boolean onBlockActivated(World world, int posX, int posY, int posZ, EntityPlayer player, int parX, float mouseX, float mouseY, float mouseZ )
-	{
-		//Make sure to check only against the server world
-		if(!world.isRemote)
-		{
-			AbstactTileEntityMachine tile = (AbstactTileEntityMachine) world.getBlockTileEntity(posX, posY, posZ);
-			if(tile != null)
-			{
-				
-			}
-		}
-		return true;
-	}
+	public abstract boolean onBlockActivated(World world, int posX, int posY, int posZ, EntityPlayer player, int parX, float mouseX, float mouseY, float mouseZ );
+	
+	public abstract int getBlockTextureFromSideAndMetadata(int side, int meta);
 }
