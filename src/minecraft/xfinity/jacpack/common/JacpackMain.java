@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -93,6 +94,11 @@ public class JacpackMain
 		testBiome = new BiomeGenTest(53);
 		GameRegistry.addBiome(testBiome);
 		testBiome = new BiomeGenTest(53).setColor(2900485).setBiomeName("Test Biome").setEnableSnow().setDisableRain().setTemperatureRainfall(1F, 0.5F).setMinMaxHeight(0.2F, 1F);
+		
+		//-----------------------------------------------------C U S T O M / S P A W N-----------------------------------------------------
+		
+		// 50 = rarity of spawn / this code should be placed on registeration of new mob
+		DungeonHooks.addDungeonMob("name", 50);
 		
 	}
 	
