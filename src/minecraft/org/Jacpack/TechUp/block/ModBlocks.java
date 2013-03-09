@@ -15,8 +15,6 @@ public class ModBlocks {
 	public static ItemStack itemOreSilver;
 	public static ItemStack itemOreTin;
 	
-    public static BlockStorage blockStorage;
-	
 	public static void init() {
 		blockOres = new BlockCustomOre(Config.getBlockID("blocks.world.ores.id"));
         blockOres.setBlockName("TechUpores");

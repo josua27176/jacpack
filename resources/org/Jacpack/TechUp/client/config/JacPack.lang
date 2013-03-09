@@ -2,6 +2,11 @@
 
 # Blocks
 tile.gay.name=Gay
+tile.oreJACTitanium.name=Titanium Ore
+tile.oreJACAluminum.name=Aluminum Ore
+tile.oreJACCopper.name=Copper Ore
+tile.oreJACSilver.name=Silver Ore
+tile.oreJACTin.name=Tin Ore
 
 # Items
 item.JAC.Titanium.name=Titanium Ingot
@@ -18,6 +23,10 @@ item.JAC.Refined.Uranium.name=Refined Uranium
 item.JAC.Ademartium.name=Ademartium
 item.JAC.Rubber.name=Rubber
 item.JAC.Plutonium.name=Plutonium
+item.JAC.Chasis.name=Chasis
+item.JAC.Frame.name=Frame
+item.JAC.Flux-Capicitor.name=Flux Capicitor
+item.JAC.Glass.name=Windshield
 
 # Achievements
 

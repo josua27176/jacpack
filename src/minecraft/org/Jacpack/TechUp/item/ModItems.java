@@ -41,6 +41,16 @@ public class ModItems {
         itemResource.addItem(11, 59, "item.JAC.Ademartium");
         itemResource.addItem(12, 60, "item.JAC.Rubber");
         itemResource.addItem(13, 61, "item.JAC.Plutonium");
+        
+        itemResource.addItem(14, 62, "item.JAC.Chasis");
+        itemResource.addItem(15, 63, "item.JAC.Frame");
+        itemResource.addItem(16, 64, "item.JAC.Flux-Capicitor");
+        itemResource.addItem(17, 65, "item.JAC.Glass");
+        itemResource.addItem(18, 66, "item.JAC.PlutoniumReactor");
+        itemResource.addItem(19, 67, "item.JAC.Dashboard");
+        itemResource.addItem(20, 68, "item.JAC.Seats");
+        itemResource.addItem(21, 69, "item.JAC.Engine");
+        
         itemIngotTitanium = new ItemStack(itemResource, 1, 0);
         itemIngotAluminum = new ItemStack(itemResource, 1, 1);
         itemIngotCopper = new ItemStack(itemResource, 1, 2);
