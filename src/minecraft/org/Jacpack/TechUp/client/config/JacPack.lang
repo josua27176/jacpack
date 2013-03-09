@@ -7,8 +7,6 @@ tile.oreJACAluminum.name=Aluminum Ore
 tile.oreJACCopper.name=Copper Ore
 tile.oreJACSilver.name=Silver Ore
 tile.oreJACTin.name=Tin Ore
-tile.oreJACUranite.name=Uranite
-tile.oreJACLimestone.name=Limestone
 
 # Items
 item.JAC.Titanium.name=Titanium Ingot

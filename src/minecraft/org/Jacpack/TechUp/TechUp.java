@@ -43,6 +43,14 @@ public class TechUp {
 			serverSide = Reference.SERVER_PROXY_CLASS
 	)
     public static CommonProxy proxy;
+	
+	public TechUp() {
+		Config.StaffJACCapeList.add("alexbegt");
+		Config.StaffJACCapeList.add("Zmaster587");
+		Config.StaffJACCapeList.add("zmaster587");
+		Config.StaffJACCapeList.add("xFinityPro");
+		//Config.StaffJACCapeList.add("xFinityPro");
+	}
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) {

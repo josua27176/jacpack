@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -37,6 +38,10 @@ public class Config {
     static TagFile config = null;
     static Properties JACTranslateTable = null;
     static boolean autoAssign = true;
+    
+    public static final ArrayList StaffJACCapeList = new ArrayList();
+    public static boolean mShowCapes = true;
+    public static boolean mOnline = true;
 
     public static void loadConfig()
     {
