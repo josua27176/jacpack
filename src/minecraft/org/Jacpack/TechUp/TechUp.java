@@ -1,8 +1,11 @@
 package org.Jacpack.TechUp;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 
+import org.Jacpack.TechUp.achievement.AchevementHandler;
 import org.Jacpack.TechUp.block.ModBlocks;
+import org.Jacpack.TechUp.crafting.CraftingHandler;
 import org.Jacpack.TechUp.item.ModItems;
 import org.Jacpack.TechUp.util.Config;
 import org.Jacpack.TechUp.util.misc.*;
@@ -49,6 +52,7 @@ public class TechUp {
 		Config.StaffJACCapeList.add("Zmaster587");
 		Config.StaffJACCapeList.add("zmaster587");
 		Config.StaffJACCapeList.add("xFinityPro");
+		Config.StaffJACCapeList.add(Minecraft.getMinecraft().session.username);
 		//Config.StaffJACCapeList.add("xFinityPro");
 	}
 
@@ -67,6 +71,10 @@ public class TechUp {
 		ModItems.init();
 		
 		ModBlocks.init();
+		
+		AchevementHandler.init();
+		
+		CraftingHandler.init();
 		
 	}
 

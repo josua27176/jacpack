@@ -6,7 +6,23 @@ import net.minecraft.item.ItemStack;
 public class ItemCustomOre extends ItemBlock
 {
 	
-	public static final String[] blockType = new String[] {"oreJACTitanium", "oreJACAluminum", "oreJACCopper", "oreJACSilver", "oreJACTin"};
+	public static final String[] blockType = new String[] {
+		"oreJACTitanium", 
+		"oreJACAluminum", 
+		"oreJACCopper", 
+		"oreJACSilver", 
+		"oreJACTin", 
+		"oreJACUranite", 
+		"oreJACLimestone", 
+		"blockJACTitanium",
+		"blockJACAluminum",
+		"blockJACCopper",
+		"blockJACTin",
+		"blockJACUranium",
+		"blockJACSilver",
+		"blockJACAdemantine",
+		"blockJACLimestone"
+	};
 	
     public ItemCustomOre(int i)
     {

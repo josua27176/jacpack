@@ -31,7 +31,7 @@ public class Reference {
     public static final String TE_GEN_DIRECTION_NBT_TAG_LABEL = "direction";
     
     /* Texture related constants */
-    public static final String SPRITE_SHEET_LOCATION = "/org/Jacpack/TechUp/client/textures/";
+    public static final String SPRITE_SHEET_LOCATION = "/net/Harmonion/client/textures/";
     public static final String ITEM_SPRITE_SHEET = "Harmonion_item.png";
     public static final String BLOCK_SPRITE_SHEET = "Harmonion_block.png";
     

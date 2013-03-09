@@ -1,5 +1,6 @@
 package org.Jacpack.TechUp.item;
 
+import org.Jacpack.TechUp.creativetabs.CreativeTabsHandler;
 import org.Jacpack.TechUp.util.Config;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -39,9 +40,10 @@ public class ModItems {
     
     public static void init() {
     	
+    	System.out.println("Loading Stage 1...");
         /* Initialize each mod item individually */
     	itemResource = new ItemParts(Config.getItemID("items.base.resource.id"), "ComingSoon");
-        itemResource.setCreativeTab(CreativeTabs.tabMaterials);
+        itemResource.setCreativeTab(CreativeTabsHandler.tabTechUpI);
         itemResource.addItem(0, 48, "item.JAC.Titanium");
         itemResource.addItem(1, 49, "item.JAC.Aluminum");
         itemResource.addItem(2, 50, "item.JAC.Copper");
@@ -56,7 +58,6 @@ public class ModItems {
         itemResource.addItem(11, 59, "item.JAC.Ademartium");
         itemResource.addItem(12, 60, "item.JAC.Rubber");
         itemResource.addItem(13, 61, "item.JAC.Plutonium");
-        
         itemIngotTitanium = new ItemStack(itemResource, 1, 0);
         itemIngotAluminum = new ItemStack(itemResource, 1, 1);
         itemIngotCopper = new ItemStack(itemResource, 1, 2);
@@ -72,13 +73,17 @@ public class ModItems {
         itemRubber = new ItemStack(itemResource, 1, 12);
         itemPlutonium = new ItemStack(itemResource, 1, 13);
         
+        System.out.println("Done Loading Stage 1.");
+        
         initCarParts();
         initStage2();
+        initArmor();
         
     }
     
     public static void initCarParts() {
     	
+    	System.out.println("Loading Car Parts...");
         itemResource.addItem(14, 62, "item.JAC.Chasis");
         itemResource.addItem(15, 63, "item.JAC.Frame");
         itemResource.addItem(16, 64, "item.JAC.Flux-Capicitor");
@@ -96,10 +101,12 @@ public class ModItems {
         itemDashboard = new ItemStack(itemResource, 1, 19);
         itemSeats = new ItemStack(itemResource, 1, 20);
         itemEngine = new ItemStack(itemResource, 1, 21);
+        System.out.println("Done Loading Car Parts.");
         
     }
     
     public static void initStage2() {
+    	System.out.println("Loading Stage 2...");
     	itemResource.addItem(22, 66, "item.JAC.AdvancedAlloy");
         itemResource.addItem(23, 67, "item.JAC.AluminumPlate");
         itemResource.addItem(24, 68, "item.JAC.TitaniumPlate");
@@ -109,6 +116,11 @@ public class ModItems {
         itemAluminumPlate = new ItemStack(itemResource, 1, 23);
         itemTitaniumPlate = new ItemStack(itemResource, 1, 24);
         itemCarbonPlating = new ItemStack(itemResource, 1, 25);
+        System.out.println("Done Loading Stage 2.");
+    }
+    
+    public static void initArmor() {
+    	//System.out.println("DIE");
     }
     
 }

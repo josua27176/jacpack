@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.Jacpack.TechUp.creativetabs.CreativeTabsHandler;
 import org.Jacpack.TechUp.item.ModItems;
 
 import cpw.mods.fml.relauncher.Side;
@@ -23,7 +24,7 @@ public class BlockCustomOre extends Block
         super(i, Material.rock);
         this.setHardness(3.0F);
         this.setResistance(5.0F);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabsHandler.tabTechUpB);
     }
 
     /**
@@ -47,7 +48,7 @@ public class BlockCustomOre extends Block
      */
     public int idDropped(int i, Random random, int j)
     {
-        return i >= 3 && i != 7 ? this.blockID : ModItems.itemResource.itemID;
+        return i != 755252423 ? this.blockID : ModItems.itemResource.itemID; //Some random huge number in the meantime
     }
 
     public int quantityDropped(int i, int fortune, Random random)
@@ -88,7 +89,7 @@ public class BlockCustomOre extends Block
      */
     public void getSubBlocks(int id, CreativeTabs tab, List list)
     {
-        for (int i = 0; i <= 4; i++)
+        for (int i = 0; i <= 14; i++)
             list.add(new ItemStack(this, 1, i));
     }
 

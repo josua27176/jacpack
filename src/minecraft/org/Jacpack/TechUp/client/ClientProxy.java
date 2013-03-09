@@ -21,6 +21,7 @@ public class ClientProxy extends CommonProxy {
 		new JacPack_Renderer();
 		
 	}
+	@SuppressWarnings("resource")
 	private void addCapeLists()
 	{
 		if (Config.mShowCapes && Config.mOnline)

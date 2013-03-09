@@ -7,6 +7,16 @@ tile.oreJACAluminum.name=Aluminum Ore
 tile.oreJACCopper.name=Copper Ore
 tile.oreJACSilver.name=Silver Ore
 tile.oreJACTin.name=Tin Ore
+tile.oreJACUranite.name=Uranite Ore
+tile.oreJACLimestone.name=Limestone Ore
+tile.blockJACTitanium.name=Titanium Block
+tile.blockJACAluminum.name=Aluminum Block
+tile.blockJACCopper.name=Copper Block
+tile.blockJACTin.name=Tin Block
+tile.blockJACUranium.name=Uranium Block
+tile.blockJACSilver.name=Silver Block
+tile.blockJACAdemantine.name=Ademantine Block
+tile.blockJACLimestone.name=Limestone Block
 
 # Items
 item.JAC.Titanium.name=Titanium Ingot
@@ -37,6 +47,12 @@ item.JAC.TitaniumPlate.name=Titanium Plate
 item.JAC.CarbonPlating.name=Carbon Plating
 
 # Achievements
+achievement.TechUpMakeTitanium=Titanium Block
+achievement.TechUpMakeTitanium.desc=Build a Titanium Block
+
+achievement.TechUpMakeAluminum=Aluminum Block
+achievement.TechUpMakeAluminum.desc=Build a Aluminum Block
 
 # Groups
-
+itemGroup.TechUpI=TechUp Items
+itemGroup.TechUpB=TechUp Blocks
