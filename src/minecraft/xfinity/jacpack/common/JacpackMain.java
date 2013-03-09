@@ -7,6 +7,7 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.src.ModLoader;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.DungeonHooks;
@@ -35,6 +36,8 @@ public class JacpackMain
 	
 	@SidedProxy(clientSide = "xfinity.jacpack.client.ClientProxy", serverSide = "xfinity.jacpack.common.CommonProxy")
 	public static CommonProxy proxy;
+	
+	public static Block portal;
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) 
@@ -106,6 +109,12 @@ public class JacpackMain
 		
 		// 50 = rarity of spawn / this code should be placed on registeration of new mob
 		DungeonHooks.addDungeonMob("name", 50);
+		
+		//-----------------------------------------------------P O R T A L-----------------------------------------------------------------
+		
+		portal = new Blockjacportal(1007, 0).setBlockName("jacportal");
+		GameRegistry.registerBlock(portal, "PortalBlock");
+		LanguageRegistry.addName(portal, "JacPortalBlock");
 		
 	}
 	
