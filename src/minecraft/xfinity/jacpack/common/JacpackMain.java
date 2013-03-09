@@ -43,13 +43,36 @@ public class JacpackMain
 		//----------------------------------------------------I T E M S--------------------------------------------------------------------
 		godstick = new ItemJac(1000, 0).setItemName("GodStick").setMaxDamage(999).setMaxStackSize(1).setCreativeTab(CreativeTabs.tabCombat);
 		LanguageRegistry.addName(godstick, "Godstick [WIP] -xfin");
+		
+		
+		Frame = new ItemFrame(1001, 0).setItemName("Frame").setMaxStackSize(64).setCreativeTab(CreativeTabs.tabTools);
+		LanguageRegistry.addName(Frame, "Frame");
+		
+		FluxCapicitor = new ItemFluxCapicitor(1002, 0).setItemName("Flux Capicitor").setMaxStackSize(64).setCreativeTab(CreativeTabs.tabAllSearch);
+		LanguageRegistry.addName(FluxCapicitor, "Flux Capicitor");
+		
+		Glass = new ItemGlass (1003, 0).setItemName("JAC Glass").setMaxStackSize(64).setCreativeTab(CreativeTabs.tabAllSearch);
+		LanguageRegistry.addName(Glass, "Jac Glass");
+		
+		PlutoniumReactor = new ItemPlutoniumReactor (1004, 0).setItemName("Plutonium Reactor").setMaxStackSize(64).setCreativeTab(CreativeTabs.tabMisc);
+		LanguageRegistry.addName(PlutoniumReactor, "Plutonium Reactor");
+		
+		Dashboard = new ItemDashboard (1005, 0).setItemName("Dashboard").setMaxStackSize(64).setCreativeTab(CreativeTabs.tabMaterials);
+		LanguageRegistry.addName(Dashboard, "Dashbaord");
+		
+		Seats = new ItemSeats (1006, 0).setItemName("Seats").setMaxStackSize(64).setCreativeTab(CreativeTabs.tabMaterials);
+		LanguageRegistry.addName(Seats, "Seats");
+		
+		Engine = new ItemEngine (1007, 0).setItemName("Engine").setMaxStackSize(64).setCreativeTab(CreativeTabs.tabMisc);
+		LanguageRegistry.addName(Engine, "Engine");
+		
 		//----------------------------------------------------T E S T I N G----------------------------------------------------------------
 
 		//----------------------------------------------------R E N D E R I N G B L O C K S------------------------------------------------
 		GameRegistry.registerWorldGenerator(new WorldGeneratorJacPack());
 		//----------------------------------------------------B L O C K S------------------------------------------------------------------
-		BlockOre = new BlockOre(1001, 0).setBlockName("TestBlock").setCreativeTab(CreativeTabs.tabBlock).setHardness(5).setResistance(20);
-		GameRegistry.registerBlock(BlockOre);
+		BlockOre = new BlockOre(1001, 0).setBlockName("zmnaster").setCreativeTab(CreativeTabs.tabBlock).setHardness(5).setResistance(20);
+		GameRegistry.registerBlock(BlockOre, BlockOre.getBlockName());
 		LanguageRegistry.addName(BlockOre, "TestBlock");
 		
 		//----------------------------------------------------R E C I P E S----------------------------------------------------------------
@@ -66,6 +89,13 @@ public class JacpackMain
 	}
 	//ITEMS
 	public static Item godstick;
+	public static Item Frame;
+	public static Item FluxCapicitor;
+	public static Item Glass;
+	public static Item PlutoniumReactor;
+	public static Item Dashboard;
+	public static Item Seats;
+	public static Item Engine;
 	
 	//BLOCKS
 	public static Block BlockOre;

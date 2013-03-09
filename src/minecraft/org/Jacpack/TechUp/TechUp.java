@@ -20,12 +20,12 @@ import cpw.mods.fml.common.network.NetworkMod;
 public class TechUp {
 
         // The instance of your mod that Forge uses.
-        @Instance("TechUp")
+        @Instance("Hello.")
         public static TechUp instance;
        
         // Says where the client and server 'proxy' code is loaded.
-        @SidedProxy(clientSide="tutorial.generic.client.ClientProxy", serverSide="tutorial.generic.CommonProxy")
-        public static CommonProxy proxy;
+        //@SidedProxy(clientSide="org.Jacpack.TechUp.Client.ClientProxy", serverSide="org.Jacpack.TechUp.CommonProxy")
+        //public static CommonProxy proxy;
        
         //Unfinished
         public final static Block TinOre = new Block(500, 1, Material.rock)
@@ -39,7 +39,7 @@ public class TechUp {
        
         @Init
         public void load(FMLInitializationEvent event) {
-                proxy.registerRenderers();
+                //proxy.registerRenderers();
         }
        
         @PostInit
