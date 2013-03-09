@@ -2,9 +2,11 @@ package xfinity.jacpack.common;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.Mod;
@@ -17,6 +19,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -80,6 +83,17 @@ public class JacpackMain
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(Block.dirt, 10), true, new Object[]{
 			"CCC", "CCC", "CCC", Character.valueOf('C'), godstick
 		}));
+		
+		//-----------------------------------------------------E N T I T Y S---------------------------------------------------------------
+		
+		
+		//-----------------------------------------------------B I O M E S-----------------------------------------------------------------
+		
+		BiomeGenBase testBiome;
+		testBiome = new BiomeGenTest(53);
+		GameRegistry.addBiome(testBiome);
+		testBiome = new BiomeGenTest(53).setColor(2900485).setBiomeName("Test Biome").setEnableSnow().setDisableRain().setTemperatureRainfall(1F, 0.5F).setMinMaxHeight(0.2F, 1F);
+		
 	}
 	
 	@PostInit
