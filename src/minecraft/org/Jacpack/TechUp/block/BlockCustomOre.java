@@ -47,7 +47,7 @@ public class BlockCustomOre extends Block
      */
     public int idDropped(int i, Random random, int j)
     {
-        return i >= 3 && i != 7 ? this.blockID : ModItems.itemResource.itemID;
+        return i != 755252423 ? this.blockID : ModItems.itemResource.itemID; //Some random huge number in the meantime
     }
 
     public int quantityDropped(int i, int fortune, Random random)
