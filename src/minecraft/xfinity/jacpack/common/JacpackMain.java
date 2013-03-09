@@ -3,12 +3,14 @@ package xfinity.jacpack.common;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.DungeonHooks;
+import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -44,6 +46,11 @@ public class JacpackMain
 	@Init
 	public void init(FMLInitializationEvent event)
 	{
+		//----------------------------------------------------A R M O R--------------------------------------------------------------------
+		
+		// 29 damage armor can take before destroy / next 4 # max damage armor can take person, 2-head 7-chest ect... 9 enchantability.
+		EnumArmorMaterial armorHazmat = EnumHelper.addArmorMaterial("HazMat", 29, new int[] {2, 7, 5, 3}, 9);
+		
 		//----------------------------------------------------I T E M S--------------------------------------------------------------------
 		godstick = new ItemJac(1000, 0).setItemName("GodStick").setMaxDamage(999).setMaxStackSize(1).setCreativeTab(CreativeTabs.tabCombat);
 		LanguageRegistry.addName(godstick, "Godstick [WIP] -xfin");
