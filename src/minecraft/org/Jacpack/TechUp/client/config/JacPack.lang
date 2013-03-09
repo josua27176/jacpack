@@ -31,6 +31,10 @@ item.JAC.PlutoniumReactor.name=Plutonium Reactor
 item.JAC.Dashboard.name=Dashboard
 item.JAC.Seats.name=Seats
 item.JAC.Engine.name=Engine
+item.JAC.AdvancedAlloy.name=Advanced Alloy
+item.JAC.AluminumPlate.name=Aluminum Plate
+item.JAC.TitaniumPlate.name=Titanium Plate
+item.JAC.CarbonPlating.name=Carbon Plating
 
 # Achievements
 
