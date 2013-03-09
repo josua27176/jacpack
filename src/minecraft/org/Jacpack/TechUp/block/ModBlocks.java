@@ -29,8 +29,8 @@ public class ModBlocks {
         itemOreCopper = new ItemStack(blockOres, 1, 2);
         itemOreSilver = new ItemStack(blockOres, 1, 3);
         itemOreTin = new ItemStack(blockOres, 1, 4);
-        itemOreUranite = new ItemStack(blockOres,1,5);
-        itemOreLimestone = new ItemStack(blockOres,1,6);
+        itemOreUranite = new ItemStack(blockOres, 1, 5);
+        itemOreLimestone = new ItemStack(blockOres, 1, 6);
         
         
         GameRegistry.registerWorldGenerator(new TerrainGenerator(blockOres));
