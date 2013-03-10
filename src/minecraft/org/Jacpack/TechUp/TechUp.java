@@ -6,9 +6,14 @@ import net.minecraft.client.Minecraft;
 import org.Jacpack.TechUp.achievement.AchevementHandler;
 import org.Jacpack.TechUp.block.ModBlocks;
 import org.Jacpack.TechUp.crafting.CraftingHandler;
+import org.Jacpack.TechUp.gui.GuiHandler;
 import org.Jacpack.TechUp.item.ModItems;
+import org.Jacpack.TechUp.modules.ModuleManager;
+import org.Jacpack.TechUp.tileentitys.TileBlastFurnace;
+import org.Jacpack.TechUp.tileentitys.TileEntityHandler;
 import org.Jacpack.TechUp.util.Config;
 import org.Jacpack.TechUp.util.misc.*;
+import org.Jacpack.TechUp.util.network.TechUpPacketHandler;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
@@ -24,6 +29,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -33,8 +39,10 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 		version = Reference.VERSION
 )
 @NetworkMod(
+		channels={Reference.CHANNEL_NAME},
 		clientSideRequired=true,
-		serverSideRequired=false
+		serverSideRequired=false,
+		packetHandler=TechUpPacketHandler.class
 )
 public class TechUp {
 	
@@ -46,6 +54,16 @@ public class TechUp {
 			serverSide = Reference.SERVER_PROXY_CLASS
 	)
     public static CommonProxy proxy;
+	
+	public static String getVersion()
+    {
+        return Reference.VERSION;
+    }
+	
+	public static TechUp getMod()
+    {
+        return instance;
+    }
 	
 	public TechUp() {
 		Config.StaffJACCapeList.add("alexbegt");
@@ -61,20 +79,20 @@ public class TechUp {
 		
     	Config.loadConfig();
     	
+    	ModuleManager.preInit();
+    	
 	}
 
 	@Init
 	public void load(FMLInitializationEvent event) {
 		
+		NetworkRegistry.instance().registerGuiHandler(TechUp.getMod(), new GuiHandler());
+		
+		GameHelper.init();
+		
 		proxy.registerRenderers();
 		
-		ModItems.init();
-		
-		ModBlocks.init();
-		
-		AchevementHandler.init();
-		
-		CraftingHandler.init();
+		proxy.initClient();
 		
 	}
 

@@ -1,8 +1,14 @@
 package org.Jacpack.TechUp.block;
 
+import java.util.Arrays;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 
+import org.Jacpack.TechUp.TechUp;
+import org.Jacpack.TechUp.api.machines.EnumMachineAlpha;
+import org.Jacpack.TechUp.api.machines.MachineProxyAlpha;
 import org.Jacpack.TechUp.util.Config;
 import org.Jacpack.TechUp.world.TerrainGenerator;
 
@@ -27,6 +33,31 @@ public class ModBlocks {
 	public static ItemStack itemBlockAdemantine;
 	public static ItemStack itemBlockLimestone;
 	public final static Block[] mBlocks = new Block[5];
+	private static Block blockMachineAlpha;
+	private static Block blockMachineBeta;
+	
+	public static void registerBlockMachineAlpha()
+    {
+        if (blockMachineAlpha == null)
+        {
+            int var0 = 243;//Config.getBlockID(243);
+
+            if (var0 > 0)
+            {
+                int[] var1 = new int[16];
+                Arrays.fill(var1, 255);
+                blockMachineAlpha = (new BlockMachine(var0, 0, new MachineProxyAlpha(), true, var1)).setBlockName("rcBlockMachineAlpha");
+                GameRegistry.registerBlock(blockMachineAlpha, ItemMachine.class, blockMachineAlpha.getBlockName());
+                EnumMachineAlpha[] var2 = EnumMachineAlpha.values();
+                int var3 = var2.length;
+            }
+        }
+    }
+
+    public static Block getBlockMachineAlpha()
+    {
+        return blockMachineAlpha;
+    }
 	
 	public static void init() {
 		blockOres = new BlockCustomOre(Config.getBlockID("blocks.world.ores.id"));
@@ -47,7 +78,6 @@ public class ModBlocks {
         itemBlockSilver = new ItemStack(blockOres, 1, 12);
         itemBlockAdemantine = new ItemStack(blockOres, 1, 13);
         itemBlockLimestone = new ItemStack(blockOres, 1, 14);
-        
         
         GameRegistry.registerWorldGenerator(new TerrainGenerator(blockOres));
 	}
