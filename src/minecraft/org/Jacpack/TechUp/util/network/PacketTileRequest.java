@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 
-public class PacketTileRequest extends HarmonionPacket
+public class PacketTileRequest extends TechUpPacket
 {
     private TileEntity tile;
     private Player player;

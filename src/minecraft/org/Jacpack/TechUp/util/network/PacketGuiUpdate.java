@@ -10,7 +10,7 @@ import java.io.IOException;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class PacketGuiUpdate extends HarmonionPacket
+public class PacketGuiUpdate extends TechUpPacket
 {
     private int windowId;
     private int dataId;

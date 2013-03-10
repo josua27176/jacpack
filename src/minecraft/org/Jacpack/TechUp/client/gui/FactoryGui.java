@@ -26,7 +26,7 @@ public class FactoryGui
         {
             try
             {
-                switch (FactoryGui$1.$SwitchMap$railcraft$common$gui$EnumGui[var0.ordinal()])
+                switch ($SwitchMap$org$Jacpack$TechUp$gui$EnumGui[var0.ordinal()])
                 {
                     case 1:
                         return new GuiBlastFurnace(var1, (TileBlastFurnace)var2);
@@ -43,6 +43,20 @@ public class FactoryGui
                 Game.log(Level.WARNING, "Error when attempting to build gui {0}: {1}", new Object[] {var0, var4});
                 return null;
             }
+        }
+    }
+    
+    static final int[] $SwitchMap$org$Jacpack$TechUp$gui$EnumGui = new int[EnumGui.values().length];
+
+    static
+    {
+        try
+        {
+        	$SwitchMap$org$Jacpack$TechUp$gui$EnumGui[EnumGui.BLAST_FURNACE.ordinal()] = 17;
+        }
+        catch (NoSuchFieldError var29)
+        {
+            ;
         }
     }
 }

@@ -10,7 +10,7 @@ import org.Jacpack.TechUp.util.misc.Reference;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
-public abstract class HarmonionPacket
+public abstract class TechUpPacket
 {
     public static final String CHANNEL_NAME = Reference.CHANNEL_NAME;
 

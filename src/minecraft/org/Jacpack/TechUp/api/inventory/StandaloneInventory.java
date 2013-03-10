@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class StandaloneInventory implements IInventory, Iterable
 {
-    private StandaloneInventory$Callback callback;
+    private Callback callback;
     private final String name;
     private ItemStack[] contents;
 
@@ -21,14 +21,14 @@ public class StandaloneInventory implements IInventory, Iterable
     {
         this.name = var2;
         this.contents = new ItemStack[var1];
-        this.callback = var3 == null ? null : new StandaloneInventory$InventoryCallback(this, var3);
+        this.callback = var3 == null ? null : new InventoryCallback(this, var3);
     }
 
     public StandaloneInventory(int var1, String var2, JACTileEnityMultiBlocks var3)
     {
         this.name = var2;
         this.contents = new ItemStack[var1];
-        this.callback = var3 == null ? null : new StandaloneInventory$TileCallback(this, var3);
+        this.callback = var3 == null ? null : new TileCallback(this, var3);
     }
 
     public StandaloneInventory(int var1, IInventory var2)
@@ -213,4 +213,96 @@ public class StandaloneInventory implements IInventory, Iterable
     {
         return Iterators.forArray(this.contents);
     }
+    
+    class TileCallback extends Callback
+    {
+        private JACTileEnityMultiBlocks inv;
+
+        final StandaloneInventory this$0;
+
+        public TileCallback(StandaloneInventory var1, JACTileEnityMultiBlocks var2)
+        {
+            super(var1, (StandaloneInventory)null);
+            this.this$0 = var1;
+            this.inv = var2;
+        }
+
+        public void onInventoryChanged()
+        {
+            this.inv.onInventoryChanged();
+        }
+
+        public String getInvName()
+        {
+            return this.inv.getInvName();
+        }
+    }
+    
+    class InventoryCallback extends Callback
+    {
+        private IInventory inv;
+
+        final StandaloneInventory this$0;
+
+        public InventoryCallback(StandaloneInventory var1, IInventory var2)
+        {
+            super(var1, (StandaloneInventory)null);
+            this.this$0 = var1;
+            this.inv = var2;
+        }
+
+        public boolean isUseableByPlayer(EntityPlayer var1)
+        {
+            return this.inv.isUseableByPlayer(var1);
+        }
+
+        public void openChest()
+        {
+            this.inv.openChest();
+        }
+
+        public void closeChest()
+        {
+            this.inv.closeChest();
+        }
+
+        public void onInventoryChanged()
+        {
+            this.inv.onInventoryChanged();
+        }
+
+        public String getInvName()
+        {
+            return this.inv.getInvName();
+        }
+    }
+    
+    abstract class Callback
+    {
+        final StandaloneInventory this$0;
+
+        private Callback(StandaloneInventory var1)
+        {
+            this.this$0 = var1;
+        }
+
+        public boolean isUseableByPlayer(EntityPlayer var1)
+        {
+            return true;
+        }
+
+        public void openChest() {}
+
+        public void closeChest() {}
+
+        public abstract void onInventoryChanged();
+
+        public abstract String getInvName();
+
+        Callback(StandaloneInventory var1, StandaloneInventory var2)
+        {
+            this(var1);
+        }
+    }
+
 }

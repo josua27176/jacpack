@@ -15,7 +15,7 @@ public class ItemStackMap implements Map
 
     public Object put(ItemStack var1, Object var2)
     {
-        return this.map.put(new ItemStackMap$KeyWrapper(var1), var2);
+        return this.map.put(new KeyWrapper(var1), var2);
     }
 
     public Collection values()
@@ -30,7 +30,7 @@ public class ItemStackMap implements Map
 
     public Object remove(Object var1)
     {
-        return var1 instanceof ItemStack ? this.map.remove(new ItemStackMap$KeyWrapper((ItemStack)var1)) : null;
+        return var1 instanceof ItemStack ? this.map.remove(new KeyWrapper((ItemStack)var1)) : null;
     }
 
     public boolean isEmpty()
@@ -45,7 +45,7 @@ public class ItemStackMap implements Map
 
     public Object get(Object var1)
     {
-        return var1 instanceof ItemStack ? this.map.get(new ItemStackMap$KeyWrapper((ItemStack)var1)) : null;
+        return var1 instanceof ItemStack ? this.map.get(new KeyWrapper((ItemStack)var1)) : null;
     }
 
     public boolean equals(Object var1)
@@ -60,7 +60,7 @@ public class ItemStackMap implements Map
 
     public boolean containsKey(Object var1)
     {
-        return var1 instanceof ItemStack ? this.map.containsKey(new ItemStackMap$KeyWrapper((ItemStack)var1)) : false;
+        return var1 instanceof ItemStack ? this.map.containsKey(new KeyWrapper((ItemStack)var1)) : false;
     }
 
     public void clear()
@@ -86,7 +86,7 @@ public class ItemStackMap implements Map
 
         while (var2.hasNext())
         {
-            ItemStackMap$KeyWrapper var3 = (ItemStackMap$KeyWrapper)var2.next();
+            KeyWrapper var3 = (KeyWrapper)var2.next();
             var1.add(var3.getStack());
         }
 
@@ -101,7 +101,7 @@ public class ItemStackMap implements Map
         while (var2.hasNext())
         {
             Entry var3 = (Entry)var2.next();
-            var1.add(new ItemStackMap$EntryWrapper(this, var3));
+            var1.add(new EntryWrapper(this, var3));
         }
 
         return var1;
@@ -110,5 +110,78 @@ public class ItemStackMap implements Map
     public Object put(Object var1, Object var2)
     {
         return this.put((ItemStack)var1, var2);
+    }
+    
+    class KeyWrapper
+    {
+        private final ItemStack stack;
+
+        public KeyWrapper(ItemStack var1)
+        {
+            this.stack = var1.copy();
+        }
+
+        public boolean equals(Object var1)
+        {
+            if (var1 == null)
+            {
+                return false;
+            }
+            else if (this.getClass() != var1.getClass())
+            {
+                return false;
+            }
+            else
+            {
+                KeyWrapper var2 = (KeyWrapper)var1;
+                return this.stack.itemID != var2.stack.itemID ? false : this.stack.getItemDamage() == var2.stack.getItemDamage();
+            }
+        }
+
+        public int hashCode()
+        {
+            byte var1 = 5;
+            int var2 = 23 * var1 + this.stack.itemID;
+            var2 = 23 * var2 + this.stack.getItemDamage();
+            return var2;
+        }
+
+        public ItemStack getStack()
+        {
+            return this.stack.copy();
+        }
+    }
+    
+    class EntryWrapper implements Entry
+    {
+        private final Entry entry;
+
+        final ItemStackMap this$0;
+
+        public EntryWrapper(ItemStackMap var1, Entry var2)
+        {
+            this.this$0 = var1;
+            this.entry = var2;
+        }
+
+        public ItemStack getKey()
+        {
+            return ((KeyWrapper)this.entry.getKey()).getStack();
+        }
+
+        public Object getValue()
+        {
+            return this.entry.getValue();
+        }
+
+        public Object setValue(Object var1)
+        {
+            return this.entry.setValue(var1);
+        }
+
+        public String toString()
+        {
+            return this.getKey().getItem().getItemName() + "=" + this.getValue().toString();
+        }
     }
 }

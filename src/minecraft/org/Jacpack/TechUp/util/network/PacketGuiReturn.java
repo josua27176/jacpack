@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 
-public class PacketGuiReturn extends HarmonionPacket
+public class PacketGuiReturn extends TechUpPacket
 {
     private IGuiReturnHandler obj;
 

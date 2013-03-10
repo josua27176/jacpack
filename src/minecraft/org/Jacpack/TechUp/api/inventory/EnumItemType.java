@@ -32,7 +32,7 @@ public enum EnumItemType implements IItemType
         }
         else
         {
-            switch (EnumItemType$1.$SwitchMap$railcraft$common$util$inventory$EnumItemType[this.ordinal()])
+            switch ($SwitchMap$org$Jacpack$TechUp$api$inventory$EnumItemType[this.ordinal()])
             {
                 case 1:
                     return JACTools.getItemBurnTime(var1) > 0;
@@ -44,4 +44,19 @@ public enum EnumItemType implements IItemType
             }
         }
     }
+    
+    static final int[] $SwitchMap$org$Jacpack$TechUp$api$inventory$EnumItemType = new int[EnumItemType.values().length];
+
+    static
+    {
+        try
+        {
+            $SwitchMap$org$Jacpack$TechUp$api$inventory$EnumItemType[EnumItemType.FUEL.ordinal()] = 1;
+        }
+        catch (NoSuchFieldError var5)
+        {
+            ;
+        }
+    }
+    
 }

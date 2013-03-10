@@ -12,7 +12,7 @@ import org.Jacpack.TechUp.api.old.Game;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class PacketTileExtraData extends HarmonionPacket
+public class PacketTileExtraData extends TechUpPacket
 {
     private ITileExtraDataHandler tile;
     private ByteArrayOutputStream bytes;

@@ -13,7 +13,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class PacketTileEntity extends HarmonionPacket
+public class PacketTileEntity extends TechUpPacket
 {
     private JACTileEnityMultiBlocks tile;
 

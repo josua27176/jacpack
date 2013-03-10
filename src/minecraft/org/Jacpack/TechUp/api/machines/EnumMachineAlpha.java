@@ -118,7 +118,7 @@ public enum EnumMachineAlpha implements IEnumMachine
 
     public void addItemInfo(ItemStack var1, EntityPlayer var2, List var3, boolean var4)
     {
-        switch (EnumMachineAlpha$1.$SwitchMap$railcraft$common$blocks$machine$alpha$EnumMachineAlpha[this.ordinal()])
+        switch ($SwitchMap$org$Jacpack$TechUp$api$machines$EnumMachineAlpha[this.ordinal()])
         {
             case 1:
             case 2:
@@ -126,6 +126,20 @@ public enum EnumMachineAlpha implements IEnumMachine
                 String var5 = "Multi-Block: 3x4x3 (Hollow)";
                 
                 var3.add(JACTools.translate(var5));
+        }
+    }
+    
+    static final int[] $SwitchMap$org$Jacpack$TechUp$api$machines$EnumMachineAlpha = new int[EnumMachineAlpha.values().length];
+
+    static
+    {
+        try
+        {
+        	$SwitchMap$org$Jacpack$TechUp$api$machines$EnumMachineAlpha[EnumMachineAlpha.BLAST_FURNACE.ordinal()] = 1;
+        }
+        catch (NoSuchFieldError var2)
+        {
+            ;
         }
     }
 

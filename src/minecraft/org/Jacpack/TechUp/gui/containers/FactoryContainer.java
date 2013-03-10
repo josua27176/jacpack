@@ -25,7 +25,7 @@ public class FactoryContainer
         {
             try
             {
-                switch (FactoryContainer$1.$SwitchMap$org$Jacpack$TechUp$gui$EnumGui[var0.ordinal()])
+                switch ($SwitchMap$org$Jacpack$TechUp$gui$EnumGui[var0.ordinal()])
                 {
             		case 1:
             			return new ContainerBlastFurnace(var1, (TileBlastFurnace)var2);
@@ -45,6 +45,20 @@ public class FactoryContainer
                 Game.log(Level.WARNING, "Error when attempting to build gui container {0}: {1}", new Object[] {var0, var4});
                 return null;
             }
+        }
+    }
+    
+    static final int[] $SwitchMap$org$Jacpack$TechUp$gui$EnumGui = new int[EnumGui.values().length];
+
+    static
+    {
+        try
+        {
+        	$SwitchMap$org$Jacpack$TechUp$gui$EnumGui[EnumGui.BLAST_FURNACE.ordinal()] = 17;
+        }
+        catch (NoSuchFieldError var17)
+        {
+            ;
         }
     }
 }

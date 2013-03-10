@@ -46,7 +46,9 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 )
 public class TechUp {
 	
-	@Instance(Reference.MOD_ID)
+	@Instance(
+			Reference.MOD_ID
+	)
 	public static TechUp instance;
 	
 	@SidedProxy(
