@@ -22,8 +22,6 @@ JACPack Team Members:
 
 <a href="https://github.com/XfinityPro">Xfinitypro</a>  [Dev]
 
-<a href="https://github.com/alexbegt">Alexbegt</a>  [Dev]
-
 <a href="https://github.com/Timyo25">Timyo25</a>  [Dev]
 
 <a href="https://github.com/Jakeyo24">Jakeyo24</a>  [Dev]
