@@ -17,12 +17,12 @@ import net.minecraftforge.common.ISidedInventory;
 
 public abstract class AbstactTileEntityMachine extends TileEntity implements IInventory, ISidedInventory {
 
-	private ItemStack[] inv;
+	protected ItemStack[] inv;
 	
 	// mapping inventories to sides
 
 	
-	private HashMap<ForgeDirection,Integer> invMaps;
+	protected HashMap<ForgeDirection,Integer> invMaps = new HashMap<ForgeDirection,Integer>(6);
 	
 	//Implementing IInventory
 	@Override 
@@ -164,9 +164,9 @@ public abstract class AbstactTileEntityMachine extends TileEntity implements IIn
 	protected ForgeDirection orientation; //Direction block is facing
 	
 	//Accessors
-	int getPowerlevel() {return powerLevel;}
-	float getProgress() {return progress;}
-	boolean getActive() {return active;}
+	protected int getPowerlevel() {return powerLevel;}
+	protected float getProgress() {return progress;}
+	protected boolean getActive() {return active;}
 	
 	//Mutators
 	void setPowerlevel(int pow) { this.powerLevel = pow;}
@@ -183,6 +183,13 @@ public abstract class AbstactTileEntityMachine extends TileEntity implements IIn
 		active = !active;
 	}
 	
+	
+	//Make sure player is within 7 blocks of the machine
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) == this &&
+				player.getDistanceSq(this.xCoord, this.yCoord, this.zCoord) < 49;
+	}
 	
 	public abstract void activateMachine();
 	public abstract void deactivateMachine();
