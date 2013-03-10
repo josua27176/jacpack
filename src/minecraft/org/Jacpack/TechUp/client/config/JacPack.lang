@@ -1,12 +1,13 @@
 # JacPack Default Language
 
 # Blocks
-tile.gay.name=Gay
 tile.oreJACTitanium.name=Titanium Ore
 tile.oreJACAluminum.name=Aluminum Ore
 tile.oreJACCopper.name=Copper Ore
 tile.oreJACSilver.name=Silver Ore
 tile.oreJACTin.name=Tin Ore
+tile.oreJACUranite.name=Uranite Ore
+tile.oreJACLimestone.name=Limestone Ore
 tile.blockJACTitanium.name=Titanium Block
 tile.blockJACAluminum.name=Aluminum Block
 tile.blockJACCopper.name=Copper Block
@@ -43,8 +44,34 @@ item.JAC.AdvancedAlloy.name=Advanced Alloy
 item.JAC.AluminumPlate.name=Aluminum Plate
 item.JAC.TitaniumPlate.name=Titanium Plate
 item.JAC.CarbonPlating.name=Carbon Plating
+item.JAC.bronzehelmet.name=Bronze Helment
+item.JAC.bronzechesplate.name=Bronze Chestplate
+item.JAC.bronzeleggings.name=Bronze Leggings
+item.JAC.bronzeboots.name=Bronze Boots
+item.JAC.steelhelmet.name=Steel Helmet
+item.JAC.steelchestplate.name=Steel Chesplate
+item.JAC.steelleggings.name=Steel Leggings
+item.JAC.steelboots.name=Steel Boots
+item.JAC.copperhelment.name=Copper Helmet
+item.JAC.copperchestplate.name=Copper Chestplate
+item.JAC.copperleggings.name=Copper Leggings
+item.JAC.copperboots.name=Copper Boots
+item.JAC.silverhelmet.name=Silver Helmet
+item.JAC.silverchestplate.name=Silver Chestplate
+item.JAC.silverleggings.name=Silver Leggings
+item.JAC.silverboots.name=Silver Boots
+item.JAC.hazmathelmet.name=Hazmat Helmet
+item.JAC.hazmatchestplate.name= Hazmat Chestplate
+item.JAC.hazmatleggings.name= Hazmat Leggings
+item.JAC.hazmatboots.name= Hazmat Boots
 
 # Achievements
+achievement.TechUpMakeTitanium=Titanium Block
+achievement.TechUpMakeTitanium.desc=Build a Titanium Block
+
+achievement.TechUpMakeAluminum=Aluminum Block
+achievement.TechUpMakeAluminum.desc=Build a Aluminum Block
 
 # Groups
-
+itemGroup.TechUpI=TechUp Items
+itemGroup.TechUpB=TechUp Blocks

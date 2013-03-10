@@ -46,9 +46,6 @@ public class ItemParts extends Item
         }
     }
 
-    /**
-     * Gets an icon index based on an item's damage value
-     */
     public int getIconFromDamage(int i)
     {
         Integer tr = (Integer)this.icons.get(Integer.valueOf(i));
@@ -65,9 +62,6 @@ public class ItemParts extends Item
 
     @SideOnly(Side.CLIENT)
 
-    /**
-     * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
-     */
     public void getSubItems(int id, CreativeTabs tab, List list)
     {
         Iterator var4 = this.valid.iterator();

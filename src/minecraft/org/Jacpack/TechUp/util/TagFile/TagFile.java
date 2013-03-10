@@ -444,7 +444,7 @@ public class TagFile
     {
         return new Query(this, var1, (TagFile)null);
     }
-    
+
     public class Query implements Iterable
     {
         String[] pattern;
@@ -467,7 +467,7 @@ public class TagFile
             this(var1, var2);
         }
     }
-    
+
     public class QueryIterator implements Iterator
     {
         ArrayList path;
@@ -613,7 +613,7 @@ public class TagFile
             this(var1);
         }
     }
-    
+
     class QueryEntry
     {
         public TreeMap tag;
@@ -628,5 +628,4 @@ public class TagFile
             this();
         }
     }
-
 }

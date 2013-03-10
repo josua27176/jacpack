@@ -1,0 +1,50 @@
+# JacPack Default Language
+
+# Blocks
+tile.gay.name=Gay
+tile.oreJACTitanium.name=Titanium Ore
+tile.oreJACAluminum.name=Aluminum Ore
+tile.oreJACCopper.name=Copper Ore
+tile.oreJACSilver.name=Silver Ore
+tile.oreJACTin.name=Tin Ore
+tile.blockJACTitanium.name=Titanium Block
+tile.blockJACAluminum.name=Aluminum Block
+tile.blockJACCopper.name=Copper Block
+tile.blockJACTin.name=Tin Block
+tile.blockJACUranium.name=Uranium Block
+tile.blockJACSilver.name=Silver Block
+tile.blockJACAdemantine.name=Ademantine Block
+tile.blockJACLimestone.name=Limestone Block
+
+# Items
+item.JAC.Titanium.name=Titanium Ingot
+item.JAC.Aluminum.name=Aluminum Ingot
+item.JAC.Copper.name=Copper Ingot
+item.JAC.Silver.name=Silver Ingot
+item.JAC.Tin.name=Tin Ingot
+item.JAC.Bronze.name=Bronze Ingot
+item.JAC.Steel.name=Steel Ingot
+item.JAC.Crushed.Copper.name=Crushed Copper
+item.JAC.Crushed.Tin.name=Crushed Tin
+item.JAC.Crushed.Bronze.name=Crushed Bronze
+item.JAC.Refined.Uranium.name=Refined Uranium
+item.JAC.Ademartium.name=Ademartium
+item.JAC.Rubber.name=Rubber
+item.JAC.Plutonium.name=Plutonium
+item.JAC.Chasis.name=Chasis
+item.JAC.Frame.name=Frame
+item.JAC.Flux-Capicitor.name=Flux Capicitor
+item.JAC.Glass.name=Windshield
+item.JAC.PlutoniumReactor.name=Plutonium Reactor
+item.JAC.Dashboard.name=Dashboard
+item.JAC.Seats.name=Seats
+item.JAC.Engine.name=Engine
+item.JAC.AdvancedAlloy.name=Advanced Alloy
+item.JAC.AluminumPlate.name=Aluminum Plate
+item.JAC.TitaniumPlate.name=Titanium Plate
+item.JAC.CarbonPlating.name=Carbon Plating
+
+# Achievements
+
+# Groups
+

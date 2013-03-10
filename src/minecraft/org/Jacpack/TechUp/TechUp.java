@@ -1,8 +1,11 @@
 package org.Jacpack.TechUp;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 
+import org.Jacpack.TechUp.achievement.AchevementHandler;
 import org.Jacpack.TechUp.block.ModBlocks;
+import org.Jacpack.TechUp.crafting.CraftingHandler;
 import org.Jacpack.TechUp.item.ModItems;
 import org.Jacpack.TechUp.util.Config;
 import org.Jacpack.TechUp.util.misc.*;
@@ -25,56 +28,53 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(
-		modid = Reference.MOD_ID,
-		name = Reference.MOD_NAME,
-		version = Reference.VERSION
+        modid = Reference.MOD_ID,
+        name = Reference.MOD_NAME,
+        version = Reference.VERSION
 )
 @NetworkMod(
-		clientSideRequired=true,
-		serverSideRequired=false
+        clientSideRequired = true,
+        serverSideRequired = false
 )
-public class TechUp {
-	
-	@Instance(Reference.MOD_ID)
-	public static TechUp instance;
-	
-	@SidedProxy(
-			clientSide = Reference.CLIENT_PROXY_CLASS,
-			serverSide = Reference.SERVER_PROXY_CLASS
-	)
+public class TechUp
+{
+    @Instance(Reference.MOD_ID)
+    public static TechUp instance;
+
+    @SidedProxy(
+            clientSide = Reference.CLIENT_PROXY_CLASS,
+            serverSide = Reference.SERVER_PROXY_CLASS
+    )
     public static CommonProxy proxy;
-	
-	public TechUp() {
-		Config.StaffJACCapeList.add("alexbegt");
-		Config.StaffJACCapeList.add("Zmaster587");
-		Config.StaffJACCapeList.add("zmaster587");
-		Config.StaffJACCapeList.add("xFinityPro");
-		//Config.StaffJACCapeList.add("xFinityPro");
-	}
 
-	@PreInit
-	public void preInit(FMLPreInitializationEvent event) {
-		
-    	Config.loadConfig();
-    	
-	}
+    public TechUp()
+    {
+        Config.StaffJACCapeList.add("alexbegt");
+        Config.StaffJACCapeList.add("Zmaster587");
+        Config.StaffJACCapeList.add("zmaster587");
+        Config.StaffJACCapeList.add("xFinityPro");
+        Config.StaffJACCapeList.add(Minecraft.getMinecraft().session.username);
+    }
 
-	@Init
-	public void load(FMLInitializationEvent event) {
-		
-		proxy.registerRenderers();
-		
-		ModItems.init();
-		
-		ModBlocks.init();
-		
-	}
+    @PreInit
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        Config.loadConfig();
+    }
 
-	@PostInit
-	public void postInit(FMLPostInitializationEvent event) {
-		
-		Config.saveConfig();
-		
-	}
+    @Init
+    public void load(FMLInitializationEvent event)
+    {
+        proxy.registerRenderers();
+        ModItems.init();
+        ModBlocks.init();
+        AchevementHandler.init();
+        CraftingHandler.init();
+    }
 
+    @PostInit
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        Config.saveConfig();
+    }
 }
