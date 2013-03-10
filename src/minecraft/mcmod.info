@@ -1,0 +1,26 @@
+[
+{
+  "modid": "TechUp",
+  "name": "\u00A73Time-Traveler",
+  "description": "",
+  "version": "0.0.0.1B",
+  "mcversion": "1.4.7",
+  "url": "",
+  "updateUrl": "",
+  "authors": 
+	[
+		"Josua27176",
+		"Zmaster857",
+		"xFinityPro",
+		"alexbegt",
+		"Timyo25",
+		"Jakeyo24"
+	],
+  "credits": "Thanks to SuperFunnytogo for the textures!.",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]

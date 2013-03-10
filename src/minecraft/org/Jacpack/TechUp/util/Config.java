@@ -21,16 +21,24 @@ import net.minecraft.util.StringTranslate;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-public class Config
-{
-    static boolean[] reservedIds = new boolean[32768];
-
+/**
+ * Config
+ * 
+ * Loads in all specified localizations for the mod
+ * 
+ * @author Alexbegt,DJP
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ * 
+ */
+public class Config {
+	static boolean[] reservedIds = new boolean[32768];
+	
     static File configDir = null;
     static File configFile = null;
     static TagFile config = null;
     static Properties JACTranslateTable = null;
     static boolean autoAssign = true;
-
+    
     public static final ArrayList StaffJACCapeList = new ArrayList();
     public static boolean mShowCapes = true;
     public static boolean mOnline = true;
@@ -49,7 +57,6 @@ public class Config
             configDir = d;
             configFile = new File(d, "JacPack.cfg");
         }
-
         if (configFile.exists())
         {
             config.readFile(configFile);

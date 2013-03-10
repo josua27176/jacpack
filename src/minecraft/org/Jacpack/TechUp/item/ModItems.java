@@ -6,8 +6,14 @@ import org.Jacpack.TechUp.item.armor.ItemCopperArmor;
 import org.Jacpack.TechUp.item.armor.ItemHazmatArmor;
 import org.Jacpack.TechUp.item.armor.ItemSilverArmor;
 import org.Jacpack.TechUp.item.armor.ItemSteelArmor;
+import org.Jacpack.TechUp.item.tools.ItemJacAxe;
+import org.Jacpack.TechUp.item.tools.ItemJacHoe;
+import org.Jacpack.TechUp.item.tools.ItemJacPickaxe;
+import org.Jacpack.TechUp.item.tools.ItemJacSpade;
+import org.Jacpack.TechUp.item.tools.ItemJacSword;
 import org.Jacpack.TechUp.util.Config;
 import static org.Jacpack.TechUp.item.armor.ArmorHelper.*;
+import static org.Jacpack.TechUp.item.tools.ToolsHelper.*; 
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
@@ -72,6 +78,36 @@ public class ModItems
     public static Item itemHazmatChesplate;
     public static Item itemHazmatLeggings;
     public static Item itemHazmatBoots;
+    
+    public static Item itemBronzePickaxe;
+    public static Item itemBronzeSword;
+    public static Item itemBronzeHoe;
+    public static Item itemBronzeSpade;
+    public static Item itemBronzeAxe;
+    
+    public static Item itemSteelPickaxe;
+    public static Item itemSteelSword;
+    public static Item itemSteelHoe;
+    public static Item itemSteelSpade;
+    public static Item itemSteelAxe;
+    
+    public static Item itemCopperPickaxe;
+    public static Item itemCopperSword;
+    public static Item itemCopperHoe;
+    public static Item itemCopperSpade;
+    public static Item itemCopperAxe;
+    
+    public static Item itemSilverPickaxe;
+    public static Item itemSilverSword;
+    public static Item itemSilverHoe;
+    public static Item itemSilverSpade;
+    public static Item itemSilverAxe;
+    
+    public static Item itemAluminumPickaxe;
+    public static Item itemAluminumSword;
+    public static Item itemAluminumHoe;
+    public static Item itemAluminumSpade;
+    public static Item itemAluminumAxe;
 
     public static void init()
     {
@@ -112,6 +148,7 @@ public class ModItems
         initCarParts();
         initStage2();
         initArmor();
+        initTools();
     }
 
     public static void initCarParts()
@@ -152,6 +189,7 @@ public class ModItems
 
     public static void initArmor()
     {
+    	System.out.println("Loading Armor...");
     	itemBronzeHelment = (new ItemBronzeArmor(742, JACBronzeArmor, 0)).setItemName("JAC.bronzehelmet");
     	itemBronzeChestplate = (new ItemBronzeArmor(743, JACBronzeArmor, 1)).setItemName("JAC.bronzechesplate");
     	itemBronzeLeggings = (new ItemBronzeArmor(744, JACBronzeArmor, 2)).setItemName("JAC.bronzeleggings");
@@ -176,6 +214,40 @@ public class ModItems
     	itemHazmatChesplate = (new ItemHazmatArmor(789, JACHazmatArmor, 1)).setItemName("JAC.hazmatchestplate");
     	itemHazmatLeggings = (new ItemHazmatArmor(790, JACHazmatArmor, 2)).setItemName("JAC.hazmatleggings");
     	itemHazmatBoots = (new ItemHazmatArmor(791, JACHazmatArmor, 3)).setItemName("JAC.hazmatboots");
+    	System.out.println("Done Loading Armor.");
+    	
+    }
+    
+    public static void initTools() {
+    	itemBronzePickaxe = (new ItemJacPickaxe(792, JACBronzeTool).setItemName("JAC.BronzePickaxe"));
+    	itemBronzeSword = (new ItemJacSword(793, JACBronzeTool).setItemName("JAC.BronzeSword"));
+    	itemBronzeHoe = (new ItemJacHoe(794, JACBronzeTool).setItemName("JAC.BronzeHoe"));
+    	itemBronzeSpade = (new ItemJacSpade(795, JACBronzeTool).setItemName("JAC.BronzeSpade"));
+        itemBronzeAxe = (new ItemJacAxe(796, JACBronzeTool).setItemName("JAC.BronzeAxe"));
+        
+        itemSteelPickaxe = (new ItemJacPickaxe(797, JACSteelTool).setItemName("JAC.SteelPickaxe"));
+        itemSteelSword = (new ItemJacSword(798, JACSteelTool).setItemName("JAC.SteelSword"));
+        itemSteelHoe = (new ItemJacHoe(799, JACSteelTool).setItemName("JAC.SteelHoe"));
+        itemSteelSpade = (new ItemJacSpade(800, JACSteelTool).setItemName("JAC.SteelSpade"));
+        itemSteelAxe = (new ItemJacAxe(801, JACSteelTool).setItemName("JAC.SteelAxe"));
+        
+        itemCopperPickaxe = (new ItemJacPickaxe(802, JACCopperTool).setItemName("JAC.CopperPickaxe"));
+        itemCopperSword = (new ItemJacSword(803, JACCopperTool).setItemName("JAC.CopperSword"));
+        itemCopperHoe = (new ItemJacHoe(804, JACCopperTool).setItemName("JAC.CopperHoe"));
+        itemCopperSpade = (new ItemJacSpade(805, JACCopperTool).setItemName("JAC.CopperSpade"));
+        itemCopperAxe = (new ItemJacAxe(806, JACCopperTool).setItemName("JAC.CopperAxe"));
+        
+        itemSilverPickaxe = (new ItemJacPickaxe(807, JACSilverTool).setItemName("JAC.SilverPickaxe"));
+        itemSilverSword = (new ItemJacSword(808, JACSilverTool).setItemName("JAC.SilverSword"));
+        itemSilverHoe = (new ItemJacHoe(809, JACSilverTool).setItemName("JAC.SilverHoe"));
+        itemSilverSpade = (new ItemJacSpade(810, JACSilverTool).setItemName("JAC.SilverSpade"));
+        itemSilverAxe = (new ItemJacAxe(811, JACSilverTool).setItemName("JAC.SilverAxe"));
+        
+        itemAluminumPickaxe = (new ItemJacPickaxe(812, JACAluminumTool).setItemName("JAC.AluminumPickaxe"));
+        itemAluminumSword = (new ItemJacSword(813, JACAluminumTool).setItemName("JAC.AluminumSword"));
+        itemAluminumHoe = (new ItemJacHoe(814, JACAluminumTool).setItemName("JAC.AluminumHoe"));
+        itemAluminumSpade = (new ItemJacSpade(815, JACAluminumTool).setItemName("JAC.AluminumSpade"));
+        itemAluminumAxe = (new ItemJacAxe(816, JACAluminumTool).setItemName("JAC.AluminumAxe"));
     	
     }
 }

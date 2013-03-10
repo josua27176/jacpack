@@ -23,7 +23,7 @@ public class JacPack_Renderer extends RenderPlayer
         RenderManager.instance.entityRenderMap.put(EntityPlayer.class, this);
         this.setRenderManager(RenderManager.instance);
     }
-
+    
     public static boolean getPotion(EntityLiving var0, int var1)
     {
         try
@@ -56,7 +56,7 @@ public class JacPack_Renderer extends RenderPlayer
 
         return false;
     }
-
+    
     public static boolean getFullInvisibility(EntityPlayer var0)
     {
         return false;
@@ -70,6 +70,9 @@ public class JacPack_Renderer extends RenderPlayer
         }
     }
 
+    /**
+     * Method for adding special render rules
+     */
     public void renderSpecials(EntityPlayer par1EntityPlayer, float var2)
     {
         if (!getFullInvisibility(par1EntityPlayer))

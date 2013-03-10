@@ -1,4 +1,4 @@
-package org.Jacpack.TechUp.api;
+package org.Jacpack.TechUp.api.old;
 
 public interface IMachineBlockUpdateable
 {

@@ -15,6 +15,9 @@ public final class CreativeTabTechUpI extends CreativeTabs
 
     @SideOnly(Side.CLIENT)
 
+    /**
+     * the itemID for the item to be displayed on the tab
+     */
     public int getTabIconItemIndex()
     {
         return ModItems.itemResource.itemID;

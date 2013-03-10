@@ -11,14 +11,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 
-public class AchevementHelper
-{
-    private static HashMap achievelist = new HashMap();
-    public static Comparator itemStackComparator = new CraftingHelper();
-    public static AchievementPage achievepage = new AchievementPage("Time-Traveler", new Achievement[0]);
-    private static TreeMap achievebycraft = new TreeMap(itemStackComparator);
-
-    public static void registerAchievement(int var0, String var1, int var2, int var3, ItemStack var4, Object var5, boolean var6)
+public class AchevementHelper {
+	
+	private static HashMap achievelist = new HashMap();
+	public static Comparator itemStackComparator = new CraftingHelper();
+	public static AchievementPage achievepage = new AchievementPage("Time-Traveler", new Achievement[0]);
+	private static TreeMap achievebycraft = new TreeMap(itemStackComparator);
+	
+	public static void registerAchievement(int var0, String var1, int var2, int var3, ItemStack var4, Object var5, boolean var6)
     {
         Achievement var7 = null;
 
@@ -47,7 +47,7 @@ public class AchevementHelper
     {
         registerAchievement(var0, var1, var2, var3, var4, var5, false);
     }
-
+    
     public static void addCraftingAchievement(ItemStack var0, String var1)
     {
         Achievement var2 = (Achievement)achievelist.get(var1);
@@ -57,7 +57,7 @@ public class AchevementHelper
             achievebycraft.put(var0, var2);
         }
     }
-
+    
     public static void triggerAchievement(EntityPlayer var0, String var1)
     {
         Achievement var2 = (Achievement)achievelist.get(var1);
@@ -77,4 +77,5 @@ public class AchevementHelper
             var0.triggerAchievement(var2);
         }
     }
+	
 }

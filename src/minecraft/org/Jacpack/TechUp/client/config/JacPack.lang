@@ -16,6 +16,7 @@ tile.blockJACUranium.name=Uranium Block
 tile.blockJACSilver.name=Silver Block
 tile.blockJACAdemantine.name=Ademantine Block
 tile.blockJACLimestone.name=Limestone Block
+tile.JAC.blast.furnace.name=Blast Furnace
 
 # Items
 item.JAC.Titanium.name=Titanium Ingot
@@ -63,7 +64,53 @@ item.JAC.silverboots.name=Silver Boots
 item.JAC.hazmathelmet.name=Hazmat Helmet
 item.JAC.hazmatchestplate.name= Hazmat Chestplate
 item.JAC.hazmatleggings.name= Hazmat Leggings
-item.JAC.hazmatboots.name= Hazmat Boots
+item.JAC.hazmatboots.name=Hazmat Boots
+
+item.JAC.BronzePickaxe.name=Bronze Pickaxe
+item.JAC.BronzeSword.name=Bronze Sword
+item.JAC.BronzeHoe.name=Bronze Hoe
+item.JAC.BronzeSpade.name=Bronze Spade
+item.JAC.BronzeAxe.name=Bronze Axe
+
+item.JAC.SteelPickaxe.name=Steel Pickaxe:)
+item.JAC.SteelSword.name=Steel Sword
+item.JAC.SteelHoe.name=Steel Hoe
+item.JAC.SteelSpade.name=Steel Spade
+item.JAC.SteelAxe.name=Steel Axe
+
+item.JAC.CopperPickaxe.name=Copper Pickaxe
+item.JAC.CopperSword.name=Copper Sword
+item.JAC.CopperHoe.name=Copper Hoe
+item.JAC.CopperSpade.name=Copper Spade
+item.JAC.CopperAxe.name=Copper Axe
+
+item.JAC.SilverPickaxe.name=Silver Pickaxe
+item.JAC.SilverSword.name=Silver Sword
+item.JAC.SilverHoe.name=Silver Hoe
+item.JAC.SilverSpade.name=Silver Spade
+item.JAC.SilverAxe.name=Silver Axe
+
+item.JAC.AluminumPickaxe.name=Aluminum Pickaxe
+item.JAC.AluminumSword.name=Aluminum Sword
+item.JAC.AluminumHoe.name=Aluminum Hoe
+item.JAC.AluminumSpade.name=Aluminum Spade
+item.JAC.AluminumAxe.name=Aluminum Axe
+
+# GUI
+gui.blast.furnace.name=Blast Furnace
+gui.tip.blast.furnace.name=Multi-Block: 3x4x3 (Hollow)
+tile.tankgauge.name=Iron Tank Gauge
+tile.tankvalve.name=Iron Tank Valve
+tile.tankwall.name=Iron Tank Wall
+gui.tank.iron=Iron Tank
+
+item.liquid.creosote.bottle=Creosote Bottle
+item.creosotebucket.name=Creosote Bucket
+item.liquid.creosote.can=Creosote Can
+item.liquid.creosote.cell=Creosote Cell
+item.creosoteliquid.name=Creosote Oil
+item.liquid.creosote.refactory=Creosote Capsule
+item.liquid.creosote.wax=Creosote Capsule
 
 # Achievements
 achievement.TechUpMakeTitanium=Titanium Block
