@@ -32,6 +32,7 @@ public class ModItems
     public static ItemStack itemAdemartium;
     public static ItemStack itemRubber;
     public static ItemStack itemPlutonium;
+    public static ItemStack itemLead;
 
     public static ItemStack itemChasis;
     public static ItemStack itemFrame;
@@ -91,6 +92,7 @@ public class ModItems
         itemResource.addItem(11, 59, "item.JAC.Ademartium");
         itemResource.addItem(12, 60, "item.JAC.Rubber");
         itemResource.addItem(13, 61, "item.JAC.Plutonium");
+        itemResource.addItem(14, 62, "item.JAC.Lead");
         itemIngotTitanium = new ItemStack(itemResource, 1, 0);
         itemIngotAluminum = new ItemStack(itemResource, 1, 1);
         itemIngotCopper = new ItemStack(itemResource, 1, 2);
@@ -105,6 +107,7 @@ public class ModItems
         itemAdemartium = new ItemStack(itemResource, 1, 11);
         itemRubber = new ItemStack(itemResource, 1, 12);
         itemPlutonium = new ItemStack(itemResource, 1, 13);
+        itemLead = new ItemStack(itemResource, 1, 14);
         System.out.println("Done Loading Stage 1.");
         initCarParts();
         initStage2();
@@ -114,36 +117,36 @@ public class ModItems
     public static void initCarParts()
     {
         System.out.println("Loading Car Parts...");
-        itemResource.addItem(14, 62, "item.JAC.Chasis");
-        itemResource.addItem(15, 63, "item.JAC.Frame");
-        itemResource.addItem(16, 64, "item.JAC.Flux-Capicitor");
-        itemResource.addItem(17, 65, "item.JAC.Glass");
-        itemResource.addItem(18, 66, "item.JAC.PlutoniumReactor");
-        itemResource.addItem(19, 67, "item.JAC.Dashboard");
-        itemResource.addItem(20, 68, "item.JAC.Seats");
-        itemResource.addItem(21, 69, "item.JAC.Engine");
-        itemChasis = new ItemStack(itemResource, 1, 14);
-        itemFrame = new ItemStack(itemResource, 1, 15);
-        itemFluxCapicitor = new ItemStack(itemResource, 1, 16);
-        itemGlass = new ItemStack(itemResource, 1, 17);
-        itemPlutoniumReactor = new ItemStack(itemResource, 1, 18);
-        itemDashboard = new ItemStack(itemResource, 1, 19);
-        itemSeats = new ItemStack(itemResource, 1, 20);
-        itemEngine = new ItemStack(itemResource, 1, 21);
+        itemResource.addItem(15, 63, "item.JAC.Chasis");
+        itemResource.addItem(16, 64, "item.JAC.Frame");
+        itemResource.addItem(17, 65, "item.JAC.Flux-Capicitor");
+        itemResource.addItem(18, 66, "item.JAC.Glass");
+        itemResource.addItem(19, 67, "item.JAC.PlutoniumReactor");
+        itemResource.addItem(20, 68, "item.JAC.Dashboard");
+        itemResource.addItem(21, 69, "item.JAC.Seats");
+        itemResource.addItem(22, 70, "item.JAC.Engine");
+        itemChasis = new ItemStack(itemResource, 1, 15);
+        itemFrame = new ItemStack(itemResource, 1, 16);
+        itemFluxCapicitor = new ItemStack(itemResource, 1, 17);
+        itemGlass = new ItemStack(itemResource, 1, 18);
+        itemPlutoniumReactor = new ItemStack(itemResource, 1, 19);
+        itemDashboard = new ItemStack(itemResource, 1, 20);
+        itemSeats = new ItemStack(itemResource, 1, 21);
+        itemEngine = new ItemStack(itemResource, 1, 22);
         System.out.println("Done Loading Car Parts.");
     }
 
     public static void initStage2()
     {
         System.out.println("Loading Stage 2...");
-        itemResource.addItem(22, 66, "item.JAC.AdvancedAlloy");
-        itemResource.addItem(23, 67, "item.JAC.AluminumPlate");
-        itemResource.addItem(24, 68, "item.JAC.TitaniumPlate");
-        itemResource.addItem(25, 69, "item.JAC.CarbonPlating");
-        itemAdvancedAlloy = new ItemStack(itemResource, 1, 22);
-        itemAluminumPlate = new ItemStack(itemResource, 1, 23);
-        itemTitaniumPlate = new ItemStack(itemResource, 1, 24);
-        itemCarbonPlating = new ItemStack(itemResource, 1, 25);
+        itemResource.addItem(23, 67, "item.JAC.AdvancedAlloy");
+        itemResource.addItem(24, 68, "item.JAC.AluminumPlate");
+        itemResource.addItem(25, 69, "item.JAC.TitaniumPlate");
+        itemResource.addItem(26, 70, "item.JAC.CarbonPlating");
+        itemAdvancedAlloy = new ItemStack(itemResource, 1, 23);
+        itemAluminumPlate = new ItemStack(itemResource, 1, 24);
+        itemTitaniumPlate = new ItemStack(itemResource, 1, 25);
+        itemCarbonPlating = new ItemStack(itemResource, 1, 26);
         System.out.println("Done Loading Stage 2.");
     }
 
