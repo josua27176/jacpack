@@ -2,14 +2,17 @@ package org.Jacpack.TechUp.block.Machines;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import org.Jacpack.TechUp.block.AbstractMachineBlock;
+import org.Jacpack.TechUp.tileEntity.machine.TilePump;
 
 public class MachinePump extends AbstractMachineBlock {
 
-	public MachinePump(int id, Material material) {
-		super(id, material);
+	public MachinePump(int id) {
+		
+		super(id,Material.rock);
 	}
 
 	@Override
@@ -26,4 +29,9 @@ public class MachinePump extends AbstractMachineBlock {
 		return 0;
 	}
 	
+	
+	public TileEntity createNewTileEntity(World world)
+	{
+		return new TilePump();
+	}	
 }

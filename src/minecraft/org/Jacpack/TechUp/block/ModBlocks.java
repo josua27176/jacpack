@@ -2,6 +2,7 @@ package org.Jacpack.TechUp.block;
 
 import net.minecraft.item.ItemStack;
 
+import org.Jacpack.TechUp.block.Machines.MachinePump;
 import org.Jacpack.TechUp.util.Config;
 import org.Jacpack.TechUp.world.TerrainGenerator;
 
@@ -10,6 +11,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ModBlocks {
 	
 	public static BlockCustomOre blockOres;
+	public static MachinePump machinePump;
 	public static ItemStack itemOreTitanium;
 	public static ItemStack itemOreAluminum;
 	public static ItemStack itemOreCopper;
@@ -22,7 +24,8 @@ public class ModBlocks {
 	
 	public static void init() {
 		blockOres = new BlockCustomOre(Config.getBlockID("blocks.world.ores.id"));
-        blockOres.setBlockName("TechUpores");
+        machinePump = new MachinePump(Config.getBlockID("blocks.machines.pump.id"));
+        
         GameRegistry.registerBlock(blockOres, ItemCustomOre.class, "TechUpores");
         itemOreTitanium = new ItemStack(blockOres, 1, 0);
         itemOreAluminum = new ItemStack(blockOres, 1, 1);
@@ -34,6 +37,10 @@ public class ModBlocks {
         
         
         GameRegistry.registerWorldGenerator(new TerrainGenerator(blockOres));
+	}
+	
+	public static void initMachines() {
+		
 	}
 	
 }

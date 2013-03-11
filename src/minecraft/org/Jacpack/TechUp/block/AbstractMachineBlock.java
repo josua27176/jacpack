@@ -3,13 +3,16 @@ package org.Jacpack.TechUp.block;
 import org.Jacpack.TechUp.tileEntity.AbstactTileEntityMachine;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public abstract class AbstractMachineBlock extends Block {
+public abstract class AbstractMachineBlock extends BlockContainer {
 
+	protected AbstactTileEntityMachine tileEntity;
+	
 	public AbstractMachineBlock(int id, Material material) {
 		super(id, material);
 		this.setHardness(2.0F);
@@ -19,7 +22,7 @@ public abstract class AbstractMachineBlock extends Block {
 		this.setTextureFile(""); //TODO: add texture file for machine blocks
 		this.isBlockContainer = true;
 	}
-
+	
 	public void onBlockPlacedBy(World world, int PosX, int PosY, int PosZ, EntityPlayer entity)
 	{
 		
@@ -34,6 +37,8 @@ public abstract class AbstractMachineBlock extends Block {
 		
 		world.setBlockAndMetadataWithUpdate(PosX, PosY, PosZ, this.blockID, direction | metaBuffer << 2, true);
 	}
+	
+	
 	
 	
 	public abstract boolean onBlockActivated(World world, int posX, int posY, int posZ, EntityPlayer player, int parX, float mouseX, float mouseY, float mouseZ );
