@@ -24,7 +24,6 @@ public class ModBlocks {
 	
 	public static void init() {
 		blockOres = new BlockCustomOre(Config.getBlockID("blocks.world.ores.id"));
-        machinePump = new MachinePump(Config.getBlockID("blocks.machines.pump.id"));
         
         GameRegistry.registerBlock(blockOres, ItemCustomOre.class, "TechUpores");
         itemOreTitanium = new ItemStack(blockOres, 1, 0);
@@ -37,10 +36,13 @@ public class ModBlocks {
         
         
         GameRegistry.registerWorldGenerator(new TerrainGenerator(blockOres));
+        initMachines();
 	}
 	
 	public static void initMachines() {
-		
+
+        machinePump = new MachinePump(Config.getBlockID("blocks.machines.pump.id"));
+        GameRegistry.registerBlock(machinePump,"machine.JAC.Machine.Pump.name");
 	}
 	
 }

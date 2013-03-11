@@ -23,7 +23,7 @@ item.JAC.Refined.Uranium.name=Refined Uranium
 item.JAC.Ademartium.name=Ademartium
 item.JAC.Rubber.name=Rubber
 item.JAC.Plutonium.name=Plutonium
-item.JAC.Chasis.name=Chasis
+item.JAC.Chasis.name=Chassis
 item.JAC.Frame.name=Frame
 item.JAC.Flux-Capicitor.name=Flux Capicitor
 item.JAC.Glass.name=Windshield
@@ -35,6 +35,9 @@ item.JAC.AdvancedAlloy.name=Advanced Alloy
 item.JAC.AluminumPlate.name=Aluminum Plate
 item.JAC.TitaniumPlate.name=Titanium Plate
 item.JAC.CarbonPlating.name=Carbon Plating
+
+# Machine
+machine.JAC.Machine.Pump.name=Pump
 
 # Achievements
 

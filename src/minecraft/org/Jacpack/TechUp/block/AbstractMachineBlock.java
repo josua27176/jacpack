@@ -5,6 +5,7 @@ import org.Jacpack.TechUp.tileEntity.AbstactTileEntityMachine;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -21,6 +22,7 @@ public abstract class AbstractMachineBlock extends BlockContainer {
 		this.setResistance(0.5F);
 		this.setTextureFile(""); //TODO: add texture file for machine blocks
 		this.isBlockContainer = true;
+		this.setCreativeTab(CreativeTabs.tabRedstone);
 	}
 	
 	public void onBlockPlacedBy(World world, int PosX, int PosY, int PosZ, EntityPlayer entity)
