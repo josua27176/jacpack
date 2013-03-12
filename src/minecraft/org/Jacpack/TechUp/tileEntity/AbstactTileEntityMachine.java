@@ -19,8 +19,6 @@ public abstract class AbstactTileEntityMachine extends TileEntity implements IIn
 
 	protected ItemStack[] inv;
 	
-	// mapping inventories to sides
-
 	
 	protected HashMap<ForgeDirection,Integer> invMaps = new HashMap<ForgeDirection,Integer>(6);
 	

@@ -3,6 +3,7 @@ package org.Jacpack.TechUp.block;
 import net.minecraft.item.ItemStack;
 
 import org.Jacpack.TechUp.block.Machines.MachinePump;
+import org.Jacpack.TechUp.tileEntity.machine.TilePump;
 import org.Jacpack.TechUp.util.Config;
 import org.Jacpack.TechUp.world.TerrainGenerator;
 
@@ -41,8 +42,9 @@ public class ModBlocks {
 	
 	public static void initMachines() {
 
-        machinePump = new MachinePump(Config.getBlockID("blocks.machines.pump.id"));
+        machinePump = new MachinePump(246);//Config.getBlockID("blocks.machines.pump.id"));
         GameRegistry.registerBlock(machinePump,"machine.JAC.Machine.Pump.name");
+        GameRegistry.registerTileEntity(TilePump.class, "TilePump");
 	}
 	
 }

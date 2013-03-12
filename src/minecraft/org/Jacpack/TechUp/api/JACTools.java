@@ -1,6 +1,7 @@
 package org.Jacpack.TechUp.api;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Vector;
 
@@ -9,6 +10,7 @@ import java.util.Iterator;
 import org.Jacpack.TechUp.api.inventory.ISpecialInventory;
 import org.Jacpack.TechUp.api.old.Game;
 import org.Jacpack.TechUp.api.old.LiquidFilter;
+import org.Jacpack.TechUp.api.old.LiquidFilter.liquidMaterials;
 
 import net.minecraft.nbt.*;
 import net.minecraft.block.Block;
@@ -369,6 +371,11 @@ public class JACTools {
 		return world.getBlockMaterial(getXOnSide(x, dir), getYOnSide(y, dir), getZOnSide(z, dir));
 	}
 
+	public static int getBlockIdOnSide(World world, Vector<Integer> vec, ForgeDirection dir)
+	{
+		return world.getBlockId(getXOnSide(vec.get(0), dir), getYOnSide(vec.get(1), dir), getZOnSide(vec.get(2), dir));
+	}
+	
 	public static Material getBlockMaterialOnSide(World world, Vector<Integer> vec, ForgeDirection dir)
 	{
 		return world.getBlockMaterial(getXOnSide(vec.get(0), dir), getYOnSide(vec.get(1), dir), getZOnSide(vec.get(2), dir));
@@ -386,9 +393,9 @@ public class JACTools {
 		dirs[2] += dir.offsetZ;
 
 		Vector<Integer> vector = new Vector<Integer>(3);
-		vector.set(0, dirs[0]);
-		vector.set(1, dirs[1]);
-		vector.set(2, dirs[2]);
+		vector.add(dirs[0]);
+		vector.add(dirs[1]);
+		vector.add(dirs[2]);
 
 		return vector;
 	}
@@ -620,37 +627,5 @@ public class JACTools {
 	public static double getDistance(int x1, int z1, int x2, int z2)
 	{
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(z1 - z2, 2));
-	}
-
-	/**
-	 * 
-	 * @param world world
-	 * @param loc1 Destination position
-	 * @param loc2 Starting Position
-	 * @param validMatList Material
-	 * @param checkDist Maximum distance to check
-	 * @return
-	 */
-	public static boolean isBlockConnectedByMat(World world ,Vector<Integer> loc1, Vector<Integer> loc2, Material[] validMatList,int checkDist)
-	{
-		if(loc2.equals(loc1))
-			return true;
-
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
-		{
-			boolean correctMat = false;
-			for(Material i : validMatList)
-			{
-				if(i == JACTools.getBlockMaterialOnSide(world, loc2, dir))
-					correctMat = true;
-			}
-			
-			if(correctMat && JACTools.getDistance(loc1.get(0), loc1.get(2), loc2.get(0), loc2.get(2)) < checkDist)
-			{
-				return isBlockConnectedByMat(world,loc1, JACTools.getBlockLocationOnSide(loc2, dir), validMatList, checkDist);
-			}
-		}
-		
-		return false;
 	}
 }

@@ -13,11 +13,11 @@ public class LiquidFilter
     //Important! Make sure to add liquid block materials to the enumeration!!!!
     public static enum liquidMaterials
     {
-    	LAVA(Material.lava),
-    	WATER(Material.water);
+    	LAVA(11),
+    	WATER(9);
     	
     	public static final liquidMaterials[] LIQUID_MATERIALS = { LAVA,WATER };
-    	public static boolean isLiquid(Material mat)
+    	public static boolean isLiquid(int mat)
     	{
     		for(liquidMaterials i : LIQUID_MATERIALS)
     		{
@@ -26,20 +26,19 @@ public class LiquidFilter
     		}
     		return false;
     	}
-    	public static Material[] getLiquidMaterials()
+    	public static int[] getLiquidMaterials()
     	{
-    		Material[] ret = new Material[length];
+    		int[] t = new int[LIQUID_MATERIALS.length];
     		
-    		for(int i = 0; i < length; i++)
-    			ret[i] = LIQUID_MATERIALS[i].material;
-    		
-    		return ret;
+    		for(int x = 0; x < LIQUID_MATERIALS.length; x++)
+    			t[x] = LIQUID_MATERIALS[x].material;
+    		return t;
     			
     	}
     	
     	public static final int length = LIQUID_MATERIALS.length;
-    	private Material material;
-    	private liquidMaterials(Material mat)
+    	private int material;
+    	private liquidMaterials(int mat)
     	{
     		material = mat;
     	}
