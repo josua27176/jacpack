@@ -32,10 +32,12 @@ public class TilePump extends AbstactTileEntityMachine {
 	private int liquidAmt = 0;
 
 	private final int Capacity = 10000; //Internal storage is 10 buckets
-	private final int liquidCheckDistance = 5; //80; //Check in a radius of about 5 chunks
+	private final int liquidCheckDistance = 50; //80; //Check in a radius of about 5 chunks
+	
+	Stack<ArrayList<Integer>> suckStack = new Stack<ArrayList<Integer>>();
 	int[] targetBlock = new int[3];
 	int[] liquidUnder = new int[3];
-	int currDir = 2;
+	int currDir = 1;
 
 	public TilePump()
 	{
@@ -89,15 +91,25 @@ public class TilePump extends AbstactTileEntityMachine {
 		liquidStack.add(tmp);
 
 		
-		
-		buffer = getNextWater(buffer, liquidStack, 0);
+		if(suckStack.isEmpty())
+			buffer = getNextWater(buffer, liquidStack, 0);
+		else
+		{
+			buffer[0] = suckStack.peek().get(0);
+			buffer[1] = suckStack.peek().get(1);
+			buffer[2] = suckStack.pop().get(2);
+		}
 
+		if(!LiquidFilter.liquidMaterials.isFlowing(worldObj.getBlockId(buffer[0], buffer[1], buffer[2])))
+			liquidAmt++;
+		
 		worldObj.setBlock(buffer[0], buffer[1], buffer[2], 0);
-		liquidAmt++;
+		
 	}
 
 	private int[] getNextWater(int[] buffer, Stack<ArrayList<Integer>> liquidStack, int maxStack)
 	{
+		currDir = 1;
 		for(int i = currDir; ForgeDirection.getOrientation(i) != ForgeDirection.UNKNOWN; i++)
 		{
 			buffer[0] += ForgeDirection.getOrientation(i).offsetX;
@@ -110,16 +122,17 @@ public class TilePump extends AbstactTileEntityMachine {
 			tmp.add(buffer[2]);
 			
 			if(LiquidFilter.liquidMaterials.isLiquid(worldObj.getBlockId(buffer[0], buffer[1], buffer[2]))
-					&& !liquidStack.contains(tmp))
+					&& !liquidStack.contains(tmp)
+					&& JACTools.getDistance(buffer[0], buffer[2], this.xCoord, this.zCoord) < liquidCheckDistance)
 			{
-				
+				suckStack.add(tmp);
 				liquidStack.push(tmp);
 				return getNextWater(buffer, liquidStack, maxStack);
 			}
 			else if(liquidStack.size() > maxStack)
 			{
 				maxStack = liquidStack.size();
-				targetBlock =buffer;
+				targetBlock = buffer;
 				buffer[0] = liquidStack.peek().get(0);
 				buffer[1] = liquidStack.peek().get(1);
 				buffer[2] = liquidStack.peek().get(2);
