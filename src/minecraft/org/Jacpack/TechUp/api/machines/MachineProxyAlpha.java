@@ -8,24 +8,24 @@ import net.minecraft.tileentity.TileEntity;
 
 public class MachineProxyAlpha implements IMachineProxy
 {
-    public String getTag(int var1)
+    public String getTag(int meta)
     {
-        return EnumMachineAlpha.fromId(var1).getTag();
+        return EnumMachineAlpha.fromId(meta).getTag();
     }
 
-    public int getTexture(int var1, int var2)
+    public int getTexture(int meta, int side)
     {
-        return EnumMachineAlpha.fromId(var1).getTexture(var2);
+        return EnumMachineAlpha.fromId(meta).getTexture(side);
     }
 
-    public TileEntity getTileEntity(int var1)
+    public TileEntity getTileEntity(int meta)
     {
-        return EnumMachineAlpha.fromId(var1).getTileEntity();
+        return EnumMachineAlpha.fromId(meta).getTileEntity();
     }
 
-    public Class getTileClass(int var1)
+    public Class getTileClass(int meta)
     {
-        return EnumMachineAlpha.fromId(var1).getTileClass();
+        return EnumMachineAlpha.fromId(meta).getTileClass();
     }
 
     public List getCreativeList()
@@ -33,8 +33,8 @@ public class MachineProxyAlpha implements IMachineProxy
         return EnumMachineAlpha.getCreativeList();
     }
 
-    public void addItemInfo(ItemStack var1, EntityPlayer var2, List var3, boolean var4)
+    public void addItemInfo(ItemStack stack, EntityPlayer player, List info, boolean adv)
     {
-        EnumMachineAlpha.fromId(var1.getItemDamage()).addItemInfo(var1, var2, var3, var4);
+        EnumMachineAlpha.fromId(stack.getItemDamage()).addItemInfo(stack, player, info, adv);
     }
 }

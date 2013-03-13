@@ -18,45 +18,32 @@ public class AchevementHelper {
 	public static AchievementPage achievepage = new AchievementPage("Time-Traveler", new Achievement[0]);
 	private static TreeMap achievebycraft = new TreeMap(itemStackComparator);
 	
-	public static void registerAchievement(int var0, String var1, int var2, int var3, ItemStack var4, Object var5, boolean var6)
+	public static void registerAchievement(int id, String name, int x, int y, ItemStack icon, Object require, boolean special)
+	  {
+	    Achievement acreq = null;
+	    if ((require instanceof Achievement))
+	      acreq = (Achievement)require;
+	    else if ((require instanceof String)) {
+	      acreq = (Achievement)achievelist.get((String)require);
+	    }
+	    Achievement ac = new Achievement(id, name, x, y, icon, acreq);
+	    ac.registerAchievement();
+	    if (special) ac.setSpecial();
+	    achievelist.put(name, ac);
+	    achievepage.getAchievements().add(ac);
+	  }
+	
+    public static void registerAchievement(int id, String name, int x, int y, ItemStack icon, Object require)
     {
-        Achievement var7 = null;
-
-        if (var5 instanceof Achievement)
-        {
-            var7 = (Achievement)var5;
-        }
-        else if (var5 instanceof String)
-        {
-            var7 = (Achievement)achievelist.get((String)var5);
-        }
-
-        Achievement var8 = new Achievement(var0, var1, var2, var3, var4, var7);
-        var8.registerAchievement();
-
-        if (var6)
-        {
-            var8.setSpecial();
-        }
-
-        achievelist.put(var1, var8);
-        achievepage.getAchievements().add(var8);
-    }
-
-    public static void registerAchievement(int var0, String var1, int var2, int var3, ItemStack var4, Object var5)
-    {
-        registerAchievement(var0, var1, var2, var3, var4, var5, false);
-    }
+        registerAchievement(id, name, x, y, icon, require, false);
+      }
     
-    public static void addCraftingAchievement(ItemStack var0, String var1)
+    public static void addCraftingAchievement(ItemStack target, String id)
     {
-        Achievement var2 = (Achievement)achievelist.get(var1);
-
-        if (var2 != null)
-        {
-            achievebycraft.put(var0, var2);
-        }
-    }
+        Achievement ac = (Achievement)achievelist.get(id);
+        if (ac == null) return;
+        achievebycraft.put(target, ac);
+      }
     
     public static void triggerAchievement(EntityPlayer var0, String var1)
     {
@@ -67,15 +54,11 @@ public class AchevementHelper {
             var0.triggerAchievement(var2);
         }
     }
-
-    public static void onCrafting(EntityPlayer var0, ItemStack var1)
-    {
-        Achievement var2 = (Achievement)achievebycraft.get(var1);
-
-        if (var2 != null)
-        {
-            var0.triggerAchievement(var2);
-        }
-    }
+    
+    public static void onCrafting(EntityPlayer player, ItemStack ist) {
+        Achievement ac = (Achievement)achievebycraft.get(ist);
+        if (ac == null) return;
+        player.triggerAchievement(ac);
+      }
 	
 }

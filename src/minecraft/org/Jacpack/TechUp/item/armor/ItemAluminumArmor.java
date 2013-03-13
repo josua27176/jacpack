@@ -10,9 +10,9 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IArmorTextureProvider;
 
-public class ItemCopperArmor extends ItemArmor implements IArmorTextureProvider
+public class ItemAluminumArmor extends ItemArmor implements IArmorTextureProvider
 {
-	 public ItemCopperArmor(int i, EnumArmorMaterial enumArmorMaterial, int l)
+	 public ItemAluminumArmor(int i, EnumArmorMaterial enumArmorMaterial, int l)
 	    {
 	        super(i, enumArmorMaterial, 0, l);
 	        

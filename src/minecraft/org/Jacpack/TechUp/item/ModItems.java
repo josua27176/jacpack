@@ -1,13 +1,22 @@
 package org.Jacpack.TechUp.item;
 
 import org.Jacpack.TechUp.creativetabs.CreativeTabsHandler;
+import org.Jacpack.TechUp.item.armor.ItemAluminumArmor;
 import org.Jacpack.TechUp.item.armor.ItemBronzeArmor;
 import org.Jacpack.TechUp.item.armor.ItemCopperArmor;
 import org.Jacpack.TechUp.item.armor.ItemHazmatArmor;
 import org.Jacpack.TechUp.item.armor.ItemSilverArmor;
 import org.Jacpack.TechUp.item.armor.ItemSteelArmor;
+import org.Jacpack.TechUp.item.tools.ItemJacAxe;
+import org.Jacpack.TechUp.item.tools.ItemJacHoe;
+import org.Jacpack.TechUp.item.tools.ItemJacPickaxe;
+import org.Jacpack.TechUp.item.tools.ItemJacSpade;
+import org.Jacpack.TechUp.item.tools.ItemJacSword;
 import org.Jacpack.TechUp.util.Config;
+import org.Jacpack.TechUp.util.misc.Reference;
+
 import static org.Jacpack.TechUp.item.armor.ArmorHelper.*;
+import static org.Jacpack.TechUp.item.tools.ToolsHelper.*; 
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
@@ -68,31 +77,66 @@ public class ModItems
     public static Item itemSilverLeggings;
     public static Item itemSilverBoots;
     
+    public static Item itemAluminumHelment;
+    public static Item itemAluminumChestplate;
+    public static Item itemAluminumLeggings;
+    public static Item itemAluminumBoots;
+    
     public static Item itemHazmatHelment;
     public static Item itemHazmatChesplate;
     public static Item itemHazmatLeggings;
     public static Item itemHazmatBoots;
+    
+    public static Item itemBronzePickaxe;
+    public static Item itemBronzeSword;
+    public static Item itemBronzeHoe;
+    public static Item itemBronzeSpade;
+    public static Item itemBronzeAxe;
+    
+    public static Item itemSteelPickaxe;
+    public static Item itemSteelSword;
+    public static Item itemSteelHoe;
+    public static Item itemSteelSpade;
+    public static Item itemSteelAxe;
+    
+    public static Item itemCopperPickaxe;
+    public static Item itemCopperSword;
+    public static Item itemCopperHoe;
+    public static Item itemCopperSpade;
+    public static Item itemCopperAxe;
+    
+    public static Item itemSilverPickaxe;
+    public static Item itemSilverSword;
+    public static Item itemSilverHoe;
+    public static Item itemSilverSpade;
+    public static Item itemSilverAxe;
+    
+    public static Item itemAluminumPickaxe;
+    public static Item itemAluminumSword;
+    public static Item itemAluminumHoe;
+    public static Item itemAluminumSpade;
+    public static Item itemAluminumAxe;
 
     public static void init()
     {
         System.out.println("Loading Stage 1...");
-        itemResource = new ItemParts(Config.getItemID("items.base.resource.id"), "ComingSoon");
+        itemResource = new ItemParts(Config.getItemID("items.base.resource.id"), Reference.SPRITE_SHEET_LOCATION + Reference.ITEM_SPRITE_SHEET);
         itemResource.setCreativeTab(CreativeTabsHandler.tabTechUpI);
-        itemResource.addItem(0, 48, "item.JAC.Titanium");
-        itemResource.addItem(1, 49, "item.JAC.Aluminum");
-        itemResource.addItem(2, 50, "item.JAC.Copper");
-        itemResource.addItem(3, 51, "item.JAC.Silver");
-        itemResource.addItem(4, 52, "item.JAC.Tin");
-        itemResource.addItem(5, 53, "item.JAC.Bronze");
-        itemResource.addItem(6, 54, "item.JAC.Steel");
-        itemResource.addItem(7, 55, "item.JAC.Crushed.Copper");
-        itemResource.addItem(8, 56, "item.JAC.Crushed.Tin");
-        itemResource.addItem(9, 57, "item.JAC.Crushed.Bronze");
-        itemResource.addItem(10, 58, "item.JAC.Refined.Uranium");
-        itemResource.addItem(11, 59, "item.JAC.Ademartium");
-        itemResource.addItem(12, 60, "item.JAC.Rubber");
-        itemResource.addItem(13, 61, "item.JAC.Plutonium");
-        itemResource.addItem(14, 62, "item.JAC.Lead");
+        itemResource.addItem(0, 166, "item.JAC.Titanium");
+        itemResource.addItem(1, 165, "item.JAC.Aluminum");
+        itemResource.addItem(2, 161, "item.JAC.Copper");
+        itemResource.addItem(3, 164, "item.JAC.Silver");
+        itemResource.addItem(4, 160, "item.JAC.Tin");
+        itemResource.addItem(5, 162, "item.JAC.Bronze");
+        itemResource.addItem(6, 167, "item.JAC.Steel");
+        itemResource.addItem(7, 145, "item.JAC.Crushed.Copper");
+        itemResource.addItem(8, 144, "item.JAC.Crushed.Tin");
+        itemResource.addItem(9, 146, "item.JAC.Crushed.Bronze");
+        itemResource.addItem(10, 168, "item.JAC.Refined.Uranium");
+        itemResource.addItem(11, 32, "item.JAC.Ademartium");
+        itemResource.addItem(12, 170, "item.JAC.Rubber");
+        itemResource.addItem(13, 169, "item.JAC.Plutonium");
+        itemResource.addItem(14, 163, "item.JAC.Lead");
         itemIngotTitanium = new ItemStack(itemResource, 1, 0);
         itemIngotAluminum = new ItemStack(itemResource, 1, 1);
         itemIngotCopper = new ItemStack(itemResource, 1, 2);
@@ -112,6 +156,7 @@ public class ModItems
         initCarParts();
         initStage2();
         initArmor();
+        initTools();
     }
 
     public static void initCarParts()
@@ -140,9 +185,9 @@ public class ModItems
     {
         System.out.println("Loading Stage 2...");
         itemResource.addItem(23, 67, "item.JAC.AdvancedAlloy");
-        itemResource.addItem(24, 68, "item.JAC.AluminumPlate");
-        itemResource.addItem(25, 69, "item.JAC.TitaniumPlate");
-        itemResource.addItem(26, 70, "item.JAC.CarbonPlating");
+        itemResource.addItem(24, 181, "item.JAC.AluminumPlate");
+        itemResource.addItem(25, 182, "item.JAC.TitaniumPlate");
+        itemResource.addItem(26, 186, "item.JAC.CarbonPlating");
         itemAdvancedAlloy = new ItemStack(itemResource, 1, 23);
         itemAluminumPlate = new ItemStack(itemResource, 1, 24);
         itemTitaniumPlate = new ItemStack(itemResource, 1, 25);
@@ -152,30 +197,70 @@ public class ModItems
 
     public static void initArmor()
     {
-    	itemBronzeHelment = (new ItemBronzeArmor(742, JACBronzeArmor, 0)).setItemName("JAC.bronzehelmet");
-    	itemBronzeChestplate = (new ItemBronzeArmor(743, JACBronzeArmor, 1)).setItemName("JAC.bronzechesplate");
-    	itemBronzeLeggings = (new ItemBronzeArmor(744, JACBronzeArmor, 2)).setItemName("JAC.bronzeleggings");
-    	itemBronzeBoots = (new ItemBronzeArmor(745, JACBronzeArmor, 3)).setItemName("JAC.bronzeboots");
+    	System.out.println("Loading Armor...");
+    	itemBronzeHelment = (new ItemBronzeArmor(Config.getItemID("items.base.Bronze.helmet.id"), JACBronzeArmor, 0)).setIconCoord(2, 0).setItemName("JAC.bronzehelmet");
+    	itemBronzeChestplate = (new ItemBronzeArmor(Config.getItemID("items.base.Bronze.Chestplate.id"), JACBronzeArmor, 1)).setIconCoord(2, 1).setItemName("JAC.bronzechesplate");
+    	itemBronzeLeggings = (new ItemBronzeArmor(Config.getItemID("items.base.Bronze.Leggings.id"), JACBronzeArmor, 2)).setIconCoord(2, 2).setItemName("JAC.bronzeleggings");
+    	itemBronzeBoots = (new ItemBronzeArmor(Config.getItemID("items.base.Bronze.Boots.id"), JACBronzeArmor, 3)).setIconCoord(2, 3).setItemName("JAC.bronzeboots");
     	
-    	itemSteelHelmet = (new ItemSteelArmor(746, JACSteelArmor, 0)).setItemName("JAC.steelhelmet");
-    	itemSteelChestplate = (new ItemSteelArmor(747, JACSteelArmor, 1)).setItemName("JAC.steelchestplate");
-    	itemSteelLeggings = (new ItemSteelArmor(748, JACSteelArmor, 2)).setItemName("JAC.steelleggings");
-    	itemSteelBoots = (new ItemSteelArmor(749, JACSteelArmor, 3)).setItemName("JAC.steelboots");
+    	itemSteelHelmet = (new ItemSteelArmor(Config.getItemID("items.base.Steel.helmet.id"), JACSteelArmor, 0)).setItemName("JAC.steelhelmet");
+    	itemSteelChestplate = (new ItemSteelArmor(Config.getItemID("items.base.Steel.Chestplate.id"), JACSteelArmor, 1)).setItemName("JAC.steelchestplate");
+    	itemSteelLeggings = (new ItemSteelArmor(Config.getItemID("items.base.Steel.Leggings.id"), JACSteelArmor, 2)).setItemName("JAC.steelleggings");
+    	itemSteelBoots = (new ItemSteelArmor(Config.getItemID("items.base.Steel.Boots.id"), JACSteelArmor, 3)).setItemName("JAC.steelboots");
     	
-    	itemCopperHelment = (new ItemCopperArmor(780, JACCopperArmor, 0)).setItemName("JAC.copperhelment");
-    	itemCopperChestplate = (new ItemCopperArmor(781, JACCopperArmor, 1)).setItemName("JAC.copperchestplate");
-    	itemCopperLeggings = (new ItemCopperArmor(782, JACCopperArmor, 2)).setItemName("JAC.copperleggings");
-    	itemCopperBoots = (new ItemCopperArmor(783, JACCopperArmor, 3)).setItemName("JAC.copperboots");
+    	itemCopperHelment = (new ItemCopperArmor(Config.getItemID("items.base.Copper.helmet.id"), JACCopperArmor, 0)).setItemName("JAC.copperhelment");
+    	itemCopperChestplate = (new ItemCopperArmor(Config.getItemID("items.base.Copper.Chestplate.id"), JACCopperArmor, 1)).setItemName("JAC.copperchestplate");
+    	itemCopperLeggings = (new ItemCopperArmor(Config.getItemID("items.base.Copper.Leggings.id"), JACCopperArmor, 2)).setItemName("JAC.copperleggings");
+    	itemCopperBoots = (new ItemCopperArmor(Config.getItemID("items.base.Copper.Boots.id"), JACCopperArmor, 3)).setItemName("JAC.copperboots");
     	
-    	itemSilverHelment = (new ItemSilverArmor(784, JACSilverArmor, 0)).setItemName("JAC.silverhelmet");
-    	itemSilverChestplate = (new ItemSilverArmor(785, JACSilverArmor, 1)).setItemName("JAC.silverchestplate");
-    	itemSilverLeggings = (new ItemSilverArmor(786, JACSilverArmor, 2)).setItemName("JAC.silverleggings");
-    	itemSilverBoots = (new ItemSilverArmor(787, JACSilverArmor, 3)).setItemName("JAC.silverboots");
+    	itemSilverHelment = (new ItemSilverArmor(Config.getItemID("items.base.Silver.helmet.id"), JACSilverArmor, 0)).setItemName("JAC.silverhelmet");
+    	itemSilverChestplate = (new ItemSilverArmor(Config.getItemID("items.base.Silver.Chestplate.id"), JACSilverArmor, 1)).setItemName("JAC.silverchestplate");
+    	itemSilverLeggings = (new ItemSilverArmor(Config.getItemID("items.base.Silver.Leggings.id"), JACSilverArmor, 2)).setItemName("JAC.silverleggings");
+    	itemSilverBoots = (new ItemSilverArmor(Config.getItemID("items.base.Silver.Boots.id"), JACSilverArmor, 3)).setItemName("JAC.silverboots");
     	
-    	itemHazmatHelment = (new ItemHazmatArmor(788, JACHazmatArmor, 0)).setItemName("JAC.hazmathelmet");
-    	itemHazmatChesplate = (new ItemHazmatArmor(789, JACHazmatArmor, 1)).setItemName("JAC.hazmatchestplate");
-    	itemHazmatLeggings = (new ItemHazmatArmor(790, JACHazmatArmor, 2)).setItemName("JAC.hazmatleggings");
-    	itemHazmatBoots = (new ItemHazmatArmor(791, JACHazmatArmor, 3)).setItemName("JAC.hazmatboots");
+    	itemAluminumHelment = (new ItemAluminumArmor(Config.getItemID("items.base.Aluminum.helmet.id"), JACAluminumArmor, 0)).setItemName("JAC.Aluminumhelmet");
+    	itemAluminumChestplate = (new ItemAluminumArmor(Config.getItemID("items.base.Aluminum.Chestplate.id"), JACAluminumArmor, 1)).setItemName("JAC.Aluminumchestplate");
+    	itemAluminumLeggings = (new ItemAluminumArmor(Config.getItemID("items.base.Aluminum.Leggings.id"), JACAluminumArmor, 2)).setItemName("JAC.Aluminumleggings");
+    	itemAluminumBoots = (new ItemAluminumArmor(Config.getItemID("items.base.Aluminum.Boots.id"), JACAluminumArmor, 3)).setItemName("JAC.Aluminumboots");
+    	
+    	itemHazmatHelment = (new ItemHazmatArmor(Config.getItemID("items.base.Hazmat.helmet.id"), JACHazmatArmor, 0)).setItemName("JAC.hazmathelmet");
+    	itemHazmatChesplate = (new ItemHazmatArmor(Config.getItemID("items.base.Hazmat.Chestplate.id"), JACHazmatArmor, 1)).setItemName("JAC.hazmatchestplate");
+    	itemHazmatLeggings = (new ItemHazmatArmor(Config.getItemID("items.base.Hazmat.Leggings.id"), JACHazmatArmor, 2)).setItemName("JAC.hazmatleggings");
+    	itemHazmatBoots = (new ItemHazmatArmor(Config.getItemID("items.base.Hazmat.Boots.id"), JACHazmatArmor, 3)).setItemName("JAC.hazmatboots");
+    	System.out.println("Done Loading Armor.");
+    	
+    }
+    
+    public static void initTools() {
+    	itemBronzePickaxe = (new ItemJacPickaxe(Config.getItemID("items.base.Bronze.Pickaxe.id"), JACBronzeTool).setIconCoord(2, 6).setItemName("JAC.BronzePickaxe"));
+    	itemBronzeSword = (new ItemJacSword(Config.getItemID("items.base.Bronze.Sword.id"), JACBronzeTool).setIconCoord(2, 4).setItemName("JAC.BronzeSword"));
+    	itemBronzeHoe = (new ItemJacHoe(Config.getItemID("items.base.Bronze.Hoe.id"), JACBronzeTool).setIconCoord(2, 8).setItemName("JAC.BronzeHoe"));
+    	itemBronzeSpade = (new ItemJacSpade(Config.getItemID("items.base.Bronze.Spade.id"), JACBronzeTool).setIconCoord(2, 5).setItemName("JAC.BronzeSpade"));
+        itemBronzeAxe = (new ItemJacAxe(Config.getItemID("items.base.Bronze.Axe.id"), JACBronzeTool).setIconCoord(2, 7).setItemName("JAC.BronzeAxe"));
+        
+        itemSteelPickaxe = (new ItemJacPickaxe(Config.getItemID("items.base.Steel.Pickaxe.id"), JACSteelTool).setItemName("JAC.SteelPickaxe"));
+        itemSteelSword = (new ItemJacSword(Config.getItemID("items.base.Steel.Sword.id"), JACSteelTool).setItemName("JAC.SteelSword"));
+        itemSteelHoe = (new ItemJacHoe(Config.getItemID("items.base.Steel.Hoe.id"), JACSteelTool).setItemName("JAC.SteelHoe"));
+        itemSteelSpade = (new ItemJacSpade(Config.getItemID("items.base.Steel.Spade.id"), JACSteelTool).setItemName("JAC.SteelSpade"));
+        itemSteelAxe = (new ItemJacAxe(Config.getItemID("items.base.Steel.Axe.id"), JACSteelTool).setItemName("JAC.SteelAxe"));
+        
+        itemCopperPickaxe = (new ItemJacPickaxe(Config.getItemID("items.base.Copper.Pickaxe.id"), JACCopperTool).setItemName("JAC.CopperPickaxe"));
+        itemCopperSword = (new ItemJacSword(Config.getItemID("items.base.Copper.Sword.id"), JACCopperTool).setItemName("JAC.CopperSword"));
+        itemCopperHoe = (new ItemJacHoe(Config.getItemID("items.base.Copper.Hoe.id"), JACCopperTool).setItemName("JAC.CopperHoe"));
+        itemCopperSpade = (new ItemJacSpade(Config.getItemID("items.base.Copper.Spade.id"), JACCopperTool).setItemName("JAC.CopperSpade"));
+        itemCopperAxe = (new ItemJacAxe(Config.getItemID("items.base.Copper.Axe.id"), JACCopperTool).setItemName("JAC.CopperAxe"));
+        
+        itemSilverPickaxe = (new ItemJacPickaxe(Config.getItemID("items.base.Silver.Pickaxe.id"), JACSilverTool).setItemName("JAC.SilverPickaxe"));
+        itemSilverSword = (new ItemJacSword(Config.getItemID("items.base.Silver.Sword.id"), JACSilverTool).setItemName("JAC.SilverSword"));
+        itemSilverHoe = (new ItemJacHoe(Config.getItemID("items.base.Silver.Hoe.id"), JACSilverTool).setItemName("JAC.SilverHoe"));
+        itemSilverSpade = (new ItemJacSpade(Config.getItemID("items.base.Silver.Spade.id"), JACSilverTool).setItemName("JAC.SilverSpade"));
+        itemSilverAxe = (new ItemJacAxe(Config.getItemID("items.base.Silver.Axe.id"), JACSilverTool).setItemName("JAC.SilverAxe"));
+        
+        itemAluminumPickaxe = (new ItemJacPickaxe(Config.getItemID("items.base.Aluminum.Pickaxe.id"), JACAluminumTool).setItemName("JAC.AluminumPickaxe"));
+        itemAluminumSword = (new ItemJacSword(Config.getItemID("items.base.Aluminum.Sword.id"), JACAluminumTool).setItemName("JAC.AluminumSword"));
+        itemAluminumHoe = (new ItemJacHoe(Config.getItemID("items.base.Aluminum.Hoe.id"), JACAluminumTool).setItemName("JAC.AluminumHoe"));
+        itemAluminumSpade = (new ItemJacSpade(Config.getItemID("items.base.Aluminum.Spade.id"), JACAluminumTool).setItemName("JAC.AluminumSpade"));
+        itemAluminumAxe = (new ItemJacAxe(Config.getItemID("items.base.Aluminum.Axe.id"), JACAluminumTool).setItemName("JAC.AluminumAxe"));
     	
     }
 }

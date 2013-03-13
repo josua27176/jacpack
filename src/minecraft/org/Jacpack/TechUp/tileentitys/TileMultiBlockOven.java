@@ -15,7 +15,7 @@ import net.minecraftforge.common.ISidedInventory;
 public abstract class TileMultiBlockOven extends TileMultiBlockInventory implements ISidedInventory
 {
     protected int cookTime;
-    protected boolean cooking;
+    protected boolean cooking = true;
     private boolean wasBurning;
 
     public TileMultiBlockOven(String var1, int var2, List var3)
@@ -99,18 +99,22 @@ public abstract class TileMultiBlockOven extends TileMultiBlockInventory impleme
         this.cookTime = var1.readInt();
         this.cooking = var1.readBoolean();
     }
-
-    public int getCookTime()
-    {
-        TileMultiBlockOven var1 = (TileMultiBlockOven)this.getMasterBlock();
-        return var1 != null ? var1.cookTime : -1;
-    }
-
-    public boolean isCooking()
-    {
-        TileMultiBlockOven var1 = (TileMultiBlockOven)this.getMasterBlock();
-        return var1 != null ? var1.cooking : false;
-    }
+    
+    public int getCookTime() {
+        TileMultiBlockOven masterOven = (TileMultiBlockOven)getMasterBlock();
+        if (masterOven != null) {
+          return masterOven.cookTime;
+        }
+        return -1;
+      }
+    
+    public boolean isCooking() {
+        TileMultiBlockOven masterOven = (TileMultiBlockOven)getMasterBlock();
+        if (masterOven != null) {
+          return masterOven.cooking;
+        }
+        return false;
+      }
 
     public boolean isBurning()
     {
@@ -119,9 +123,12 @@ public abstract class TileMultiBlockOven extends TileMultiBlockInventory impleme
 
     public void setCooking(boolean var1)
     {
-        if (this.cooking != var1)
+    	//System.out.println(this.toString());
+    	
+        if (cooking != var1)
         {
-            this.cooking = var1;
+            cooking = var1;
+            System.out.println("Am Burning");
             this.sendUpdateToClient();
         }
     }
@@ -132,21 +139,16 @@ public abstract class TileMultiBlockOven extends TileMultiBlockInventory impleme
     }
 
     public abstract int getTotalCookTime();
-
-    public int getCookProgressScaled(int var1)
-    {
-        if (this.cookTime != 0 && this.getTotalCookTime() != 0)
-        {
-            int var2 = this.cookTime * var1 / this.getTotalCookTime();
-            var2 = Math.min(var2, var1);
-            var2 = Math.max(var2, 0);
-            return var2;
+    
+    public int getCookProgressScaled(int i) {
+        if ((this.cookTime == 0) || (getTotalCookTime() == 0)) {
+          return 0;
         }
-        else
-        {
-            return 0;
-        }
-    }
+        int scale = this.cookTime * i / getTotalCookTime();
+        scale = Math.min(scale, i);
+        scale = Math.max(scale, 0);
+        return scale;
+      }
 
     public abstract int getBurnProgressScaled(int var1);
 

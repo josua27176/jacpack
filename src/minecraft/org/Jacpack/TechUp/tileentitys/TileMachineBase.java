@@ -7,8 +7,8 @@ import java.util.Random;
 import java.util.logging.Level;
 
 import org.Jacpack.TechUp.api.JACTools;
+import org.Jacpack.TechUp.api.machines.Game;
 import org.Jacpack.TechUp.api.machines.IEnumMachine;
-import org.Jacpack.TechUp.api.old.*;
 import org.Jacpack.TechUp.api.inventory.*;
 import org.Jacpack.TechUp.block.BlockMachine;
 

@@ -6,5 +6,5 @@ public interface IIndicatorController
 {
     List getToolTip();
 
-    int getScaledLevel(int var1);
+    int getScaledLevel(int paramInt);
 }

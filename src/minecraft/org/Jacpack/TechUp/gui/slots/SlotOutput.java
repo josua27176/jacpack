@@ -6,15 +6,15 @@ import net.minecraft.item.ItemStack;
 
 public class SlotOutput extends Slot
 {
-    public SlotOutput(IInventory var1, int var2, int var3, int var4)
+    public SlotOutput(IInventory iinventory, int slotIndex, int posX, int posY)
     {
-        super(var1, var2, var3, var4);
+        super(iinventory, slotIndex, posX, posY);
     }
 
     /**
      * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
      */
-    public boolean isItemValid(ItemStack var1)
+    public boolean isItemValid(ItemStack itemstack)
     {
         return false;
     }

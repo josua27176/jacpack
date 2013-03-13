@@ -1,21 +1,23 @@
 package org.Jacpack.TechUp.crafting;
 
 import java.util.List;
+
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public interface IBlastFurnaceCraftingManager
 {
-    void addRecipe(int var1, int var2, int var3, ItemStack var4);
+    void addRecipe(int paramInt1, int paramInt2, int paramInt3, ItemStack paramur);
 
-    void addRecipe(int var1, int var2, ItemStack var3);
+    void addRecipe(int paramInt1, int paramInt2, ItemStack paramur);
 
-    void addRecipe(ItemStack var1, boolean var2, int var3, ItemStack var4);
+    void addRecipe(ItemStack paramur1, boolean paramBoolean, int paramInt, ItemStack paramur2);
 
     List getFuels();
 
-    IBlastFurnaceRecipe getRecipe(int var1, int var2);
+    IBlastFurnaceRecipe getRecipe(int paramInt1, int paramInt2);
 
-    IBlastFurnaceRecipe getRecipe(ItemStack var1);
+    IBlastFurnaceRecipe getRecipe(ItemStack paramur);
 
     List getRecipes();
 }

@@ -1,4 +1,4 @@
-package org.Jacpack.TechUp.api.old;
+package org.Jacpack.TechUp.api.machines;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.liquids.LiquidStack;

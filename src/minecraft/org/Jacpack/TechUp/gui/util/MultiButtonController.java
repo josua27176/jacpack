@@ -5,15 +5,14 @@ public class MultiButtonController
     private int currentState;
     private final IMultiButtonState[] validStates;
 
-    private MultiButtonController(int var1, IMultiButtonState ... var2)
+    private MultiButtonController(int startState, IMultiButtonState[] validStates)
     {
-        this.currentState = var1;
-        this.validStates = var2;
+        this.currentState = startState;
+        this.validStates = validStates;
     }
 
-    public static MultiButtonController getController(int var0, IMultiButtonState ... var1)
-    {
-        return new MultiButtonController(var0, var1);
+    public static MultiButtonController getController(int startState, IMultiButtonState[] validStates) {
+        return new MultiButtonController(startState, validStates);
     }
 
     public MultiButtonController copy()
@@ -26,31 +25,24 @@ public class MultiButtonController
         return this.validStates;
     }
 
-    public int incrementState()
-    {
-        int var1 = this.currentState + 1;
-
-        if (var1 >= this.validStates.length)
-        {
-            var1 = 0;
+    public int incrementState() {
+        int newState = this.currentState + 1;
+        if (newState >= this.validStates.length) {
+          newState = 0;
         }
-
-        this.currentState = var1;
+        this.currentState = newState;
         return this.currentState;
     }
 
-    public void setCurrentState(int var1)
-    {
-        this.currentState = var1;
+    public void setCurrentState(int state) {
+        this.currentState = state;
+      }
+
+    public int getCurrentState() {
+      return this.currentState;
     }
 
-    public int getCurrentState()
-    {
-        return this.currentState;
-    }
-
-    public IMultiButtonState getButtonState()
-    {
-        return this.validStates[this.currentState];
+    public IMultiButtonState getButtonState() {
+      return this.validStates[this.currentState];
     }
 }

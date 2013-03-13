@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.Jacpack.TechUp.creativetabs.CreativeTabsHandler;
 import org.Jacpack.TechUp.item.ModItems;
+import org.Jacpack.TechUp.util.misc.Reference;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,7 +41,7 @@ public class BlockCustomOre extends Block
      */
     public int getBlockTextureFromSideAndMetadata(int i, int j)
     {
-        return 32 + j;
+        return 192 + j;
     }
 
     /**
@@ -118,6 +119,6 @@ public class BlockCustomOre extends Block
 
     public String getTextureFile()
     {
-        return "Nothing";
+        return Reference.SPRITE_SHEET_LOCATION + Reference.BLOCK_SPRITE_SHEET;
     }
 }

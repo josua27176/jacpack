@@ -15,7 +15,6 @@ public class ItemMachine extends ItemBlock
         super(var1);
         this.setMaxDamage(0);
         this.setHasSubtypes(true);
-        this.setItemName("rc.machine");
     }
 
     public String getTextureFile()
@@ -26,54 +25,49 @@ public class ItemMachine extends ItemBlock
     /**
      * Gets an icon index based on an item's damage value
      */
-    public int getIconFromDamage(int var1)
+    public int getIconFromDamage(int damage)
     {
-        return Block.blocksList[this.getBlockID()].getBlockTextureFromSideAndMetadata(2, var1);
+        return Block.blocksList[this.getBlockID()].getBlockTextureFromSideAndMetadata(2, damage);
     }
 
     /**
      * Returns the metadata of the block which this Item (ItemBlock) can place
      */
-    public int getMetadata(int var1)
+    public int getMetadata(int damage)
     {
-        return var1;
+        return damage;
     }
-
-    public String getItemNameIS(ItemStack var1)
+    public String getItemNameIS(ItemStack stack)
     {
-        Block var2 = Block.blocksList[this.getBlockID()];
-        return var2 instanceof BlockMachine ? ((BlockMachine)var2).getMachineProxy().getTag(var1.getItemDamage()) : "";
+      Block block = Block.blocksList[this.getBlockID()];
+      if ((block instanceof BlockMachine)) {
+        return ((BlockMachine)block).getMachineProxy().getTag(stack.getItemDamage());
+      }
+      return "";
     }
-
-    public boolean placeBlockAt(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7, float var8, float var9, float var10, int var11)
+    
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
     {
-        if (!var3.setBlockAndMetadataWithNotify(var4, var5, var6, this.getBlockID(), var11))
-        {
-            return false;
-        }
-        else
-        {
-            if (var3.getBlockId(var4, var5, var6) == this.getBlockID())
-            {
-                Block.blocksList[this.getBlockID()].onBlockPlacedBy(var3, var4, var5, var6, var2);
-                Block.blocksList[this.getBlockID()].onPostBlockPlaced(var3, var4, var5, var6, var11);
-                ((BlockMachine)Block.blocksList[this.getBlockID()]).initFromItem(var3, var4, var5, var6, var1);
-            }
+      if (!world.setBlockAndMetadataWithNotify(x, y, z, this.getBlockID(), metadata)) {
+        return false;
+      }
 
-            return true;
-        }
+      if (world.getBlockId(x, y, z) == this.getBlockID()) {
+        Block.blocksList[this.getBlockID()].onBlockPlacedBy(world, x, y, z, player);
+        Block.blocksList[this.getBlockID()].onPostBlockPlaced(world, x, y, z, metadata);
+        ((BlockMachine)Block.blocksList[this.getBlockID()]).initFromItem(world, x, y, z, stack);
+      }
+
+      return true;
     }
 
     /**
      * allows items to add custom lines of information to the mouseover description
      */
-    public void addInformation(ItemStack var1, EntityPlayer var2, List var3, boolean var4)
+    public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean adv)
     {
-        Block var5 = Block.blocksList[this.getBlockID()];
-
-        if (var5 instanceof BlockMachine)
-        {
-            ((BlockMachine)var5).getMachineProxy().addItemInfo(var1, var2, var3, var4);
-        }
-    }
+    	Block block = Block.blocksList[this.getBlockID()];
+        if ((block instanceof BlockMachine))
+          ((BlockMachine)block).getMachineProxy().addItemInfo(stack, player, info, adv);
+      }
 }

@@ -11,9 +11,9 @@ public interface IEnumMachine
 
     ItemStack getItem();
 
-    ItemStack getItem(int var1);
+    ItemStack getItem(int paramInt);
 
-    int getTexture(int var1);
+    int getTexture(int paramInt);
 
     Class getTileClass();
 

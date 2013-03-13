@@ -9,24 +9,22 @@ public class MultiBlockPattern
     private final int offsetY;
     private final int offsetZ;
     private final AxisAlignedBB entityCheckBounds;
-
-    public MultiBlockPattern(char[][][] var1)
+    
+    public MultiBlockPattern(char[][][] pattern)
     {
-        this(var1, 1, 1, 1);
+      this(pattern, 1, 1, 1);
     }
 
-    public MultiBlockPattern(char[][][] var1, int var2, int var3, int var4)
-    {
-        this(var1, var2, var3, var4, (AxisAlignedBB)null);
+    public MultiBlockPattern(char[][][] pattern, int offsetX, int offsetY, int offsetZ) {
+      this(pattern, offsetX, offsetY, offsetZ, null);
     }
 
-    public MultiBlockPattern(char[][][] var1, int var2, int var3, int var4, AxisAlignedBB var5)
-    {
-        this.pattern = var1;
-        this.offsetX = var2;
-        this.offsetY = var3;
-        this.offsetZ = var4;
-        this.entityCheckBounds = var5;
+    public MultiBlockPattern(char[][][] pattern, int offsetX, int offsetY, int offsetZ, AxisAlignedBB entityCheckBounds) {
+      this.pattern = pattern;
+      this.offsetX = offsetX;
+      this.offsetY = offsetY;
+      this.offsetZ = offsetZ;
+      this.entityCheckBounds = entityCheckBounds;
     }
 
     public AxisAlignedBB getEntityCheckBounds(int masterX, int masterY, int masterZ) {

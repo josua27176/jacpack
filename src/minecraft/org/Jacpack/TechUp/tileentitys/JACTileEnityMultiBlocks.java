@@ -5,7 +5,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.Jacpack.TechUp.api.JACTools;
-import org.Jacpack.TechUp.api.old.INetworkedObject;
+import org.Jacpack.TechUp.api.machines.INetworkedObject;
+import org.Jacpack.TechUp.util.misc.Reference;
 import org.Jacpack.TechUp.util.network.PacketBuilder;
 import org.Jacpack.TechUp.util.network.PacketTileEntity;
 
@@ -20,7 +21,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 public abstract class JACTileEnityMultiBlocks extends TileEntity implements INetworkedObject
 {
-    private String owner = "[Railcraft]";
+    private String owner = Reference.CHANNEL_NAME;
 
     /**
      * Overriden in a sign to provide the text.

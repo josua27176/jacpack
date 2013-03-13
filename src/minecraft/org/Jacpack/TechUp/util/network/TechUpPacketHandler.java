@@ -7,7 +7,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 
-import org.Jacpack.TechUp.api.old.Game;
+import org.Jacpack.TechUp.api.machines.Game;
 import org.Jacpack.TechUp.util.network.TechUpPacket.PacketType;
 
 import net.minecraft.network.INetworkManager;

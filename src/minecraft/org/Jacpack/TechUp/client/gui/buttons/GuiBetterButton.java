@@ -4,14 +4,14 @@ import net.minecraft.client.gui.GuiButton;
 
 public class GuiBetterButton extends GuiButton
 {
-    public GuiBetterButton(int var1, int var2, int var3, String var4)
+    public GuiBetterButton(int id, int x, int y, String label)
     {
-        this(var1, var2, var3, 200, 20, var4);
+        this(id, x, y, 200, 20, label);
     }
 
-    public GuiBetterButton(int var1, int var2, int var3, int var4, int var5, String var6)
+    public GuiBetterButton(int id, int x, int y, int width, int height, String label)
     {
-        super(var1, var2, var3, var4, var5, var6);
+        super(id, x, y, width, height, label);
     }
 
     public int getWidth()

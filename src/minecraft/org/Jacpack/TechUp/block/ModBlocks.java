@@ -46,7 +46,7 @@ public class ModBlocks {
             {
                 int[] var1 = new int[16];
                 Arrays.fill(var1, 255);
-                blockMachineAlpha = (new BlockMachine(var0, 0, new MachineProxyAlpha(), true, var1)).setBlockName("rcBlockMachineAlpha");
+                blockMachineAlpha = (new BlockMachine(var0, 0, new MachineProxyAlpha(), true, var1)).setBlockName("TechUpAlpha");
                 GameRegistry.registerBlock(blockMachineAlpha, ItemMachine.class, blockMachineAlpha.getBlockName());
                 EnumMachineAlpha[] var2 = EnumMachineAlpha.values();
                 int var3 = var2.length;
@@ -80,6 +80,10 @@ public class ModBlocks {
         itemBlockLimestone = new ItemStack(blockOres, 1, 14);
         
         GameRegistry.registerWorldGenerator(new TerrainGenerator(blockOres));
+	}
+	
+	public static void initMachines() {
+		
 	}
 	
 }

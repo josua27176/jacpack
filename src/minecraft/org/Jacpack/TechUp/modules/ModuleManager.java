@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
-import org.Jacpack.TechUp.api.old.Game;
+import org.Jacpack.TechUp.api.machines.Game;
 
 import cpw.mods.fml.common.Loader;
 

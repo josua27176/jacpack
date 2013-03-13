@@ -19,33 +19,33 @@ public class ContainerBlastFurnace extends JACContainer
     private int lastBurnTime = 0;
     private int lastItemBurnTime = 0;
 
-    public ContainerBlastFurnace(InventoryPlayer var1, TileBlastFurnace var2)
+    public ContainerBlastFurnace(InventoryPlayer player, TileBlastFurnace tile)
     {
-        super(var2);
-        this.furnace = var2;
-        this.addSlot(new SlotBlastFurnaceInput(var2, 0, 56, 17));
-        this.addSlot(new SlotBlastFurnaceFuel(var2, 1, 56, 53));
-        this.addSlot(new SlotFurnace(var1.player, var2, 2, 116, 35));
+        super(tile);
+        this.furnace = tile;
+        this.addSlot(new SlotBlastFurnaceInput(tile, 0, 56, 17));
+        this.addSlot(new SlotBlastFurnaceFuel(tile, 1, 56, 53));
+        this.addSlot(new SlotFurnace(player.player, tile, 2, 116, 35));
         int var3;
 
         for (var3 = 0; var3 < 3; ++var3)
         {
             for (int var4 = 0; var4 < 9; ++var4)
             {
-                this.addSlot(new Slot(var1, var4 + var3 * 9 + 9, 8 + var4 * 18, 84 + var3 * 18));
+                this.addSlot(new Slot(player, var4 + var3 * 9 + 9, 8 + var4 * 18, 84 + var3 * 18));
             }
         }
 
         for (var3 = 0; var3 < 9; ++var3)
         {
-            this.addSlot(new Slot(var1, var3, 8 + var3 * 18, 142));
+            this.addSlot(new Slot(player, var3, 8 + var3 * 18, 142));
         }
     }
 
-    public void addCraftingToCrafters(ICrafting var1)
+    public void addCraftingToCrafters(ICrafting icrafting)
     {
-        super.addCraftingToCrafters(var1);
-        var1.sendProgressBarUpdate(this, 0, this.furnace.getCookTime());
+        super.addCraftingToCrafters(icrafting);
+        icrafting.sendProgressBarUpdate(this, 0, this.furnace.getCookTime());
     }
 
     /**

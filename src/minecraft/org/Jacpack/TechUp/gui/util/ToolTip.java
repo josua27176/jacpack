@@ -5,15 +5,15 @@ public class ToolTip
     public String text;
     public final int color;
 
-    public ToolTip(String var1, int var2)
+    public ToolTip(String text, int color)
     {
-        this.text = var1;
-        this.color = var2;
+        this.text = text;
+        this.color = color;
     }
 
-    public ToolTip(String var1)
+    public ToolTip(String text)
     {
-        this(var1, -1);
+        this(text, -1);
     }
 
     public ToolTip()

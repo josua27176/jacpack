@@ -7,9 +7,9 @@ public abstract class TileGui extends GuiContainerJAC
 {
     private final JACTileEnityMultiBlocks tile;
 
-    public TileGui(JACTileEnityMultiBlocks var1, JACContainer var2, String var3)
+    public TileGui(JACTileEnityMultiBlocks tile, JACContainer container, String texture)
     {
-        super(var2, var3);
-        this.tile = var1;
-    }
+        super(container, texture);
+        this.tile = tile;
+      }
 }

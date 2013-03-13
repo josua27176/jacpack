@@ -25,14 +25,14 @@ public final class ItemRegistry
 
     public static void registerItem(String tag, ItemStack item)
     {
-        tag = tag.replace("rc.", "");
+        tag = tag.replace("TechUp.", "");
         registry.put(tag, item);
     }
 
     public static void printItemTags()
     {
         System.out.println();
-        System.out.println("Printing all registered Railcraft items:");
+        System.out.println("Printing all registered TechUp items:");
         for(String tag : registry.keySet()) {
             System.out.println(tag);
         }

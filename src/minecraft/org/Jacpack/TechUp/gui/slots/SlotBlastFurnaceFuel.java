@@ -7,11 +7,11 @@ import net.minecraft.item.ItemStack;
 
 public class SlotBlastFurnaceFuel extends Slot
 {
-    public SlotBlastFurnaceFuel(IInventory var1, int var2, int var3, int var4)
+    public SlotBlastFurnaceFuel(IInventory iinventory, int slotIndex, int posX, int posY)
     {
-        super(var1, var2, var3, var4);
+        super(iinventory, slotIndex, posX, posY);
     }
-
+    
     /**
      * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the case
      * of armor slots)
@@ -24,13 +24,13 @@ public class SlotBlastFurnaceFuel extends Slot
     /**
      * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
      */
-    public boolean isItemValid(ItemStack var1)
+    public boolean isItemValid(ItemStack stack)
     {
-        return canPlaceItem(var1);
+        return canPlaceItem(stack);
     }
 
-    public static boolean canPlaceItem(ItemStack var0)
+    public static boolean canPlaceItem(ItemStack stack)
     {
-        return var0 != null && (var0.getItem() == Item.coal && var0.getItemDamage() == 1 || var0.getItem() == Item.coal && var0.getItemDamage() == 1);
+      return (stack != null) && (((stack.getItem() == Item.coal) && (stack.getItemDamage() == 1)));
     }
 }

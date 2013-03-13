@@ -6,8 +6,8 @@ import java.util.Random;
 import java.util.Iterator;
 
 import org.Jacpack.TechUp.api.inventory.ISpecialInventory;
-import org.Jacpack.TechUp.api.old.Game;
-import org.Jacpack.TechUp.api.old.LiquidFilter;
+import org.Jacpack.TechUp.api.machines.Game;
+import org.Jacpack.TechUp.api.machines.LiquidFilter;
 
 import net.minecraft.nbt.*;
 import net.minecraft.block.Block;
@@ -36,251 +36,183 @@ public class JACTools {
         return rand;
     }
     
-    public static ItemStack depleteItem(ItemStack var0)
-    {
-        if (var0.stackSize == 1)
-        {
-            return var0.getItem().getContainerItemStack(var0);
+    public static ItemStack depleteItem(ItemStack stack) {
+        if (stack.stackSize == 1) {
+          return stack.getItem().getContainerItemStack(stack);
         }
-        else
-        {
-            var0.splitStack(1);
-            return var0;
-        }
+        stack.splitStack(1);
+        return stack;
     }
     
-    public static ItemStack moveItemStack(ItemStack var0, IInventory var1)
+    public static ItemStack moveItemStack(ItemStack stack, IInventory dest)
     {
-        if (var0 == null)
-        {
-            return null;
+      if (stack == null) {
+        return null;
+      }
+      stack = stack.copy();
+      if (dest == null) {
+        return stack;
+      }
+      if ((dest instanceof ISpecialInventory)) {
+        int used = ((ISpecialInventory)dest).addItem(stack, true, ForgeDirection.UNKNOWN);
+        if (used >= stack.stackSize) {
+          return null;
         }
-        else
-        {
-            var0 = var0.copy();
+        stack.stackSize -= used;
+        return stack;
+      }
+      boolean movedItem;
+      do
+      {
+        movedItem = false;
 
-            if (var1 == null)
-            {
-                return var0;
+        for (int ii = 0; ii < dest.getSizeInventory(); ii++) {
+          ItemStack destStack = dest.getStackInSlot(ii);
+          if ((destStack != null) && (isItemEqual(destStack, stack))) {
+            destStack = destStack.copy();
+            int maxStack = Math.min(destStack.getMaxStackSize(), dest.getInventoryStackLimit());
+            int room = maxStack - destStack.stackSize;
+            if (room > 0) {
+              int move = Math.min(room, stack.stackSize);
+              destStack.stackSize += move;
+              stack.stackSize -= move;
+              dest.setInventorySlotContents(ii, destStack);
+              if (stack.stackSize <= 0) {
+                return null;
+              }
+              movedItem = true;
             }
-            else if (var1 instanceof ISpecialInventory)
-            {
-                int var8 = ((ISpecialInventory)var1).addItem(var0, true, ForgeDirection.UNKNOWN);
-
-                if (var8 >= var0.stackSize)
-                {
-                    return null;
-                }
-                else
-                {
-                    var0.stackSize -= var8;
-                    return var0;
-                }
-            }
-            else
-            {
-                boolean var2;
-
-                do
-                {
-                    var2 = false;
-                    ItemStack var3;
-                    int var4;
-
-                    for (var4 = 0; var4 < var1.getSizeInventory(); ++var4)
-                    {
-                        var3 = var1.getStackInSlot(var4);
-
-                        if (var3 != null && isItemEqual(var3, var0))
-                        {
-                            var3 = var3.copy();
-                            int var5 = Math.min(var3.getMaxStackSize(), var1.getInventoryStackLimit());
-                            int var6 = var5 - var3.stackSize;
-
-                            if (var6 > 0)
-                            {
-                                int var7 = Math.min(var6, var0.stackSize);
-                                var3.stackSize += var7;
-                                var0.stackSize -= var7;
-                                var1.setInventorySlotContents(var4, var3);
-
-                                if (var0.stackSize <= 0)
-                                {
-                                    return null;
-                                }
-
-                                var2 = true;
-                            }
-                        }
-                    }
-
-                    if (!var2)
-                    {
-                        for (var4 = 0; var4 < var1.getSizeInventory(); ++var4)
-                        {
-                            var3 = var1.getStackInSlot(var4);
-
-                            if (var3 == null)
-                            {
-                                if (var0.stackSize <= var1.getInventoryStackLimit())
-                                {
-                                    var1.setInventorySlotContents(var4, var0);
-                                    return null;
-                                }
-
-                                var1.setInventorySlotContents(var4, var0.splitStack(var1.getInventoryStackLimit()));
-                                var2 = true;
-                            }
-                        }
-                    }
-                }
-                while (var2);
-
-                return var0;
-            }
+          }
         }
+        if (!movedItem)
+          for (int ii = 0; ii < dest.getSizeInventory(); ii++) {
+            ItemStack destStack = dest.getStackInSlot(ii);
+            if (destStack == null) {
+              if (stack.stackSize > dest.getInventoryStackLimit()) {
+                dest.setInventorySlotContents(ii, stack.splitStack(dest.getInventoryStackLimit()));
+              } else {
+                dest.setInventorySlotContents(ii, stack);
+                return null;
+              }
+              movedItem = true;
+            }
+          }
+      }
+      while (movedItem);
+      return stack;
     }
 	
-	public static LiquidStack getLiquidInContainer(ItemStack var1)
-    {
-        return LiquidContainerRegistry.getLiquidForFilledItem(var1);
-    }
+	public static LiquidStack getLiquidInContainer(ItemStack stack) {
+	    return LiquidContainerRegistry.getLiquidForFilledItem(stack);
+	  }
 	
-	public static void writeInvToNBT(IInventory var0, String var1, NBTTagCompound var2)
-    {
-        NBTTagList var3 = new NBTTagList();
+	public static void writeInvToNBT(IInventory inv, String tag, NBTTagCompound data) {
+		NBTTagList list = new NBTTagList();
+	    for (byte slot = 0; slot < inv.getSizeInventory(); slot = (byte)(slot + 1)) {
+	      ItemStack stack = inv.getStackInSlot(slot);
+	      if (stack != null) {
+	    	NBTTagCompound itemTag = new NBTTagCompound();
+	        itemTag.setByte("Slot", slot);
+	        writeItemToNBT(stack, itemTag);
+	        list.appendTag(itemTag);
+	      }
+	    }
+	    data.setTag(tag, list);
+	  }
 
-        for (byte var4 = 0; var4 < var0.getSizeInventory(); ++var4)
-        {
-            ItemStack var5 = var0.getStackInSlot(var4);
+	public static void readInvFromNBT(IInventory inv, String tag, NBTTagCompound data) {
+		NBTTagList list = data.getTagList(tag);
+	    for (byte entry = 0; entry < list.tagCount(); entry = (byte)(entry + 1)) {
+	      NBTTagCompound itemTag = (NBTTagCompound)list.tagAt(entry);
+	      int slot = itemTag.getByte("Slot");
+	      if ((slot >= 0) && (slot < inv.getInventoryStackLimit())) {
+	    	ItemStack stack = readItemFromNBT(itemTag);
+	        inv.setInventorySlotContents(slot, stack);
+	      }
+	    }
+	  }
 
-            if (var5 != null)
-            {
-                NBTTagCompound var6 = new NBTTagCompound();
-                var6.setByte("Slot", var4);
-                writeItemToNBT(var5, var6);
-                var3.appendTag(var6);
-            }
-        }
+	public static void writeItemToNBT(ItemStack stack, NBTTagCompound data) {
+	    if ((stack == null) || (stack.stackSize <= 0)) {
+	      return;
+	    }
+	    if (stack.stackSize > 127) {
+	      stack.stackSize = 127;
+	    }
+	    stack.writeToNBT(data);
+	}
 
-        var2.setTag(var1, var3);
-    }
+	public static ItemStack readItemFromNBT(NBTTagCompound data) {
+	    int itemID = data.getShort("id");
+	    int stackSize = data.getShort("stackSize");
+	    int damage = data.getShort("Damage");
 
-    public static void readInvFromNBT(IInventory var0, String var1, NBTTagCompound var2)
-    {
-        NBTTagList var3 = var2.getTagList(var1);
+	    if (stackSize <= 0) {
+	      stackSize = data.getByte("Count");
+	    }
 
-        for (byte var4 = 0; var4 < var3.tagCount(); ++var4)
-        {
-            NBTTagCompound var5 = (NBTTagCompound)var3.tagAt(var4);
-            byte var6 = var5.getByte("Slot");
+	    if ((itemID <= 0) || (stackSize <= 0)) {
+	      return null;
+	    }
 
-            if (var6 >= 0 && var6 < var0.getSizeInventory())
-            {
-                ItemStack var7 = readItemFromNBT(var5);
-                var0.setInventorySlotContents(var6, var7);
-            }
-        }
-    }
+	    ItemStack stack = new ItemStack(itemID, stackSize, damage);
 
-    public static void writeItemToNBT(ItemStack var0, NBTTagCompound var1)
-    {
-        if (var0 != null && var0.stackSize > 0)
-        {
-            if (var0.stackSize > 127)
-            {
-                var0.stackSize = 127;
-            }
+	    if (data.hasKey("tag")) {
+	      stack.stackTagCompound = data.getCompoundTag("tag");
+	    }
 
-            var0.writeToNBT(var1);
-        }
-    }
-
-    public static ItemStack readItemFromNBT(NBTTagCompound var0)
-    {
-        short var1 = var0.getShort("id");
-        short var2 = var0.getShort("stackSize");
-        short var3 = var0.getShort("Damage");
-
-        if (var2 <= 0)
-        {
-            var2 = var0.getByte("Count");
-        }
-
-        if (var1 > 0 && var2 > 0)
-        {
-            ItemStack var4 = new ItemStack(var1, var2, var3);
-
-            if (var0.hasKey("tag"))
-            {
-                var4.stackTagCompound = var0.getCompoundTag("tag");
-            }
-
-            return var4.getItem() != null ? var4 : null;
-        }
-        else
-        {
-            return null;
-        }
-    }
+	    return stack.getItem() != null ? stack : null;
+	  }
 	
-	public static int getItemBurnTime(ItemStack var0)
-    {
-        try
-        {
-            if (var0 == null)
-            {
-                return 0;
-            }
-            else
-            {
-                int var1 = var0.getItem().itemID;
-                String var3;
+	public static int getItemBurnTime(ItemStack stack)
+	  {
+	    try
+	    {
+	      if (stack == null) {
+	        return 0;
+	      }
 
-                if (var0.getItem() instanceof ItemBlock && Block.blocksList[var1] != null)
-                {
-                    Block var2 = Block.blocksList[var1];
-                    var3 = var2.getBlockName();
+	      int itemID = stack.getItem().itemID;
 
-                    if (var3 != null && var3.contains("blockScaffold"))
-                    {
-                        return 0;
-                    }
-                }
+	      if (((stack.getItem() instanceof ItemBlock)) && (Block.blocksList[itemID] != null)) {
+	    	Block block = Block.blocksList[itemID];
 
-                LiquidStack var5 = getLiquidInContainer(var0);
+	        String name = block.getBlockName();
+	        if ((name != null) && (name.contains("blockScaffold"))) {
+	          return 0;
+	        }
+	      }
 
-                if (LiquidFilter.LAVA.isLiquidEqual(var5))
-                {
-                    return var5.amount;
-                }
-                else if (var1 == Item.coal.itemID && var0.getItemDamage() == 0 && !isSynthetic(var0))
-                {
-                    return 3200;
-                }
-                else if (var1 == Item.blazeRod.itemID)
-                {
-                    return 800;
-                }
-                else
-                {
-                    var3 = var0.getItem().getItemName();
-                    return var3 != null && var3.contains("itemScrap") ? 0 : TileEntityFurnace.getItemBurnTime(var0);
-                }
-            }
-        }
-        catch (Exception var4)
-        {
-            System.out.println("Error in Fuel Handler! Is some mod creating items that are not compliant with standards?");
-            return 0;
-        }
-    }
+	      LiquidStack liquid = getLiquidInContainer(stack);
+	      if (LiquidFilter.LAVA.isLiquidEqual(liquid)) {
+	        return liquid.amount;
+	      }
+
+	      if ((itemID == Item.coal.itemID) && (stack.getItemDamage() == 0) && (!isSynthetic(stack))) {
+	        return 3200;
+	      }
+
+	      if (itemID == Item.blazeRod.itemID) {
+	        return 800;
+	      }
+
+	      String name = stack.getItem().getItemName();
+	      if ((name != null) && (name.contains("itemScrap"))) {
+	        return 0;
+	      }
+
+	      return TileEntityFurnace.getItemBurnTime(stack);
+	    } catch (Exception ex) {
+	      Game.logError("Error in Fuel Handler! Is some mod creating items that are not compliant with standards?", ex);
+	    }
+	    return 0;
+	  }
 	
-	public static boolean isSynthetic(ItemStack var0)
-    {
-        NBTTagCompound var1 = var0.getTagCompound();
-        return var1 != null && var1.hasKey("synthetic");
-    }
+	public static boolean isSynthetic(ItemStack stack) {
+		NBTTagCompound nbt = stack.getTagCompound();
+	    if ((nbt != null) && (nbt.hasKey("synthetic"))) return true;
+	    return false;
+	  }
 	
 	public static boolean isOreClass(ItemStack itemstack, String string) {
 		
@@ -301,236 +233,178 @@ public class JACTools {
 		return true;
 	}
 	
-	public static String translate(String var0)
+	public static String translate(String string)
     {
-        return translate_do(var0);
+        return translate_do(string);
     }
 
-    private static String translate_do(String var1)
+    private static String translate_do(String string)
     {
-        return var1;
-    }
-	
-	public static boolean isItemEqual(ItemStack var0, ItemStack var1)
-    {
-        if (var0 != null && var1 != null)
-        {
-            if (var0.itemID != var1.itemID)
-            {
-                return false;
-            }
-            else if (var0.stackTagCompound != null && !var0.stackTagCompound.equals(var1.stackTagCompound))
-            {
-                return false;
-            }
-            else
-            {
-                if (var0.getHasSubtypes())
-                {
-                    if (var0.getItemDamage() == -1 || var1.getItemDamage() == -1)
-                    {
-                        return true;
-                    }
- 
-                    if (var0.getItemDamage() != var1.getItemDamage())
-                    {
-                        return false;
-                    }
-                }
- 
-                return true;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-	
-	public static boolean blockExistsOnSide(World var0, int var1, int var2, int var3, ForgeDirection var4)
-    {
-        return var0.blockExists(getXOnSide(var1, var4), getYOnSide(var2, var4), getZOnSide(var3, var4));
-    }
-
-    public static int getBlockMetadataOnSide(World var0, int var1, int var2, int var3, ForgeDirection var4)
-    {
-        return var0.getBlockMetadata(getXOnSide(var1, var4), getYOnSide(var2, var4), getZOnSide(var3, var4));
-    }
-
-    public static int getBlockIdOnSide(IBlockAccess var0, int var1, int var2, int var3, ForgeDirection var4)
-    {
-        return var0.getBlockId(getXOnSide(var1, var4), getYOnSide(var2, var4), getZOnSide(var3, var4));
-    }
-
-    public static TileEntity getBlockTileEntityOnSide(World var0, int var1, int var2, int var3, ForgeDirection var4)
-    {
-        return var0.getBlockTileEntity(getXOnSide(var1, var4), getYOnSide(var2, var4), getZOnSide(var3, var4));
-    }
-
-    public static void notifyBlocksOfNeighborChangeOnSide(World var0, int var1, int var2, int var3, int var4, ForgeDirection var5)
-    {
-        var0.notifyBlocksOfNeighborChange(getXOnSide(var1, var5), getYOnSide(var2, var5), getZOnSide(var3, var5), var4);
+        return string;
     }
     
-    public static ForgeDirection getSideClosestToPlayer(World var0, int var1, int var2, int var3, EntityLiving var4)
+    public static boolean isItemEqual(ItemStack a, ItemStack b)
     {
-        if (MathHelper.abs((float)var4.posX - (float)var1) < 2.0F && MathHelper.abs((float)var4.posZ - (float)var3) < 2.0F)
-        {
-            double var5 = var4.posY + 1.82D - (double)var4.yOffset;
-
-            if (var5 - (double)var2 > 2.0D)
-            {
-                return ForgeDirection.UP;
-            }
-
-            if ((double)var2 - var5 > 0.0D)
-            {
-                return ForgeDirection.DOWN;
-            }
+      if ((a == null) || (b == null)) {
+        return false;
+      }
+      if (a.itemID != b.itemID) {
+        return false;
+      }
+      if ((a.stackTagCompound != null) && (!a.stackTagCompound.equals(b.stackTagCompound))) {
+        return false;
+      }
+      if (a.getHasSubtypes()) {
+        if ((a.getItemDamage() == -1) || (b.getItemDamage() == -1)) {
+          return true;
         }
-
-        int var7 = MathHelper.floor_double((double)(var4.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-
-        switch (var7)
-        {
-            case 0:
-                return ForgeDirection.NORTH;
-
-            case 1:
-                return ForgeDirection.EAST;
-
-            case 2:
-                return ForgeDirection.SOUTH;
-
-            default:
-                return var7 != 3 ? ForgeDirection.DOWN : ForgeDirection.WEST;
+        if (a.getItemDamage() != b.getItemDamage()) {
+          return false;
         }
-    }
-
-    public static ForgeDirection getHorizontalSideClosestToPlayer(World var0, int var1, int var2, int var3, EntityLiving var4)
-    {
-        ForgeDirection var5 = ForgeDirection.NORTH;
-        int var6 = MathHelper.floor_double((double)(var4.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-
-        switch (var6)
-        {
-            case 0:
-                return ForgeDirection.NORTH;
-
-            case 1:
-                return ForgeDirection.EAST;
-
-            case 2:
-                return ForgeDirection.SOUTH;
-
-            case 3:
-                return ForgeDirection.WEST;
-
-            default:
-                return ForgeDirection.NORTH;
-        }
-    }
-
-    public static ForgeDirection getOppositeSide(int var0)
-    {
-        int var1 = var0 % 2 == 0 ? var0 + 1 : var0 - 1;
-        return ForgeDirection.getOrientation(var1);
-    }
-
-    public static int getYOnSide(int var0, ForgeDirection var1)
-    {
-        switch ($SwitchMap$net$minecraftforge$common$ForgeDirection[var1.ordinal()])
-        {
-            case 1:
-                return var0 + 1;
-
-            case 2:
-                return var0 - 1;
-
-            default:
-                return var0;
-        }
-    }
-
-    public static int getXOnSide(int var0, ForgeDirection var1)
-    {
-        switch ($SwitchMap$net$minecraftforge$common$ForgeDirection[var1.ordinal()])
-        {
-            case 3:
-                return var0 + 1;
-
-            case 4:
-                return var0 - 1;
-
-            default:
-                return var0;
-        }
-    }
-
-    public static int getZOnSide(int var0, ForgeDirection var1)
-    {
-        switch ($SwitchMap$net$minecraftforge$common$ForgeDirection[var1.ordinal()])
-        {
-            case 5:
-                return var0 - 1;
-
-            case 6:
-                return var0 + 1;
-
-            default:
-                return var0;
-        }
+      }
+      return true;
     }
     
-    public static void dropItem(ItemStack var0, World var1, double var2, double var4, double var6)
+	public static boolean blockExistsOnSide(World world, int x, int y, int z, ForgeDirection side)
     {
-        if (var0 != null && var0.stackSize >= 1)
-        {
-            EntityItem var8 = new EntityItem(var1, var2, var4 + 1.5D, var6, var0);
-            var8.delayBeforeCanPickup = 10;
-            var1.spawnEntityInWorld(var8);
-        }
+        return world.blockExists(getXOnSide(x, side), getYOnSide(y, side), getZOnSide(z, side));
     }
 
-    public static void dropInventory(IInventory var0, World var1, int var2, int var3, int var4)
+    public static int getBlockMetadataOnSide(World world, int i, int j, int k, ForgeDirection side)
     {
-        if (!Game.isNotHost(var1))
-        {
-            for (int var5 = 0; var5 < var0.getSizeInventory(); ++var5)
-            {
-                ItemStack var6 = var0.getStackInSlot(var5);
+        return world.getBlockMetadata(getXOnSide(i, side), getYOnSide(j, side), getZOnSide(k, side));
+    }
 
-                if (var6 != null)
-                {
-                    float var7 = JACTools.getRand().nextFloat() * 0.8F + 0.1F;
-                    float var8 = JACTools.getRand().nextFloat() * 0.8F + 0.1F;
-                    float var9 = JACTools.getRand().nextFloat() * 0.8F + 0.1F;
+    public static int getBlockIdOnSide(IBlockAccess world, int x, int y, int z, ForgeDirection side)
+    {
+        return world.getBlockId(getXOnSide(x, side), getYOnSide(y, side), getZOnSide(z, side));
+    }
 
-                    while (var6.stackSize > 0)
-                    {
-                        int var10 = JACTools.getRand().nextInt(21) + 10;
+    public static TileEntity getBlockTileEntityOnSide(World world, int i, int j, int k, ForgeDirection side)
+    {
+        return world.getBlockTileEntity(getXOnSide(i, side), getYOnSide(j, side), getZOnSide(k, side));
+    }
 
-                        if (var10 > var6.stackSize)
-                        {
-                            var10 = var6.stackSize;
-                        }
+    public static void notifyBlocksOfNeighborChangeOnSide(World world, int i, int j, int k, int blockID, ForgeDirection side)
+    {
+        world.notifyBlocksOfNeighborChange(getXOnSide(i, side), getYOnSide(j, side), getZOnSide(k, side), blockID);
+    }
+    
+    public static ForgeDirection getSideClosestToPlayer(World world, int i, int j, int k, EntityLiving entityplayer)
+    {
+      if ((MathHelper.abs((float)entityplayer.posX - i) < 2.0F) && (MathHelper.abs((float)entityplayer.posZ - k) < 2.0F)) {
+        double d = entityplayer.posX + 1.82D - entityplayer.yOffset;
+        if (d - j > 2.0D) {
+          return ForgeDirection.UP;
+        }
+        if (j - d > 0.0D) {
+          return ForgeDirection.DOWN;
+        }
+      }
+      int dir = MathHelper.floor_double(entityplayer.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
+      switch (dir) {
+      case 0:
+        return ForgeDirection.NORTH;
+      case 1:
+        return ForgeDirection.EAST;
+      case 2:
+        return ForgeDirection.SOUTH;
+      }
+      return dir != 3 ? ForgeDirection.DOWN : ForgeDirection.WEST;
+    }
 
-                        ItemStack var11 = var6.copy();
-                        var11.stackSize = var10;
-                        var6.stackSize -= var10;
-                        EntityItem var12 = new EntityItem(var1, (double)((float)var2 + var7), (double)((float)var3 + var8), (double)((float)var4 + var9), var11);
-                        float var13 = 0.05F;
-                        var12.motionX = (double)((float)JACTools.getRand().nextGaussian() * var13);
-                        var12.motionY = (double)((float)JACTools.getRand().nextGaussian() * var13 + 0.2F);
-                        var12.motionZ = (double)((float)JACTools.getRand().nextGaussian() * var13);
-                        var1.spawnEntityInWorld(var12);
-                    }
+    public static ForgeDirection getHorizontalSideClosestToPlayer(World world, int i, int j, int k, EntityLiving player)
+    {
+      ForgeDirection facing = ForgeDirection.NORTH;
+      int dir = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
+      switch (dir) {
+      case 0:
+        return ForgeDirection.NORTH;
+      case 1:
+        return ForgeDirection.EAST;
+      case 2:
+        return ForgeDirection.SOUTH;
+      case 3:
+        return ForgeDirection.WEST;
+      }
+      return ForgeDirection.NORTH;
+    }
 
-                    var0.setInventorySlotContents(var5, (ItemStack)null);
-                }
+    public static ForgeDirection getOppositeSide(int side) {
+        int s = side;
+        s = s % 2 == 0 ? s + 1 : s - 1;
+        return ForgeDirection.getOrientation(s);
+      }
+
+    public static int getYOnSide(int y, ForgeDirection side)
+    {
+        switch ($SwitchMap$net$minecraftforge$common$ForgeDirection[side.ordinal()]) {
+        case 1:
+            return y + 1;
+          case 2:
+            return y - 1;
+          }
+          return y;
+    }
+
+    public static int getXOnSide(int x, ForgeDirection side)
+    {
+        switch ($SwitchMap$net$minecraftforge$common$ForgeDirection[side.ordinal()]) {
+        case 3:
+            return x + 1;
+          case 4:
+            return x - 1;
+          }
+          return x;
+    }
+
+    public static int getZOnSide(int z, ForgeDirection side)
+    {
+        switch ($SwitchMap$net$minecraftforge$common$ForgeDirection[side.ordinal()]) {
+        case 5:
+            return z - 1;
+          case 6:
+            return z + 1;
+          }
+          return z;
+        }
+    
+    public static void dropItem(ItemStack stack, World world, double x, double y, double z) {
+        if ((stack == null) || (stack.stackSize < 1)) {
+          return;
+        }
+        EntityItem entityItem = new EntityItem(world, x, y + 1.5D, z, stack);
+        entityItem.delayBeforeCanPickup = 10;
+        world.spawnEntityInWorld(entityItem);
+      }
+
+    public static void dropInventory(IInventory inv, World world, int x, int y, int z) {
+        if (Game.isNotHost(world)) return;
+        for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
+          ItemStack stack = inv.getStackInSlot(slot);
+          if (stack != null) {
+            float xOffset = getRand().nextFloat() * 0.8F + 0.1F;
+            float yOffset = getRand().nextFloat() * 0.8F + 0.1F;
+            float zOffset = getRand().nextFloat() * 0.8F + 0.1F;
+            while (stack.stackSize > 0) {
+              int numToDrop = getRand().nextInt(21) + 10;
+              if (numToDrop > stack.stackSize) {
+                numToDrop = stack.stackSize;
+              }
+              ItemStack newStack = stack.copy();
+              newStack.stackSize = numToDrop;
+              stack.stackSize -= numToDrop;
+              EntityItem entityItem = new EntityItem(world, x + xOffset, y + yOffset, z + zOffset, newStack);
+              float variance = 0.05F;
+              entityItem.motionX = ((float)getRand().nextGaussian() * variance);
+              entityItem.motionY = ((float)getRand().nextGaussian() * variance + 0.2F);
+              entityItem.motionZ = ((float)getRand().nextGaussian() * variance);
+              world.spawnEntityInWorld(entityItem);
             }
+            inv.setInventorySlotContents(slot, null);
+          }
         }
-    }
+      }
     
 	static final int[] $SwitchMap$net$minecraftforge$common$ForgeDirection = new int[ForgeDirection.values().length];
 

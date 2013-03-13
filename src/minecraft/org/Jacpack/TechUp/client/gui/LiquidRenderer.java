@@ -20,31 +20,31 @@ public class LiquidRenderer
     public static final int DISPLAY_STAGES = 100;
     private static final FakeBlockRenderInfo liquidBlock = new FakeBlockRenderInfo();
 
-    public static int bindLiquidTexture(LiquidStack var0)
+    public static int bindLiquidTexture(LiquidStack liquid)
     {
-        if (var0 != null && var0.amount > 0 && var0.itemID > 0)
+        if (liquid != null && liquid.amount > 0 && liquid.itemID > 0)
         {
-            String var1;
-            int var2;
+            String textureFile;
+            int textureIndex;
 
-            if (var0.itemID < Block.blocksList.length && Block.blocksList[var0.itemID] != null)
+            if (liquid.itemID < Block.blocksList.length && Block.blocksList[liquid.itemID] != null)
             {
-                var1 = Block.blocksList[var0.itemID].getTextureFile();
-                var2 = Block.blocksList[var0.itemID].getBlockTextureFromSideAndMetadata(1, var0.itemMeta);
+            	textureFile = Block.blocksList[liquid.itemID].getTextureFile();
+                textureIndex = Block.blocksList[liquid.itemID].getBlockTextureFromSideAndMetadata(1, liquid.itemMeta);
             }
             else
             {
-                if (Item.itemsList[var0.itemID] == null)
+                if (Item.itemsList[liquid.itemID] == null)
                 {
                     return -1;
                 }
 
-                var1 = Item.itemsList[var0.itemID].getTextureFile();
-                var2 = Item.itemsList[var0.itemID].getIconFromDamage(var0.itemMeta);
+                textureFile = Item.itemsList[liquid.itemID].getTextureFile();
+                textureIndex = Item.itemsList[liquid.itemID].getIconFromDamage(liquid.itemMeta);
             }
 
-            ForgeHooksClient.bindTexture(var1, 0);
-            return var2;
+            ForgeHooksClient.bindTexture(textureFile, 0);
+            return textureIndex;
         }
         else
         {
@@ -52,57 +52,58 @@ public class LiquidRenderer
         }
     }
 
-    public static int[] getLiquidDisplayLists(LiquidStack var0)
+    public static int[] getLiquidDisplayLists(LiquidStack liquid)
     {
-        if (var0 == null)
+        if (liquid == null)
         {
             return null;
         }
         else
         {
-            ItemStack var1 = var0.asItemStack();
-            int[] var2 = (int[])stage.get(var1);
+            ItemStack stack = liquid.asItemStack();
+            int[] diplayLists = (int[])stage.get(stack);
 
-            if (var2 != null)
+            if (diplayLists != null)
             {
-                return var2;
+                return diplayLists;
             }
             else
             {
-                var2 = new int[100];
+            	diplayLists = new int[100];
 
-                if (var0.itemID < Block.blocksList.length && Block.blocksList[var0.itemID] != null)
+                if (liquid.itemID < Block.blocksList.length && Block.blocksList[liquid.itemID] != null)
                 {
-                    liquidBlock.texture[0] = Block.blocksList[var0.itemID].getBlockTextureFromSideAndMetadata(1, var0.itemMeta);
+                    liquidBlock.texture[0] = Block.blocksList[liquid.itemID].getBlockTextureFromSideAndMetadata(1, liquid.itemMeta);
                 }
                 else
                 {
-                    if (Item.itemsList[var0.itemID] == null)
+                    if (Item.itemsList[liquid.itemID] == null)
                     {
                         return null;
                     }
 
-                    liquidBlock.texture[0] = var1.getIconIndex();
+                    liquidBlock.texture[0] = stack.getIconIndex();
                 }
 
-                stage.put(var1, var2);
+                stage.put(stack, diplayLists);
+                
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDisable(GL11.GL_BLEND);
-                int var3 = var1.getItem().getColorFromItemStack(var1, 0);
-                float var4 = (float)(var3 >> 16 & 255) / 255.0F;
-                float var5 = (float)(var3 >> 8 & 255) / 255.0F;
-                float var6 = (float)(var3 & 255) / 255.0F;
-                GL11.glColor4f(var4, var5, var6, 1.0F);
+                int color = stack.getItem().getColorFromItemStack(stack, 0);
+                float c1 = (color >> 16 & 255) / 255.0F;
+                float c2 = (color >> 8 & 255) / 255.0F;
+                float c3 = (color & 255) / 255.0F;
+                GL11.glColor4f(c1, c2, c3, 1.0F);
 
-                for (int var7 = 0; var7 < 100; ++var7)
+                for (int s = 0; s < 100; s++)
                 {
-                    var2[var7] = GLAllocation.generateDisplayLists(1);
-                    GL11.glNewList(var2[var7], GL11.GL_COMPILE);
+                	diplayLists[s] = GLAllocation.generateDisplayLists(1);
+                    GL11.glNewList(diplayLists[s], GL11.GL_COMPILE);
                     liquidBlock.minX = 0.01F;
                     liquidBlock.minY = 0.0F;
                     liquidBlock.minZ = 0.01F;
                     liquidBlock.maxX = 0.99F;
-                    liquidBlock.maxY = (float)var7 / 100.0F;
+                    liquidBlock.maxY = (float)s / 100.0F;
                     liquidBlock.maxZ = 0.99F;
                     RenderFakeBlock.renderBlockForEntity(liquidBlock, (IBlockAccess)null, 0, 0, 0, false, true);
                     GL11.glEndList();
@@ -111,7 +112,7 @@ public class LiquidRenderer
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glEnable(GL11.GL_LIGHTING);
-                return var2;
+                return diplayLists;
             }
         }
     }

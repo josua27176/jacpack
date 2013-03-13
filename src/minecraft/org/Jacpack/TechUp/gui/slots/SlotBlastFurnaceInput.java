@@ -8,10 +8,10 @@ import net.minecraft.item.ItemStack;
 
 public class SlotBlastFurnaceInput extends Slot
 {
-    public SlotBlastFurnaceInput(IInventory var1, int var2, int var3, int var4)
+    public SlotBlastFurnaceInput(IInventory iinventory, int slotIndex, int posX, int posY)
     {
-        super(var1, var2, var3, var4);
-    }
+        super(iinventory, slotIndex, posX, posY);
+      }
 
     /**
      * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the case
@@ -25,13 +25,16 @@ public class SlotBlastFurnaceInput extends Slot
     /**
      * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
      */
-    public boolean isItemValid(ItemStack var1)
+    public boolean isItemValid(ItemStack stack)
     {
-        return canPlaceItem(var1);
+        return canPlaceItem(stack);
     }
 
-    public static boolean canPlaceItem(ItemStack var0)
+    public static boolean canPlaceItem(ItemStack stack)
     {
-        return TechUpCraftingManager.blastFurnace.getRecipe(var0) != null;
-    }
+        if (TechUpCraftingManager.blastFurnace.getRecipe(stack) != null) {
+          return true;
+        }
+        return false;
+      }
 }

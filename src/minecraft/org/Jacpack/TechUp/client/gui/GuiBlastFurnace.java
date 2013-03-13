@@ -11,38 +11,36 @@ public class GuiBlastFurnace extends TileGui
 {
     private TileBlastFurnace tile;
 
-    public GuiBlastFurnace(InventoryPlayer var1, TileBlastFurnace var2)
+    public GuiBlastFurnace(InventoryPlayer par1InventoryPlayer, TileBlastFurnace tile)
     {
-        super(var2, new ContainerBlastFurnace(var1, var2), "/gui/furnace.png");
-        this.tile = var2;
-    }
+        super(tile, new ContainerBlastFurnace(par1InventoryPlayer, tile), "/gui/furnace.png");
+        this.tile = tile;
+      }
 
     /**
      * Draw the foreground layer for the GuiContainer (everything in front of the items)
      */
-    protected void drawGuiContainerForegroundLayer(int var1, int var2)
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         GuiTools.drawCenteredString(this.fontRenderer, "Blast Furnace", 6);
         this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
-
+    
     /**
      * Draw the background layer for the GuiContainer (everything behind the items)
      */
-    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        super.drawGuiContainerBackgroundLayer(var1, var3, var3);
-        int var4 = (this.width - this.xSize) / 2;
-        int var5 = (this.height - this.ySize) / 2;
-        int var6;
+      super.drawGuiContainerBackgroundLayer(par1, par3, par3);
+      int x = (this.width - this.xSize) / 2;
+      int y = (this.height - this.ySize) / 2;
 
-        if (this.tile.isBurning())
-        {
-            var6 = this.tile.getBurnProgressScaled(12);
-            this.drawTexturedModalRect(var4 + 56, var5 + 36 + 12 - var6, 176, 12 - var6, 14, var6 + 2);
-        }
+      if (this.tile.isBurning()) {
+        int scale = this.tile.getBurnProgressScaled(12);
+        this.drawTexturedModalRect(x + 56, y + 36 + 12 - scale, 176, 12 - scale, 14, scale + 2);
+      }
 
-        var6 = this.tile.getCookProgressScaled(24);
-        this.drawTexturedModalRect(var4 + 79, var5 + 34, 176, 14, var6 + 1, 16);
+      int scale = this.tile.getCookProgressScaled(24);
+      this.drawTexturedModalRect(x + 79, y + 34, 176, 14, scale + 1, 16);
     }
 }

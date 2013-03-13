@@ -5,7 +5,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import java.util.logging.Level;
 
 import org.Jacpack.TechUp.TechUp;
-import org.Jacpack.TechUp.api.old.Game;
+import org.Jacpack.TechUp.api.machines.Game;
 import org.Jacpack.TechUp.client.gui.FactoryGui;
 import org.Jacpack.TechUp.gui.containers.FactoryContainer;
 
@@ -16,81 +16,80 @@ import net.minecraft.world.World;
 
 public class GuiHandler implements IGuiHandler
 {
-    public static void openGui(EnumGui var0, EntityPlayer var1, World var2, int var3, int var4, int var5)
+    public static void openGui(EnumGui gui, EntityPlayer player, World world, int x, int y, int z)
     {
-        if (Game.isHost(var2))
+        if (Game.isHost(world))
         {
-            if (var0.hasContainer())
+            if (gui.hasContainer())
             {
-                var1.openGui(TechUp.getMod(), var0.getId(), var2, var3, var4, var5);
+            	player.openGui(TechUp.getMod(), gui.getId(), world, x, y, z);
             }
         }
-        else if (!var0.hasContainer())
+        else if (!gui.hasContainer())
         {
-            TileEntity var6 = var2.getBlockTileEntity(var3, var4, var5);
-            System.out.println("Correct");
-            FMLClientHandler.instance().displayGuiScreen(var1, FactoryGui.build(var0, var1.inventory, var6));
+            TileEntity tile = world.getBlockTileEntity(x, y, z);
+            FMLClientHandler.instance().displayGuiScreen(player, FactoryGui.build(gui, player.inventory, tile));
         }
     }
 
-    public static void openGui(EnumGui var0, EntityPlayer var1, World var2, Entity var3)
+    public static void openGui(EnumGui gui, EntityPlayer player, World world, Entity entity)
     {
-        if (Game.isHost(var2))
+        if (Game.isHost(world))
         {
-            if (var0.hasContainer())
+            if (gui.hasContainer())
             {
-                var1.openGui(TechUp.getMod(), var0.getId(), var2, var3.entityId, -1, 0);
+            	player.openGui(TechUp.getMod(), gui.getId(), world, entity.entityId, -1, 0);
             }
         }
-        else if (!var0.hasContainer())
+        else if (!gui.hasContainer())
         {
-            FMLClientHandler.instance().displayGuiScreen(var1, FactoryGui.build(var0, var1.inventory, var3));
+            FMLClientHandler.instance().displayGuiScreen(player, FactoryGui.build(gui, player.inventory, entity));
         }
     }
 
-    public Object getServerGuiElement(int var1, EntityPlayer var2, World var3, int var4, int var5, int var6)
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
     {
-        if (var5 < 0)
+        if (y < 0)
         {
-            Entity var8 = var3.getEntityByID(var4);
+            Entity entity = world.getEntityByID(x);
 
-            if (var8 == null)
+            if (entity == null)
             {
-                Game.log(Level.WARNING, "[Server] Entity not found when opening GUI: {0}", new Object[] {Integer.valueOf(var4)});
+                Game.log(Level.WARNING, "[Server] Entity not found when opening GUI: {0}", new Object[] {Integer.valueOf(x)});
                 return null;
             }
             else
             {
-                return FactoryContainer.build(EnumGui.fromId(var1), var2.inventory, var8);
+                return FactoryContainer.build(EnumGui.fromId(ID), player.inventory, entity);
             }
         }
         else
         {
-            TileEntity var7 = var3.getBlockTileEntity(var4, var5, var6);
-            return FactoryContainer.build(EnumGui.fromId(var1), var2.inventory, var7);
+            TileEntity tile = world.getBlockTileEntity(x, y, z);
+            return FactoryContainer.build(EnumGui.fromId(ID), player.inventory, tile);
         }
     }
 
-    public Object getClientGuiElement(int var1, EntityPlayer var2, World var3, int var4, int var5, int var6)
+    public Object getClientGuiElement(int ID, EntityPlayer player, World var3, int x, int y, int z)
     {
-        if (var5 < 0)
+        if (y < 0)
         {
-            Entity var8 = var3.getEntityByID(var4);
+            Entity entity = var3.getEntityByID(x);
 
-            if (var8 == null)
+            if (entity == null)
             {
-                Game.log(Level.WARNING, "[Client] Entity not found when opening GUI: {0}", new Object[] {Integer.valueOf(var4)});
+                Game.log(Level.WARNING, "[Client] Entity not found when opening GUI: {0}", new Object[] {Integer.valueOf(x)});
                 return null;
             }
             else
             {
-                return FactoryGui.build(EnumGui.fromId(var1), var2.inventory, var8);
+                return FactoryGui.build(EnumGui.fromId(ID), player.inventory, entity);
             }
         }
         else
         {
-            TileEntity var7 = var3.getBlockTileEntity(var4, var5, var6);
-            return FactoryGui.build(EnumGui.fromId(var1), var2.inventory, var7);
+            TileEntity tile = var3.getBlockTileEntity(x, y, z);
+            return FactoryGui.build(EnumGui.fromId(ID), player.inventory, tile);
         }
     }
 }

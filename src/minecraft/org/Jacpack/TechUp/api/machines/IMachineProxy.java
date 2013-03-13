@@ -8,15 +8,15 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IMachineProxy
 {
-    String getTag(int var1);
+    String getTag(int paramInt);
 
-    int getTexture(int var1, int var2);
+    int getTexture(int paramInt, int paramInt2);
 
-    TileEntity getTileEntity(int var1);
+    TileEntity getTileEntity(int paramInt);
 
     List getCreativeList();
 
-    Class getTileClass(int var1);
+    Class getTileClass(int paramInt);
 
-    void addItemInfo(ItemStack var1, EntityPlayer var2, List var3, boolean var4);
+    void addItemInfo(ItemStack paramur, EntityPlayer paramqx, List paramList, boolean paramBoolean);
 }

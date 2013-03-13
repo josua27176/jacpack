@@ -10,14 +10,14 @@ public class Indicator
     public final int u;
     public final int v;
 
-    public Indicator(IIndicatorController var1, int var2, int var3, int var4, int var5, int var6, int var7)
+    public Indicator(IIndicatorController controller, int x, int y, int w, int h, int u, int v)
     {
-        this.controller = var1;
-        this.x = var2;
-        this.y = var3;
-        this.h = var5;
-        this.w = var4;
-        this.u = var6;
-        this.v = var7;
-    }
+    	this.controller = controller;
+        this.x = x;
+        this.y = y;
+        this.h = h;
+        this.w = w;
+        this.u = u;
+        this.v = v;
+      }
 }

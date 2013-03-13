@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import org.Jacpack.TechUp.api.machines.Game;
 import org.Jacpack.TechUp.api.machines.IEnumMachine;
 import org.Jacpack.TechUp.api.machines.IMachineProxy;
-import org.Jacpack.TechUp.api.old.Game;
 import org.Jacpack.TechUp.creativetabs.CreativeTabsHandler;
 import org.Jacpack.TechUp.tileentitys.TileMachineBase;
 
@@ -34,21 +34,21 @@ public class BlockMachine extends BlockContainer
     private final int renderId;
     private final int[] metaOpacity;
 
-    public BlockMachine(int var1, int var2, IMachineProxy var3, boolean var4, int[] var5)
+    public BlockMachine(int blockID, int renderId, IMachineProxy proxy, boolean opaque, int[] metaOpacity)
     {
-        super(var1, 45, Material.rock);
+        super(blockID, 45, Material.rock);
         this.setResistance(4.5F);
         this.setHardness(2.0F);
         this.setStepSound(soundStoneFootstep);
         this.setRequiresSelfNotify();
         this.setTickRandomly(true);
-        this.proxy = var3;
-        this.opaque = var4;
-        this.renderId = var2;
-        this.metaOpacity = var5;
+        this.proxy = proxy;
+        this.opaque = opaque;
+        this.renderId = renderId;
+        this.metaOpacity = metaOpacity;
         this.setCreativeTab(CreativeTabsHandler.tabTechUpB);
-        opaqueCubeLookup[var1] = var4;
-        lightOpacity[var1] = var4 ? 255 : 0;
+        opaqueCubeLookup[blockID] = opaque;
+        lightOpacity[blockID] = opaque ? 255 : 0;
     }
 
     /**
@@ -64,7 +64,7 @@ public class BlockMachine extends BlockContainer
     /**
      * Returns the default ambient occlusion value based on block opacity
      */
-    public float getAmbientOcclusionLightValue(IBlockAccess var1, int var2, int var3, int var4)
+    public float getAmbientOcclusionLightValue(IBlockAccess world, int x, int y, int z)
     {
         return 1.0F;
     }
@@ -78,107 +78,106 @@ public class BlockMachine extends BlockContainer
     {
         return this.proxy;
     }
-
+    
     /**
      * Retrieves the block texture to use based on the display side. Args: iBlockAccess, x, y, z, side
      */
-    public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5)
+    public int getBlockTexture(IBlockAccess world, int i, int j, int k, int side)
     {
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-
-        if (var6 instanceof TileMachineBase)
-        {
-            return ((TileMachineBase)var6).getBlockTexture(var5);
-        }
-        else
-        {
-            int var7 = var1.getBlockMetadata(var2, var3, var4);
-            return this.getBlockTextureFromSideAndMetadata(var5, var7);
-        }
+    	TileEntity tile = world.getBlockTileEntity(i, j, k);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).getBlockTexture(side);
+      }
+      int meta = world.getBlockMetadata(i, j, k);
+      return this.getBlockTextureFromSideAndMetadata(side, meta);
     }
 
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2)
+    public int getBlockTextureFromSideAndMetadata(int side, int meta)
     {
-        return this.proxy.getTexture(var2, var1);
+        return this.proxy.getTexture(side, meta);
     }
 
     /**
      * Returns the ID of the items to drop on destruction.
      */
-    public int idDropped(int var1, Random var2, int var3)
+    public int idDropped(int meta, Random random, int j)
     {
         return this.blockID;
     }
-
-    /**
-     * Called upon block activation (right click on the block.)
-     */
-    public boolean onBlockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5, int var6, float var7, float var8, float var9)
+    
+    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int side, float u1, float u2, float u3)
     {
-        TileEntity var10 = var1.getBlockTileEntity(var2, var3, var4);
-        return var10 instanceof TileMachineBase ? ((TileMachineBase)var10).blockActivated(var5, var6) : false;
+      TileEntity tile = world.getBlockTileEntity(i, j, k);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).blockActivated(player, side);
+      }
+      return false;
     }
-
-    @SideOnly(Side.CLIENT)
-
+    
     /**
      * A randomly called display update to be able to add particles or other items for display
      */
-    public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5)
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(World world, int i, int j, int k, Random random)
     {
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-
-        if (var6 instanceof TileMachineBase)
-        {
-            ((TileMachineBase)var6).randomDisplayTick(var5);
-        }
+      TileEntity tile = world.getBlockTileEntity(i, j, k);
+      if ((tile instanceof TileMachineBase))
+        ((TileMachineBase)tile).randomDisplayTick(random);
     }
 
-    public boolean isBlockNormalCube(World var1, int var2, int var3, int var4)
+    public boolean isBlockNormalCube(World world, int i, int j, int k)
     {
         return false;
     }
-
-    public boolean isBlockSolidOnSide(World var1, int var2, int var3, int var4, ForgeDirection var5)
+    
+    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
     {
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-        return var6 instanceof TileMachineBase ? ((TileMachineBase)var6).isBlockSolidOnSide(var5) : true;
+      TileEntity tile = world.getBlockTileEntity(x, y, z);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).isBlockSolidOnSide(side);
+      }
+      return true;
     }
 
     /**
      * Called when the player destroys a block with an item that can harvest it. (i, j, k) are the coordinates of the
      * block and l is the block's subtype/damage.
      */
-    public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {}
-
-    public boolean removeBlockByPlayer(World var1, EntityPlayer var2, int var3, int var4, int var5)
+    public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l)
     {
-        var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
-        var2.addExhaustion(0.025F);
-
-        if (Game.isHost(var1) && !var2.capabilities.isCreativeMode)
-        {
-            this.dropBlockAsItem(var1, var3, var4, var5, 0, 0);
-        }
-
-        return var1.setBlockWithNotify(var3, var4, var5, 0);
     }
 
-    public ArrayList getBlockDropped(World var1, int var2, int var3, int var4, int var5, int var6)
+    public boolean removeBlockByPlayer(World world, EntityPlayer player, int i, int j, int k)
     {
-        TileEntity var7 = var1.getBlockTileEntity(var2, var3, var4);
-        return var7 instanceof TileMachineBase ? ((TileMachineBase)var7).getBlockDropped(var6) : super.getBlockDropped(var1, var2, var3, var4, var5, var6);
+    	player.addStat(StatList.mineBlockStatArray[this.blockID], 1);
+        player.addExhaustion(0.025F);
+
+        if (Game.isHost(world) && !player.capabilities.isCreativeMode)
+        {
+            this.dropBlockAsItem(world, i, j, k, 0, 0);
+        }
+
+        return world.setBlockWithNotify(i, j, k, 0);
+    }
+    
+    public ArrayList getBlockDropped(World world, int x, int y, int z, int metadata, int fortune)
+    {
+      TileEntity tile = world.getBlockTileEntity(x, y, z);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).getBlockDropped(fortune);
+      }
+      return super.getBlockDropped(world, x, y, z, metadata, fortune);
     }
 
     /**
      * Determines the damage on the item the block drops. Used in cloth and wood.
      */
-    public int damageDropped(int var1)
+    public int damageDropped(int meta)
     {
-        return var1;
+        return meta;
     }
 
     /**
@@ -188,126 +187,114 @@ public class BlockMachine extends BlockContainer
     {
         return true;
     }
-
+    
     /**
      * Returns true if the block is emitting indirect/weak redstone power on the specified side. If isBlockNormalCube
      * returns true, standard redstone propagation rules will apply instead and this will not be called. Args: World, X,
      * Y, Z, side. Note that the side is reversed - eg it is 1 (up) when checking the bottom of the block.
      */
-    public boolean isProvidingWeakPower(IBlockAccess var1, int var2, int var3, int var4, int var5)
+    public boolean isProvidingWeakPower(IBlockAccess world, int i, int j, int k, int side)
     {
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-        return var6 instanceof TileMachineBase ? ((TileMachineBase)var6).isPoweringTo(var5) : false;
+      TileEntity tile = world.getBlockTileEntity(i, j, k);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).isPoweringTo(side);
+      }
+      return false;
     }
 
     /**
      * Returns true if the block is emitting direct/strong redstone power on the specified side. Args: World, X, Y, Z,
      * side. Note that the side is reversed - eg it is 1 (up) when checking the bottom of the block.
      */
-    public boolean isProvidingStrongPower(IBlockAccess var1, int var2, int var3, int var4, int var5)
+    public boolean isProvidingStrongPower(IBlockAccess  world, int i, int j, int k, int side)
     {
-        return this.isProvidingWeakPower(var1, var2, var3, var4, var5);
+        return this.isProvidingWeakPower(world, i, j, k, side);
     }
 
-    public boolean canConnectRedstone(IBlockAccess var1, int var2, int var3, int var4, int var5)
+    public boolean canConnectRedstone(IBlockAccess world, int i, int j, int k, int dir)
     {
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-
-        if (var6 instanceof TileMachineBase)
-        {
-            ((TileMachineBase)var6).canConnectRedstone(var5);
+    	TileEntity tile = world.getBlockTileEntity(i, j, k);
+        if ((tile instanceof TileMachineBase)) {
+          ((TileMachineBase)tile).canConnectRedstone(dir);
         }
-
         return false;
     }
-
-    public void initFromItem(World var1, int var2, int var3, int var4, ItemStack var5)
-    {
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-
-        if (var6 instanceof TileMachineBase)
-        {
-            ((TileMachineBase)var6).initFromItem(var5);
-        }
-    }
-
+    
+    public void initFromItem(World world, int i, int j, int k, ItemStack stack) {
+        TileEntity tile = world.getBlockTileEntity(i, j, k);
+        if ((tile instanceof TileMachineBase))
+          ((TileMachineBase)tile).initFromItem(stack);
+      }
+    
     /**
      * Called when the block is placed in the world.
      */
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5)
+    public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
     {
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-
-        if (var6 instanceof TileMachineBase)
-        {
-            ((TileMachineBase)var6).onBlockPlacedBy(var5);
-        }
+      TileEntity tile = world.getBlockTileEntity(i, j, k);
+      if ((tile instanceof TileMachineBase))
+        ((TileMachineBase)tile).onBlockPlacedBy(entityliving);
     }
 
     /**
      * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
      * their own) Args: x, y, z, neighbor blockID
      */
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5)
+    public void onNeighborBlockChange(World world, int i, int j, int k, int id)
     {
-        TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
-
-        if (var6 instanceof TileMachineBase)
-        {
-            ((TileMachineBase)var6).onNeighborBlockChange(var5);
-        }
-    }
+        TileEntity tile = world.getBlockTileEntity(i, j, k);
+        if ((tile instanceof TileMachineBase))
+          ((TileMachineBase)tile).onNeighborBlockChange(id);
+      }
 
     /**
      * Called whenever the block is added into the world. Args: world, x, y, z
      */
-    public void onBlockAdded(World var1, int var2, int var3, int var4)
+    public void onBlockAdded(World world, int i, int j, int k)
     {
-        TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
-
-        if (var5 instanceof TileMachineBase)
-        {
-            ((TileMachineBase)var5).onBlockAdded();
-        }
-    }
+        TileEntity tile = world.getBlockTileEntity(i, j, k);
+        if ((tile instanceof TileMachineBase))
+          ((TileMachineBase)tile).onBlockAdded();
+      }
 
     /**
      * ejects contained items into the world, and notifies neighbours of an update, as appropriate
      */
-    public void breakBlock(World var1, int var2, int var3, int var4, int var5, int var6)
+    public void breakBlock(World world, int x, int y, int z, int id, int meta)
     {
-        TileEntity var7 = var1.getBlockTileEntity(var2, var3, var4);
-
-        if (var7 instanceof TileMachineBase)
-        {
-            ((TileMachineBase)var7).onBlockRemoval();
+        TileEntity tile = world.getBlockTileEntity(x, y, z);
+        if ((tile instanceof TileMachineBase)) {
+          ((TileMachineBase)tile).onBlockRemoval();
         }
 
-        super.breakBlock(var1, var2, var3, var4, var5, var6);
-    }
+        super.breakBlock(world, x, y, z, id, meta);
+      }
 
-    public TileEntity createNewTileEntity(World var1, int var2)
+    public TileEntity createNewTileEntity(World world, int metadata)
     {
-        return this.proxy.getTileEntity(var2);
-    }
+        return this.proxy.getTileEntity(metadata);
+      }
 
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-    public TileEntity createNewTileEntity(World var1)
+    public TileEntity createNewTileEntity(World world)
     {
         return null;
     }
-
-    public int getLightValue(IBlockAccess var1, int var2, int var3, int var4)
+    
+    public int getLightValue(World world, int i, int j, int k)
     {
-        TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
-        return var5 instanceof TileMachineBase ? ((TileMachineBase)var5).getLightValue() : 0;
+      TileEntity tile = world.getBlockTileEntity(i, j, k);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).getLightValue();
+      }
+      return 0;
     }
 
-    public boolean hasTileEntity(int var1)
+    public boolean hasTileEntity(int metadata)
     {
-        return true;
+      return true;
     }
 
     /**
@@ -337,35 +324,44 @@ public class BlockMachine extends BlockContainer
         return this.opaque;
     }
 
-    public int getLightOpacity(World var1, int var2, int var3, int var4)
+    public int getLightOpacity(World world, int x, int y, int z)
     {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
-        return this.metaOpacity[var5];
+        int meta = world.getBlockMetadata(x, y, z);
+        return this.metaOpacity[meta];
+    }
+    
+    public float getExplosionResistance(Entity exploder, World world, int x, int y, int z, double srcX, double srcY, double srcZ)
+    {
+      TileEntity tile = world.getBlockTileEntity(x, y, z);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).getResistance(exploder) * 3.0F / 5.0F;
+      }
+      return super.getExplosionResistance(exploder, world, x, y, z, this.minX, this.minY, this.minZ);
     }
 
-    public float getExplosionResistance(Entity var1, World var2, int var3, int var4, int var5, double var6, double var8, double var10)
+    public boolean canBeReplacedByLeaves(World world, int x, int y, int z)
     {
-        TileEntity var12 = var2.getBlockTileEntity(var3, var4, var5);
-        return var12 instanceof TileMachineBase ? ((TileMachineBase)var12).getResistance(var1) * 3.0F / 5.0F : super.getExplosionResistance(var1, var2, var3, var4, var5, this.minX, this.minY, this.minZ);
+      return false;
     }
 
-    public boolean canBeReplacedByLeaves(World var1, int var2, int var3, int var4)
+    public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z)
     {
-        return false;
+      TileEntity tile = world.getBlockTileEntity(x, y, z);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).canCreatureSpawn(type);
+      }
+      return super.canCreatureSpawn(type, world, x, y, z);
     }
-
-    public boolean canCreatureSpawn(EnumCreatureType var1, World var2, int var3, int var4, int var5)
-    {
-        TileEntity var6 = var2.getBlockTileEntity(var3, var4, var5);
-        return var6 instanceof TileMachineBase ? ((TileMachineBase)var6).canCreatureSpawn(var1) : super.canCreatureSpawn(var1, var2, var3, var4, var5);
-    }
-
+    
     /**
      * Returns the block hardness at a location. Args: world, x, y, z
      */
-    public float getBlockHardness(World var1, int var2, int var3, int var4)
+    public float getBlockHardness(World world, int x, int y, int z)
     {
-        TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
-        return var5 instanceof TileMachineBase ? ((TileMachineBase)var5).getHardness() : super.getBlockHardness(var1, var2, var3, var4);
+      TileEntity tile = world.getBlockTileEntity(x, y, z);
+      if ((tile instanceof TileMachineBase)) {
+        return ((TileMachineBase)tile).getHardness();
+      }
+      return super.getBlockHardness(world, x, y, z);
     }
 }

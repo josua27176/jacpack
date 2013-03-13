@@ -1,15 +1,21 @@
 package org.Jacpack.TechUp.crafting;
 
 import org.Jacpack.TechUp.block.ModBlocks;
+import org.Jacpack.TechUp.crafting.machines.BlastFurnaceCraftingManager;
 import org.Jacpack.TechUp.item.ModItems;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class CraftingHandler
 {
     public static void init()
     {
+    	TechUpCraftingManager.blastFurnace = new BlastFurnaceCraftingManager();
+    	int burnTime = 0; 
+    	TechUpCraftingManager.blastFurnace.addRecipe(Item.ingotIron.itemID, burnTime, new ItemStack(ModItems.itemResource, 1, 6));
+    	
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blockOres, 1, 7), new Object[] {"GGG", "GGG", "GGG", 'G', ModItems.itemIngotTitanium});
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blockOres, 1, 8), new Object[] {"GGG", "GGG", "GGG", 'G', ModItems.itemIngotAluminum});
         GameRegistry.addRecipe(new ItemStack(ModBlocks.blockOres, 1, 9), new Object[] {"GGG", "GGG", "GGG", 'G', ModItems.itemIngotCopper});

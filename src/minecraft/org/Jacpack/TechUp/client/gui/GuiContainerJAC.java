@@ -21,47 +21,47 @@ public abstract class GuiContainerJAC extends GuiContainer
     private final JACContainer container;
     public final String texturePath;
 
-    public GuiContainerJAC(JACContainer var1, String var2)
+    public GuiContainerJAC(JACContainer container, String texture)
     {
-        super(var1);
-        this.container = var1;
-        this.texturePath = var2;
-    }
+        super(container);
+        this.container = container;
+        this.texturePath = texture;
+      }
 
     /**
      * Draws the screen and all the components in it.
      */
-    public void drawScreen(int var1, int var2, float var3)
+    public void drawScreen(int mouseX, int mouseY, float var3)
     {
-        super.drawScreen(var1, var2, var3);
-        int var4 = this.guiLeft;
-        int var5 = this.guiTop;
+        super.drawScreen(mouseX, mouseY, var3);
+        int left = this.guiLeft;
+        int top = this.guiTop;
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)var4, (float)var5, 0.0F);
+        GL11.glTranslatef(left, top, 0.0F);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderHelper.disableStandardItemLighting();
-        InventoryPlayer var6 = this.mc.thePlayer.inventory;
+        InventoryPlayer playerInv = this.mc.thePlayer.inventory;
 
-        if (var6.getItemStack() == null)
+        if (playerInv.getItemStack() == null)
         {
-            Iterator var7 = this.container.getGauges().iterator();
-            List var9;
+            Iterator Gauges = this.container.getGauges().iterator();
+            List tips;
 
-            var7 = this.container.getIndicators().iterator();
+            Gauges = this.container.getIndicators().iterator();
 
-            while (var7.hasNext())
+            while (Gauges.hasNext())
             {
-                Indicator var10 = (Indicator)var7.next();
+                Indicator indicator = (Indicator)Gauges.next();
 
-                if (this.isMouseOverIndicator(var10, var1, var2))
+                if (this.isMouseOverIndicator(indicator, mouseX, mouseY))
                 {
-                    var9 = var10.controller.getToolTip();
+                	tips = indicator.controller.getToolTip();
 
-                    if (var9 != null)
+                    if (tips != null)
                     {
-                        this.drawToolTips(var9, var1, var2);
+                        this.drawToolTips(tips, mouseX, mouseY);
                     }
 
                     break;
@@ -77,166 +77,166 @@ public abstract class GuiContainerJAC extends GuiContainer
     /**
      * Draw the background layer for the GuiContainer (everything behind the items)
      */
-    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
+    protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
     {
-        int var4 = this.mc.renderEngine.getTexture(this.texturePath);
+        int texture = this.mc.renderEngine.getTexture(this.texturePath);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(var4);
-        int var5 = (this.width - this.xSize) / 2;
-        int var6 = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);
-        Iterator var7 = this.container.getGauges().iterator();
+        this.mc.renderEngine.bindTexture(texture);
+        int x = (this.width - this.xSize) / 2;
+        int y = (this.height - this.ySize) / 2;
+        this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+        Iterator Gauges = this.container.getGauges().iterator();
 
-        var7 = this.container.getIndicators().iterator();
+        Gauges = this.container.getIndicators().iterator();
 
-        while (var7.hasNext())
+        while (Gauges.hasNext())
         {
-            Indicator var9 = (Indicator)var7.next();
-            this.drawIndicator(var9);
+            Indicator indicator = (Indicator)Gauges.next();
+            this.drawIndicator(indicator);
         }
     }
 
-    private void drawButtons(int var1, int var2)
+    private void drawButtons(int int1, int int2)
     {
-        for (int var3 = 0; var3 < this.controlList.size(); ++var3)
+        for (int int3 = 0; int3 < this.controlList.size(); int3++)
         {
-            GuiButton var4 = (GuiButton)this.controlList.get(var3);
-            var4.drawButton(this.mc, var1, var2);
+            GuiButton button = (GuiButton)this.controlList.get(int3);
+            button.drawButton(this.mc, int1, int2);
         }
     }
 
     /**
      * Called when the mouse is clicked.
      */
-    protected void mouseClicked(int var1, int var2, int var3)
+    protected void mouseClicked(int i, int j, int mouseButton)
     {
-        super.mouseClicked(var1, var2, var3);
+        super.mouseClicked(i, j, mouseButton);
 
-        if (var3 == 2)
+        if (mouseButton == 2)
         {
-            Slot var4 = this.getSlotAtPosition(var1, var2);
-            int var5 = this.guiLeft;
-            int var6 = this.guiTop;
-            boolean var7 = var1 < var5 || var2 < var6 || var1 >= var5 + this.xSize || var2 >= var6 + this.ySize;
-            int var8 = -1;
+            Slot slot = this.getSlotAtPosition(i, j);
+            int guiLeft = this.guiLeft;
+            int guiTop = this.guiTop;
+            boolean check = (i < guiLeft) || (j < guiTop) || (i >= guiLeft + this.xSize) || (j >= guiTop + this.ySize);
+            int k = -1;
 
-            if (var4 != null)
+            if (slot != null)
             {
-                var8 = var4.slotNumber;
+            	k = slot.slotNumber;
             }
 
-            if (var7)
+            if (check)
             {
-                var8 = -999;
+            	k = -999;
             }
 
-            if (var8 != -1)
+            if (k != -1)
             {
-                boolean var9 = var8 != -999 && (Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54));
-                this.handleMouseClick(var4, var8, var3, var9 ? 1 : 0);
+                boolean check2 = k != -999 && (Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54));
+                this.handleMouseClick(slot, k, mouseButton, check2 ? 1 : 0);
             }
         }
     }
 
-    private Slot getSlotAtPosition(int var1, int var2)
+    private Slot getSlotAtPosition(int i, int j)
     {
-        for (int var3 = 0; var3 < this.inventorySlots.inventorySlots.size(); ++var3)
+        for (int side = 0; side < this.inventorySlots.inventorySlots.size(); side++)
         {
-            Slot var4 = (Slot)this.inventorySlots.inventorySlots.get(var3);
+            Slot slot = (Slot)this.inventorySlots.inventorySlots.get(side);
 
-            if (this.isMouseOverSlot(var4, var1, var2))
+            if (this.isMouseOverSlot(slot, i, j))
             {
-                return var4;
+                return slot;
             }
         }
 
         return null;
     }
 
-    private boolean isMouseOverSlot(Slot var1, int var2, int var3)
+    private boolean isMouseOverSlot(Slot par1Slot, int i, int j)
     {
-        int var4 = this.guiLeft;
-        int var5 = this.guiTop;
-        var2 -= var4;
-        var3 -= var5;
-        return var2 >= var1.xDisplayPosition - 1 && var2 < var1.xDisplayPosition + 16 + 1 && var3 >= var1.yDisplayPosition - 1 && var3 < var1.yDisplayPosition + 16 + 1;
+        int k = this.guiLeft;
+        int z = this.guiTop;
+        i -= k;
+        j -= z;
+        return i >= par1Slot.xDisplayPosition - 1 && i < par1Slot.xDisplayPosition + 16 + 1 && j >= par1Slot.yDisplayPosition - 1 && j < par1Slot.yDisplayPosition + 16 + 1;
     }
 
-    private boolean isMouseOverIndicator(Indicator var1, int var2, int var3)
+    private boolean isMouseOverIndicator(Indicator gauge, int mouseX, int mouseY)
     {
-        int var4 = this.guiLeft;
-        int var5 = this.guiTop;
-        var2 -= var4;
-        var3 -= var5;
-        return var2 >= var1.x - 1 && var2 < var1.x + var1.w + 1 && var3 >= var1.y - 1 && var3 < var1.y + var1.h + 1;
+        int left = this.guiLeft;
+        int top = this.guiTop;
+        mouseX -= left;
+        mouseY -= top;
+        return (mouseX >= gauge.x - 1) && (mouseX < gauge.x + gauge.w + 1) && (mouseY >= gauge.y - 1) && (mouseY < gauge.y + gauge.h + 1);
     }
 
-    private void drawToolTips(List var1, int var2, int var3)
-    {
-        if (var1.size() > 0)
+    private void drawToolTips(List toolTips, int mouseX, int mouseY) {
+        if (toolTips.size() > 0)
         {
-            int var4 = this.guiLeft;
-            int var5 = this.guiTop;
-            int var6 = 0;
-            Iterator var9 = var1.iterator();
-            int var8;
+            int left = this.guiLeft;
+            int top  = this.guiTop;
+            int lenght = 0;
+            Iterator tip = toolTips.iterator();
+            int y;
 
-            while (var9.hasNext())
+            while (tip.hasNext())
             {
-                ToolTip var10 = (ToolTip)var9.next();
-                var8 = this.fontRenderer.getStringWidth(var10.text);
+                ToolTip var10 = (ToolTip)tip.next();
+                y = this.fontRenderer.getStringWidth(var10.text);
 
-                if (var8 > var6)
+                if (y > lenght)
                 {
-                    var6 = var8;
+                	lenght = y;
                 }
             }
 
-            int var7 = var2 - var4 + 12;
-            var8 = var3 - var5 - 12;
-            int var17 = 8;
+            int x = mouseX - left + 12;
+            y = mouseY - top - 12;
+            int size = 8;
 
-            if (var1.size() > 1)
+            if (toolTips.size() > 1)
             {
-                var17 += 2 + (var1.size() - 1) * 10;
+                size += 2 + (toolTips.size() - 1) * 10;
             }
 
             this.zLevel = 300.0F;
             itemRenderer.zLevel = 300.0F;
-            int var18 = -267386864;
-            this.drawGradientRect(var7 - 3, var8 - 4, var7 + var6 + 3, var8 - 3, var18, var18);
-            this.drawGradientRect(var7 - 3, var8 + var17 + 3, var7 + var6 + 3, var8 + var17 + 4, var18, var18);
-            this.drawGradientRect(var7 - 3, var8 - 3, var7 + var6 + 3, var8 + var17 + 3, var18, var18);
-            this.drawGradientRect(var7 - 4, var8 - 3, var7 - 3, var8 + var17 + 3, var18, var18);
-            this.drawGradientRect(var7 + var6 + 3, var8 - 3, var7 + var6 + 4, var8 + var17 + 3, var18, var18);
-            int var11 = 1347420415;
-            int var12 = (var11 & 16711422) >> 1 | var11 & -16777216;
-            this.drawGradientRect(var7 - 3, var8 - 3 + 1, var7 - 3 + 1, var8 + var17 + 3 - 1, var11, var12);
-            this.drawGradientRect(var7 + var6 + 2, var8 - 3 + 1, var7 + var6 + 3, var8 + var17 + 3 - 1, var11, var12);
-            this.drawGradientRect(var7 - 3, var8 - 3, var7 + var6 + 3, var8 - 3 + 1, var11, var11);
-            this.drawGradientRect(var7 - 3, var8 + var17 + 2, var7 + var6 + 3, var8 + var17 + 3, var12, var12);
-            boolean var13 = true;
-
-            for (Iterator var14 = var1.iterator(); var14.hasNext(); var8 += 10)
+            int random = -267386864;
+            
+            this.drawGradientRect(x - 3, y - 4, x + lenght + 3, y - 3, random, random);
+            this.drawGradientRect(x - 3, y + size + 3, x + lenght + 3, y + size + 4, random, random);
+            this.drawGradientRect(x - 3, y - 3, x + lenght + 3, y + size + 3, random, random);
+            this.drawGradientRect(x - 4, y - 3, x - 3, y + size + 3, random, random);
+            this.drawGradientRect(x + lenght + 3, y - 3, x + lenght + 4, y + size + 3, random, random);
+            int random1 = 1347420415;
+            int random2 = (random1 & 0xFEFEFE) >> 1 | random1 & 0xFF000000;
+            this.drawGradientRect(x - 3, y - 3 + 1, x - 3 + 1, y + size + 3 - 1, random1, random2);
+            this.drawGradientRect(x + lenght + 2, y - 3 + 1, x + lenght + 3, y + size + 3 - 1, random1, random2);
+            this.drawGradientRect(x - 3, y - 3, x + lenght + 3, y - 3 + 1, random1, random1);
+            this.drawGradientRect(x - 3, y + size + 2, x + lenght + 3, y + size + 3, random2, random2);
+            
+            boolean first = true;
+            for (Iterator tip1 = toolTips.iterator(); tip1.hasNext(); y += 10)
             {
-                ToolTip var15 = (ToolTip)var14.next();
-                String var16 = var15.text;
+                ToolTip tip2 = (ToolTip)tip1.next();
+                String string = tip2.text;
 
-                if (var15.color == -1)
+                if (tip2.color == -1)
                 {
-                    var16 = "\u00a77" + var16;
+                	string = "\u00a77" + string;
                 }
                 else
                 {
-                    var16 = "\u00a7" + Integer.toHexString(var15.color) + var16;
+                	string = "\u00a7" + Integer.toHexString(tip2.color) + string;
                 }
 
-                this.fontRenderer.drawStringWithShadow(var16, var7, var8, -1);
+                this.fontRenderer.drawStringWithShadow(string, x, y, -1);
 
-                if (var13)
+                if (first)
                 {
-                    var8 += 2;
-                    var13 = false;
+                    y += 2;
+                    first = false;
                 }
             }
 
@@ -245,11 +245,11 @@ public abstract class GuiContainerJAC extends GuiContainer
         }
     }
     
-    public void drawIndicator(Indicator var1)
+    public void drawIndicator(Indicator indicator)
     {
-        int var2 = (this.width - this.xSize) / 2;
-        int var3 = (this.height - this.ySize) / 2;
-        int var4 = var1.controller.getScaledLevel(var1.h);
-        this.drawTexturedModalRect(var2 + var1.x, var3 + var1.y + var1.h - var4, var1.u, var1.v + var1.h - var4, var1.w, var4);
+        int x = (this.width - this.xSize) / 2;
+        int y = (this.height - this.ySize) / 2;
+        int scale = indicator.controller.getScaledLevel(indicator.h);
+        this.drawTexturedModalRect(x + indicator.x, y + indicator.y + indicator.h - scale, indicator.u, indicator.v + indicator.h - scale, indicator.w, scale);
     }
 }

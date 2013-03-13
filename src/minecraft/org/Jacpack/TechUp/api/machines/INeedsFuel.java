@@ -1,4 +1,4 @@
-package org.Jacpack.TechUp.api;
+package org.Jacpack.TechUp.api.machines;
 
 public interface INeedsFuel
 {

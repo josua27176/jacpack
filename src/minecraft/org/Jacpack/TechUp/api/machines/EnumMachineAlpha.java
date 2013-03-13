@@ -24,42 +24,36 @@ public enum EnumMachineAlpha implements IEnumMachine
     private static final List creativeList = new ArrayList();
     private static final EnumMachineAlpha[] VALUES = values();
 
-    private EnumMachineAlpha(Module var3, String var4, Class var5, int ... var6)
+    private EnumMachineAlpha(Module module, String tag, Class tile, int[] texture)
     {
-        this.module = var3;
-        this.tile = var5;
-        this.tag = var4;
-        this.texture = var6;
-    }
+        this.module = module;
+        this.tile = tile;
+        this.tag = tag;
+        this.texture = texture;
+      }
 
-    public boolean isDepreciated()
-    {
+      public boolean isDepreciated()
+      {
         return this.module == null;
-    }
+      }
 
-    public int getTexture(int var1)
-    {
-        if (var1 < 0 || var1 >= this.texture.length)
-        {
-            var1 = 0;
+      public int getTexture(int index)
+      {
+        if ((index < 0) || (index >= this.texture.length)) {
+          index = 0;
         }
+        return this.texture[index];
+     }
 
-        return this.texture[var1];
-    }
+      public static EnumMachineAlpha fromId(int id) {
+    	    if ((id < 0) || (id >= VALUES.length)) {
+    	      id = 0;
+    	    }
+    	    return VALUES[id];
+    	  }
 
-    public static EnumMachineAlpha fromId(int var0)
-    {
-        if (var0 < 0 || var0 >= VALUES.length)
-        {
-            var0 = 0;
-        }
-
-        return VALUES[var0];
-    }
-
-    public static List getCreativeList()
-    {
-        return creativeList;
+    public static List getCreativeList() {
+    	   return creativeList;
     }
 
     public String getTag()
@@ -72,28 +66,27 @@ public enum EnumMachineAlpha implements IEnumMachine
         return this.tile;
     }
 
-    public TileMachineBase getTileEntity()
-    {
-        try
-        {
-            return (TileMachineBase)this.tile.newInstance();
+    public TileMachineBase getTileEntity() {
+        try {
+          return (TileMachineBase)this.tile.newInstance();
+        } catch (Exception ex) {
         }
-        catch (Exception var2)
-        {
-            return null;
+        return null;
+      }
+
+      public ItemStack getItem()
+      {
+        return getItem(1);
+      }
+
+    public ItemStack getItem(int qty)
+    {
+        Block block = getBlock();
+        if (block == null) {
+          return null;
         }
-    }
-
-    public ItemStack getItem()
-    {
-        return this.getItem(1);
-    }
-
-    public ItemStack getItem(int var1)
-    {
-        Block var2 = this.getBlock();
-        return var2 == null ? null : new ItemStack(var2, var1, this.ordinal());
-    }
+        return new ItemStack(block, qty, ordinal());
+      }
 
     public Module getModule()
     {
@@ -116,8 +109,7 @@ public enum EnumMachineAlpha implements IEnumMachine
         return ModuleManager.isModuleLoaded(this.getModule()) && this.getBlock() != null;
     }
 
-    public void addItemInfo(ItemStack var1, EntityPlayer var2, List var3, boolean var4)
-    {
+    public void addItemInfo(ItemStack stack, EntityPlayer player, List info, boolean adv) {
         switch ($SwitchMap$org$Jacpack$TechUp$api$machines$EnumMachineAlpha[this.ordinal()])
         {
             case 1:
@@ -125,7 +117,7 @@ public enum EnumMachineAlpha implements IEnumMachine
             default:
                 String var5 = "Multi-Block: 3x4x3 (Hollow)";
                 
-                var3.add(JACTools.translate(var5));
+                info.add(JACTools.translate(var5));
         }
     }
     

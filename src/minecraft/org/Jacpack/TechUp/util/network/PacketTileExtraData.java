@@ -7,7 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.Jacpack.TechUp.api.old.Game;
+import org.Jacpack.TechUp.api.machines.Game;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

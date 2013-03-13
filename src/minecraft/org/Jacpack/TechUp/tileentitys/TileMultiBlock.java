@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.Jacpack.TechUp.api.JACTools;
 import org.Jacpack.TechUp.api.inventory.SafeTimeTracker;
-import org.Jacpack.TechUp.api.old.Game;
+import org.Jacpack.TechUp.api.machines.Game;
 import org.Jacpack.TechUp.util.network.PacketTileRequest;
 
 import net.minecraft.entity.Entity;

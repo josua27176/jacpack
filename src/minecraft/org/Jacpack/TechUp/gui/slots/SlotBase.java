@@ -5,10 +5,10 @@ import net.minecraft.inventory.Slot;
 
 public class SlotBase extends Slot
 {
-    public SlotBase(IInventory var1, int var2, int var3, int var4)
+    public SlotBase(IInventory iinventory, int slotIndex, int posX, int posY)
     {
-        super(var1, var2, var3, var4);
-    }
+        super(iinventory, slotIndex, posX, posY);
+      }
 
     public boolean canShift()
     {

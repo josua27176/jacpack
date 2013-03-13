@@ -9,59 +9,60 @@ import net.minecraft.client.gui.FontRenderer;
 
 public class GuiTools
 {
-    public static void drawCenteredString(FontRenderer var0, String var1, int var2)
+    public static void drawCenteredString(FontRenderer fr, String s, int y)
     {
-        drawCenteredString(var0, var1, var2, 176);
+        drawCenteredString(fr, s, y, 176);
     }
 
-    public static void drawCenteredString(FontRenderer var0, String var1, int var2, int var3)
+    public static void drawCenteredString(FontRenderer fr, String s, int y, int guiWidth)
     {
-        drawCenteredString(var0, var1, var2, var3, 4210752);
+        drawCenteredString(fr, s, y, guiWidth, 4210752);
     }
 
-    public static void drawCenteredString(FontRenderer var0, String var1, int var2, int var3, int var4)
+    public static void drawCenteredString(FontRenderer fr, String s, int y, int guiWidth, int color)
     {
-        int var5 = var0.getStringWidth(var1);
-        int var6 = var3 / 2 - var5 / 2;
-        var0.drawString(var1, var6, var2, 4210752);
+        int sWidth = fr.getStringWidth(s);
+        int sPos = guiWidth / 2 - sWidth / 2;
+        fr.drawString(s, sPos, y, 4210752);
     }
 
-    public static void newButtonRowAuto(List var0, int var1, int var2, List var3)
+    public static void newButtonRowAuto(List controlList, int xStart, int xSize, List buttons)
     {
-        int var4 = 0;
-        GuiBetterButton var6;
+        int buttonWidth = 0;
+        GuiBetterButton b;
 
-        for (Iterator var5 = var3.iterator(); var5.hasNext(); var4 += var6.getWidth())
+        for (Iterator b1 = buttons.iterator(); b1.hasNext(); buttonWidth += b.getWidth())
         {
-            var6 = (GuiBetterButton)var5.next();
+            b = (GuiBetterButton)b1.next();
         }
 
-        int var10 = var2 - var4;
-        int var11 = var10 / (var3.size() + 1);
-        int var7 = 0;
-        Iterator var8 = var3.iterator();
+        int remaining = xSize - buttonWidth;
+        int spacing = remaining / (buttons.size() + 1);
+        int pointer = 0;
+        
+        Iterator b2 = buttons.iterator();
 
-        while (var8.hasNext())
+        while (b2.hasNext())
         {
-            GuiBetterButton var9 = (GuiBetterButton)var8.next();
-            var7 += var11;
-            var9.xPosition = var1 + var7;
-            var7 += var9.getWidth();
-            var0.add(var9);
+            GuiBetterButton b3 = (GuiBetterButton)b2.next();
+            pointer += spacing;
+            b3.xPosition = (xStart + pointer);
+            pointer += b3.getWidth();
+            controlList.add(b3);
         }
     }
 
-    public static void newButtonRow(List var0, int var1, int var2, List var3)
+    public static void newButtonRow(List controlList, int xStart, int spacing, List buttons)
     {
-        int var4 = 0;
-        Iterator var5 = var3.iterator();
+        int pointer = 0;
+        Iterator b1 = buttons.iterator();
 
-        while (var5.hasNext())
+        while (b1.hasNext())
         {
-            GuiBetterButton var6 = (GuiBetterButton)var5.next();
-            var6.xPosition = var1 + var4;
-            var4 += var6.getWidth() + var2;
-            var0.add(var6);
+            GuiBetterButton b = (GuiBetterButton)b1.next();
+            b.xPosition = (xStart + pointer);
+            pointer += b.getWidth() + spacing;
+            controlList.add(b);
         }
     }
 }
