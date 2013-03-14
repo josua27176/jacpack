@@ -9,6 +9,7 @@ import org.Jacpack.TechUp.crafting.CraftingHandler;
 import org.Jacpack.TechUp.gui.GuiHandler;
 import org.Jacpack.TechUp.item.ModItems;
 import org.Jacpack.TechUp.modules.ModuleManager;
+import org.Jacpack.TechUp.nei.NeiHandler;
 import org.Jacpack.TechUp.tileentitys.TileBlastFurnace;
 import org.Jacpack.TechUp.tileentitys.TileEntityHandler;
 import org.Jacpack.TechUp.util.Config;
@@ -19,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -102,6 +104,11 @@ public class TechUp {
 	public void postInit(FMLPostInitializationEvent event) {
 		
 		Config.saveConfig();
+		
+    	
+    	if(Loader.isModLoaded("NotEnoughItems")) {
+    		NeiHandler.init();
+    	}
 		
 	}
 

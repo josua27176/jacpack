@@ -14,6 +14,8 @@
 /src/minecraft/fml_at.cfg
 /src/minecraft/forge_at.cfg
 /src/minecraft/fml_marker.cfg
+/src/minecraft/codechickencore_at.cfg
+/src/minecraft/nei_at.cfg
 /src/minecraft/fmlversion.properties
 /src/minecraft/mcpmod.info
 
@@ -27,6 +29,7 @@
 /src/minecraft/Start.java
 /src/minecraft/armor/*
 /src/minecraft/org/bouncycastle/crypto/*
+/src/minecraft/codechicken/*
 
 !/src/org.Jacpack/*
 

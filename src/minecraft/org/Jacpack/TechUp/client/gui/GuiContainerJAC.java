@@ -138,7 +138,7 @@ public abstract class GuiContainerJAC extends GuiContainer
         }
     }
 
-    private Slot getSlotAtPosition(int i, int j)
+    public Slot getSlotAtPosition(int i, int j)
     {
         for (int side = 0; side < this.inventorySlots.inventorySlots.size(); side++)
         {
