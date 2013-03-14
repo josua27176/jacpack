@@ -137,7 +137,10 @@ public abstract class AbstactTileEntityMachine extends TileEntity implements IIn
 		for(int i = 0; i < ForgeDirection.VALID_DIRECTIONS.length; i++)
 		{
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger("Side",invMaps.get(ForgeDirection.getOrientation(i)));
+			if(invMaps.get(ForgeDirection.getOrientation(i)) != null)
+				tag.setInteger("Side",invMaps.get(ForgeDirection.getOrientation(i)));
+			else
+				tag.setInteger("Side",-1);
 			itemList.appendTag(tag);
 		}
 		

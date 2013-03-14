@@ -31,9 +31,10 @@ public class TilePump extends AbstactTileEntityMachine {
 
 	private int liquidAmt = 0;
 
-	private final int Capacity = 10000; //Internal storage is 10 buckets
-	private final int liquidCheckDistance = 50; //80; //Check in a radius of about 5 chunks
-	
+	private int heldId = -1;
+	private final int Capacity = 1000; //Internal storage is 10 buckets
+	private final int liquidCheckDistance = 7; //80; //Check in a radius of about 5 chunks
+
 	Stack<ArrayList<Integer>> suckStack = new Stack<ArrayList<Integer>>();
 	int[] targetBlock = new int[3];
 	int[] liquidUnder = new int[3];
@@ -90,27 +91,43 @@ public class TilePump extends AbstactTileEntityMachine {
 		                                                                      ]);
 		liquidStack.add(tmp);
 
-		
+
 		if(suckStack.isEmpty())
 			buffer = getNextWater(buffer, liquidStack, 0);
 		else
 		{
-			buffer[0] = suckStack.peek().get(0);
-			buffer[1] = suckStack.peek().get(1);
-			buffer[2] = suckStack.pop().get(2);
+			do
+			{
+				{
+					buffer[0] = suckStack.peek().get(0);
+					buffer[1] = suckStack.peek().get(1);
+					buffer[2] = suckStack.pop().get(2);
+				}
+			}
+			while(!LiquidFilter.liquidMaterials.isFlowing(worldObj.getBlockId(buffer[0], buffer[1], buffer[2]))  && 
+					this.worldObj.getBlockId(buffer[0], buffer[1], buffer[2]) != this.heldId 
+					&& this.heldId != -1 && !suckStack.isEmpty());
 		}
 
-		if(!LiquidFilter.liquidMaterials.isFlowing(worldObj.getBlockId(buffer[0], buffer[1], buffer[2])))
-			liquidAmt++;
-		
-		worldObj.setBlock(buffer[0], buffer[1], buffer[2], 0);
-		
+
+
+		if( worldObj.getBlockId(buffer[0], buffer[1], buffer[2]) != this.heldId || (this.heldId == -1 && worldObj.getBlockId(buffer[0], buffer[1], buffer[2]) != 0))
+		{
+			if(!LiquidFilter.liquidMaterials.isFlowing(worldObj.getBlockId(buffer[0], buffer[1], buffer[2])))
+			{
+				liquidAmt++;
+				this.heldId = this.worldObj.getBlockId(buffer[0], buffer[1], buffer[2]);
+			}
+
+			worldObj.setBlock(buffer[0], buffer[1], buffer[2], 0);
+		}
+
 	}
 
 	private int[] getNextWater(int[] buffer, Stack<ArrayList<Integer>> liquidStack, int maxStack)
 	{
 		currDir = 1;
-		for(int i = currDir; ForgeDirection.getOrientation(i) != ForgeDirection.UNKNOWN; i++)
+		for(int i = 1; ForgeDirection.getOrientation(i) != ForgeDirection.UNKNOWN; i++)
 		{
 			buffer[0] += ForgeDirection.getOrientation(i).offsetX;
 			buffer[1] += ForgeDirection.getOrientation(i).offsetY;
@@ -120,7 +137,7 @@ public class TilePump extends AbstactTileEntityMachine {
 			tmp.add(buffer[0]);
 			tmp.add(buffer[1]);
 			tmp.add(buffer[2]);
-			
+
 			if(LiquidFilter.liquidMaterials.isLiquid(worldObj.getBlockId(buffer[0], buffer[1], buffer[2]))
 					&& !liquidStack.contains(tmp)
 					&& JACTools.getDistance(buffer[0], buffer[2], this.xCoord, this.zCoord) < liquidCheckDistance)

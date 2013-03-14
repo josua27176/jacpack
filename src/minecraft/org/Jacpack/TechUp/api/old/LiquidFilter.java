@@ -15,7 +15,7 @@ public class LiquidFilter
     {
     	LAVA(11),
     	WATER(9),
-    	FLOWINGLAVA(11),
+    	FLOWINGLAVA(10),
     	FLOWINGWATER(8);
     	
     	public static final liquidMaterials[] LIQUID_MATERIALS = { LAVA,WATER };
